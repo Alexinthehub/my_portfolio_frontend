@@ -1,13 +1,12 @@
 // src/pages/Contact.jsx
 import { useState, useEffect } from 'react';
-import { sendContactMessage } from '../services/api';
-import { getProfile } from '../services/api'; // 👈 Import getProfile
+import { sendContactMessage, getProfile } from '../services/api';
 import LoadingSpinner from '../components/LoadingSpinner';
 import Sparkles from '../components/Sparkles';
 
 const Contact = () => {
   const [pageLoading, setPageLoading] = useState(true);
-  const [profile, setProfile] = useState(null); // 👈 Add profile state
+  const [profile, setProfile] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -66,42 +65,54 @@ const Contact = () => {
   }
 
   return (
-    <div style={{ position: 'relative', minHeight: '100vh', width: '100%', backgroundColor: '#02060E' }}>
+    <div style={{
+      position: 'relative',
+      minHeight: '100vh',
+      width: '100%',
+      overflow: 'hidden',
+    }}>
       
-      {/* Glowing Orb */}
+      {/* 🖼️ FULL PAGE BACKGROUND IMAGE */}
       <div style={{
         position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '600px',
-        height: '600px',
-        background: 'radial-gradient(circle, rgba(93,214,44,0.12) 0%, rgba(0,0,0,0) 70%)',
-        borderRadius: '50%',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
         zIndex: 0,
-        pointerEvents: 'none',
-        animation: 'pulseGlow 3s ease-in-out infinite',
+        backgroundImage: `url("https://i.imgur.com/TyN3Do9.jpeg")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
       }} />
 
-      <Sparkles />
+      {/* 🌑 DARK OVERLAY */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+      }} />
 
-      <style>{`
-        @keyframes pulseGlow {
-          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-          50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-        }
-      `}</style>
+      {/* ✨ Sparkles */}
+      <div style={{ position: 'relative', zIndex: 2, width: '100%', height: '100%' }}>
+        <Sparkles />
+      </div>
 
-      {/* Content */}
+      {/* ===== CONTENT ===== */}
       <div style={{
         position: 'relative',
-        zIndex: 1,
+        zIndex: 3,
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
         padding: '40px 80px 0',
         width: '100%',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
       }}>
         
         <div style={{
@@ -109,9 +120,9 @@ const Contact = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          paddingBottom: '40px'
+          paddingBottom: '40px',
         }}>
-          <div style={{
+          <div className="contact-card" style={{
             maxWidth: '600px',
             width: '100%',
             backgroundColor: 'rgba(255,255,255,0.08)',
@@ -122,13 +133,13 @@ const Contact = () => {
             boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 40px rgba(93, 214, 44, 0.15)',
           }}>
             
-            {/* Form Header */}
             <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-              <h1 style={{
+              <h1 className="contact-title" style={{
                 fontSize: '36px',
                 fontWeight: '700',
                 color: 'white',
-                marginBottom: '8px'
+                marginBottom: '8px',
+                fontFamily: "'Inter', 'Segoe UI', sans-serif"
               }}>
                 Get In Touch
               </h1>
@@ -140,9 +151,7 @@ const Contact = () => {
               </p>
             </div>
 
-            {/* Contact Form */}
             <form onSubmit={handleSubmit}>
-              {/* ... your existing form fields ... */}
               <div style={{ marginBottom: '20px' }}>
                 <label style={{
                   display: 'block',
@@ -159,6 +168,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
+                  className="contact-input"
                   style={{
                     width: '100%',
                     padding: '14px 16px',
@@ -169,7 +179,8 @@ const Contact = () => {
                     color: 'white',
                     outline: 'none',
                     transition: 'all 0.3s ease',
-                    boxSizing: 'border-box'
+                    boxSizing: 'border-box',
+                    fontFamily: "'Inter', 'Segoe UI', sans-serif"
                   }}
                   onFocus={(e) => {
                     e.currentTarget.style.borderColor = '#5DD62C';
@@ -200,6 +211,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  className="contact-input"
                   style={{
                     width: '100%',
                     padding: '14px 16px',
@@ -210,7 +222,8 @@ const Contact = () => {
                     color: 'white',
                     outline: 'none',
                     transition: 'all 0.3s ease',
-                    boxSizing: 'border-box'
+                    boxSizing: 'border-box',
+                    fontFamily: "'Inter', 'Segoe UI', sans-serif"
                   }}
                   onFocus={(e) => {
                     e.currentTarget.style.borderColor = '#5DD62C';
@@ -241,6 +254,7 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows="5"
+                  className="contact-input"
                   style={{
                     width: '100%',
                     padding: '14px 16px',
@@ -253,7 +267,7 @@ const Contact = () => {
                     transition: 'all 0.3s ease',
                     boxSizing: 'border-box',
                     resize: 'vertical',
-                    fontFamily: 'inherit'
+                    fontFamily: "'Inter', 'Segoe UI', sans-serif"
                   }}
                   onFocus={(e) => {
                     e.currentTarget.style.borderColor = '#5DD62C';
@@ -271,6 +285,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={submitting}
+                className="admin-btn"
                 style={{
                   width: '100%',
                   padding: '16px',
@@ -282,7 +297,8 @@ const Contact = () => {
                   border: 'none',
                   cursor: submitting ? 'not-allowed' : 'pointer',
                   transition: 'all 0.3s ease',
-                  opacity: submitting ? 0.7 : 1
+                  opacity: submitting ? 0.7 : 1,
+                  fontFamily: "'Inter', 'Segoe UI', sans-serif"
                 }}
                 onMouseEnter={(e) => {
                   if (!submitting) {
@@ -328,7 +344,7 @@ const Contact = () => {
               )}
             </form>
 
-            {/* ✨ SOCIAL LINKS SECTION — BELOW THE FORM */}
+            {/* Social Links Below Form */}
             <div style={{
               marginTop: '32px',
               paddingTop: '24px',
@@ -344,7 +360,7 @@ const Contact = () => {
               }}>
                 Connect with me
               </p>
-              <div style={{
+              <div className="footer-links" style={{
                 display: 'flex',
                 justifyContent: 'center',
                 gap: '28px',
@@ -355,6 +371,7 @@ const Contact = () => {
                     href={profile.socialLinks.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="footer-link"
                     style={{
                       color: '#9CA3AF',
                       textDecoration: 'none',
@@ -376,35 +393,37 @@ const Contact = () => {
                   </a>
                 )}
                 {profile?.socialLinks?.twitter && (
-  <a
-    href={profile.socialLinks.twitter}
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-      color: '#9CA3AF',
-      textDecoration: 'none',
-      fontSize: '16px',
-      fontWeight: '500',
-      transition: 'all 0.3s ease',
-      fontFamily: "'Inter', 'Segoe UI', sans-serif"
-    }}
-    onMouseEnter={(e) => {
-      e.currentTarget.style.color = '#5DD62C';
-      e.currentTarget.style.textShadow = '0 0 20px rgba(93,214,44,0.3)';
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.color = '#9CA3AF';
-      e.currentTarget.style.textShadow = 'none';
-    }}
-  >
-    𝕏 X
-  </a>
-)}
+                  <a
+                    href={profile.socialLinks.twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-link"
+                    style={{
+                      color: '#9CA3AF',
+                      textDecoration: 'none',
+                      fontSize: '16px',
+                      fontWeight: '500',
+                      transition: 'all 0.3s ease',
+                      fontFamily: "'Inter', 'Segoe UI', sans-serif"
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = '#5DD62C';
+                      e.currentTarget.style.textShadow = '0 0 20px rgba(93,214,44,0.3)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = '#9CA3AF';
+                      e.currentTarget.style.textShadow = 'none';
+                    }}
+                  >
+                    𝕏 X
+                  </a>
+                )}
                 {profile?.socialLinks?.github && (
                   <a
                     href={profile.socialLinks.github}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="footer-link"
                     style={{
                       color: '#9CA3AF',
                       textDecoration: 'none',
@@ -425,9 +444,12 @@ const Contact = () => {
                     🐙 GitHub
                   </a>
                 )}
-                {profile?.socialLinks?.email && (
+                {profile?.socialLinks?.discord && (
                   <a
-                    href={`mailto:${profile.socialLinks.email}`}
+                    href={profile.socialLinks.discord}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-link"
                     style={{
                       color: '#9CA3AF',
                       textDecoration: 'none',
@@ -445,43 +467,15 @@ const Contact = () => {
                       e.currentTarget.style.textShadow = 'none';
                     }}
                   >
-                    📧 Email
+                    💬 Discord
                   </a>
                 )}
-
-                {profile?.socialLinks?.discord && (
-  <a
-    href={profile.socialLinks.discord}
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-      color: '#6B7280',
-      textDecoration: 'none',
-      fontSize: '15px',
-      fontWeight: '500',
-      transition: 'all 0.3s ease',
-      fontFamily: "'Inter', 'Segoe UI', sans-serif"
-    }}
-    onMouseEnter={(e) => {
-      e.currentTarget.style.color = '#5DD62C';
-      e.currentTarget.style.textShadow = '0 0 20px rgba(93,214,44,0.3)';
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.color = '#6B7280';
-      e.currentTarget.style.textShadow = 'none';
-    }}
-  >
-    💬 Discord
-  </a>
-)}
               </div>
             </div>
           </div>
         </div>
 
-
-        {/* Footer */}
-        <footer style={{
+        <footer className="footer" style={{
           maxWidth: '1400px',
           margin: '0 auto',
           textAlign: 'center',
@@ -490,7 +484,7 @@ const Contact = () => {
           width: '100%',
           marginTop: 'auto'
         }}>
-          <p style={{ color: '#6B7280', fontSize: '14px' }}>
+          <p className="footer-text" style={{ color: '#6B7280', fontSize: '14px' }}>
             © {new Date().getFullYear()} Alex Mwendwa. Built with ❤️
           </p>
         </footer>

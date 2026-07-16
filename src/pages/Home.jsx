@@ -21,30 +21,48 @@ const Home = () => {
   }
 
   return (
-    <div style={{ position: 'relative', minHeight: '100vh', width: '100%', backgroundColor: '#02060E' }}>
+    <div style={{
+      position: 'relative',
+      minHeight: '100vh',
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      overflow: 'hidden',
+    }}>
       
-      {/* Glowing Orb */}
+      {/* 🖼️ FULL PAGE BACKGROUND IMAGE */}
       <div style={{
         position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '600px',
-        height: '600px',
-        background: 'radial-gradient(circle, rgba(93,214,44,0.12) 0%, rgba(0,0,0,0) 70%)',
-        borderRadius: '50%',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
         zIndex: 0,
-        pointerEvents: 'none',
-        animation: 'pulseGlow 3s ease-in-out infinite',
+        backgroundImage: `url("https://i.imgur.com/8m2cr4B.jpeg")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
       }} />
 
-      <Sparkles />
+      {/* 🌑 DARK OVERLAY */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.65)',
+      }} />
+
+      {/* ✨ Sparkles */}
+      <div style={{ position: 'relative', zIndex: 2, width: '100%', height: '100%' }}>
+        <Sparkles />
+      </div>
 
       <style>{`
-        @keyframes pulseGlow {
-          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-          50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-        }
         @keyframes fadeSlideUp {
           0% { opacity: 0; transform: translateY(30px); }
           100% { opacity: 1; transform: translateY(0); }
@@ -54,191 +72,177 @@ const Home = () => {
         }
         .delay-1 { animation-delay: 0.2s; opacity: 0; }
         .delay-2 { animation-delay: 0.5s; opacity: 0; }
+        .delay-3 { animation-delay: 0.8s; opacity: 0; }
         @keyframes glowOrange {
-          0%, 100% { text-shadow: 0 0 10px rgba(255, 107, 53, 0.2); }
-          50% { text-shadow: 0 0 30px rgba(255, 107, 53, 0.6); }
+          0%, 100% { text-shadow: 0 0 15px rgba(255, 107, 53, 0.3); }
+          50% { text-shadow: 0 0 40px rgba(255, 107, 53, 0.8), 0 0 80px rgba(255, 107, 53, 0.3); }
         }
       `}</style>
 
-      {/* Content */}
-      <div style={{ position: 'relative', zIndex: 1, padding: 0, width: '100%' }}>
+      {/* ===== CONTENT ===== */}
+      <div style={{
+        position: 'relative',
+        zIndex: 3,
+        width: '100%',
+        maxWidth: '1400px',
+        padding: '120px 60px 40px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'left',
+        minHeight: '100vh',
+      }}>
         
-        {/* ===== HERO ===== */}
-        <div className="hero-section" style={{ 
-          minHeight: '100vh',
-          display: 'flex',
+        {/* ===== HERO SECTION — Two Columns ===== */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '60px',
           alignItems: 'center',
-          paddingLeft: '80px',
-          paddingRight: '80px',
-          position: 'relative',
-          overflow: 'hidden',
-          width: '100%'
+          width: '100%',
         }}>
-          <div style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '600px',
-            height: '600px',
-            backgroundColor: 'rgba(93, 214, 44, 0.05)',
-            borderRadius: '50%',
-            filter: 'blur(80px)',
-            pointerEvents: 'none'
-          }} />
           
-          <div className="hero-grid" style={{
-            width: '100%',
-            maxWidth: '1400px',
-            margin: '0 auto',
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '80px',
-            alignItems: 'center',
-            position: 'relative',
-            zIndex: 10
+          {/* LEFT: Text */}
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            textAlign: 'left',
           }}>
-            
-            {/* LEFT: Text */}
-            <div className="hero-text" style={{ textAlign: 'left' }}>
-              <p style={{ 
-                color: '#5DD62C', 
-                fontSize: '28px', 
-                fontWeight: '600',
-                letterSpacing: '3px',
-                marginBottom: '12px',
-                fontFamily: "'Chalkduster', 'Chalkboard SE', cursive"
-              }}>
-                HI THERE
-              </p>
-              
-              <h1 className="hero-title" style={{
-                fontSize: '64px',
-                fontWeight: '700',
-                lineHeight: '1.2',
-                margin: 0,
-                whiteSpace: 'nowrap',
-                fontFamily: "'Inter', 'Segoe UI', sans-serif"
-              }}>
-                <span style={{ color: 'white' }}>I am</span>{' '}
-                <span 
-                  className="fade-slide-up delay-1"
-                  style={{ 
-                    color: '#FF6B35',
-                    fontFamily: "'Lucida Handwriting', 'Apple Chancery', cursive",
-                    animation: 'fadeSlideUp 1s ease-out forwards, glowOrange 2s ease-in-out infinite 1.2s'
-                  }}
-                >
-                  {profile?.name || 'Alex Mwendwa'}
-                </span>
-              </h1>
-              
-              {profile?.title && (
-                <p 
-                  className="fade-slide-up delay-2"
-                  style={{
-                    fontSize: '24px',
-                    color: '#5DD62C',
-                    marginTop: '8px',
-                    fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                    fontWeight: '500'
-                  }}
-                >
-                  {profile.title}
-                </p>
-              )}
-              
-
-            </div>
-
-            {/* RIGHT: Image */}
-            <div className="hero-image" style={{ 
-              display: 'flex', 
-              justifyContent: 'flex-end',
-              alignItems: 'center'
+            <p className="fade-slide-up delay-1" style={{
+              color: '#5DD62C',
+              fontSize: 'clamp(18px, 2.5vw, 24px)',
+              fontWeight: '600',
+              letterSpacing: '4px',
+              marginBottom: '4px',
+              fontFamily: "'Chalkduster', 'Chalkboard SE', cursive",
             }}>
-              <div style={{ position: 'relative' }}>
-                <div style={{
-                  position: 'absolute',
-                  inset: '-16px',
-                  backgroundColor: 'rgba(93, 214, 44, 0.2)',
+              HI THERE,
+            </p>
+
+            <h1 className="fade-slide-up delay-1" style={{
+              fontSize: 'clamp(36px, 6vw, 56px)',
+              fontWeight: '700',
+              lineHeight: '1.2',
+              margin: 0,
+              whiteSpace: 'nowrap',
+              fontFamily: "'Lucida Handwriting', 'Apple Chancery', cursive",
+            }}>
+              <span style={{ color: '#FFFFFF' }}>I am </span>
+              <span style={{
+                color: '#FF6B35',
+                animation: 'fadeSlideUp 1s ease-out forwards, glowOrange 2s ease-in-out infinite 1.2s',
+              }}>
+                {profile?.name || 'Alex Mwendwa'}
+              </span>
+            </h1>
+
+            {profile?.title && (
+              <p className="fade-slide-up delay-2" style={{
+                fontSize: 'clamp(16px, 2vw, 22px)',
+                color: '#5DD62C',
+                marginTop: '4px',
+                fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                fontWeight: '500',
+                letterSpacing: '2px',
+                whiteSpace: 'nowrap',
+              }}>
+                {profile.title}
+              </p>
+            )}
+          </div>
+
+          {/* RIGHT: Personal Photo with Glowing Frame */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+          }}>
+            <div style={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: '380px',
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: '-12px',
+                left: '-12px',
+                right: '-12px',
+                bottom: '-12px',
+                background: 'linear-gradient(135deg, rgba(93,214,44,0.3), rgba(93,214,44,0.05))',
+                borderRadius: '20px',
+                filter: 'blur(20px)',
+                zIndex: 0,
+              }} />
+              <img
+                src={profile?.avatar || 'https://i.imgur.com/q5jPf1h.jpeg'}
+                alt={profile?.name || 'Alex Mwendwa'}
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  objectFit: 'contain',
                   borderRadius: '16px',
-                  filter: 'blur(20px)',
-                  zIndex: 0
-                }} />
-                <img
-                  src={profile?.avatar || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop'}
-                  alt={profile?.name}
-                  style={{
-                    width: '100%',
-                    maxWidth: '380px',
-                    height: 'auto',
-                    maxHeight: '480px',
-                    objectFit: 'cover',
-                    borderRadius: '16px',
-                    border: '3px solid rgba(93, 214, 44, 0.4)',
-                    boxShadow: '0 20px 60px rgba(93, 214, 44, 0.2)',
-                    position: 'relative',
-                    zIndex: 1,
-                    transition: 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.02)';
-                    e.currentTarget.style.boxShadow = '0 30px 80px rgba(93, 214, 44, 0.35)';
-                    e.currentTarget.style.borderColor = '#5DD62C';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.boxShadow = '0 20px 60px rgba(93, 214, 44, 0.2)';
-                    e.currentTarget.style.borderColor = 'rgba(93, 214, 44, 0.4)';
-                  }}
-                />
-              </div>
+                  border: '3px solid rgba(93, 214, 44, 0.3)',
+                  boxShadow: '0 20px 60px rgba(0,0,0,0.6)',
+                  position: 'relative',
+                  zIndex: 1,
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.02)';
+                  e.currentTarget.style.boxShadow = '0 25px 80px rgba(0,0,0,0.8), 0 0 40px rgba(93,214,44,0.15)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = '0 20px 60px rgba(0,0,0,0.6)';
+                }}
+              />
             </div>
           </div>
         </div>
 
-        {/* ===== BIO CARD ===== */}
-        <div className="bio-card" style={{
-          maxWidth: '900px',
-          margin: '-60px auto 0',
-          padding: '0 32px 60px',
-          position: 'relative',
-          zIndex: 20
+        {/* ===== WHO AM I? ===== */}
+        <div style={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '50px',
         }}>
           <div style={{
-            backgroundColor: 'rgba(255,255,255,0.08)',
+            maxWidth: '700px',
+            width: '100%',
+            backgroundColor: 'rgba(255,255,255,0.06)',
             backdropFilter: 'blur(12px)',
-            borderRadius: '24px',
-            padding: '48px',
-            border: '1px solid rgba(255,255,255,0.1)',
-            boxShadow: '0 20px 60px rgba(93, 214, 44, 0.08)',
-            textAlign: 'center'
+            borderRadius: '16px',
+            padding: '24px 32px',
+            border: '1px solid rgba(255,255,255,0.06)',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+            textAlign: 'center',
           }}>
-            <h2 className="bio-title" style={{
-              fontSize: '32px',
+            <h2 style={{
+              fontSize: 'clamp(28px, 3.5vw, 36px)',
               fontWeight: '700',
-              color: 'white',
-              marginBottom: '16px',
-              textAlign: 'center',
-              fontFamily: "'Inter', 'Segoe UI', sans-serif"
+              color: '#FFFFFF',
+              marginBottom: '8px',
+              fontFamily: "'Inter', 'Segoe UI', sans-serif",
             }}>
-              Who I'm I?
+              Who am I?
             </h2>
             
-            <p className="bio-text" style={{
+            <p style={{
               color: '#D1D5DB',
-              fontSize: '18px',
-              lineHeight: '1.7',
-              maxWidth: '700px',
+              fontSize: 'clamp(14px, 1.5vw, 16px)',
+              lineHeight: '1.6',
+              maxWidth: '600px',
               margin: '0 auto',
-              fontFamily: "'Inter', 'Segoe UI', sans-serif"
+              fontFamily: "'Inter', 'Segoe UI', sans-serif",
             }}>
               {profile?.about || profile?.bio || "I'm a passionate developer who builds elegant solutions to complex problems."}
             </p>
             
             {profile?.resumeUrl && (
-              <div style={{ textAlign: 'center', marginTop: '24px' }}>
+              <div style={{ marginTop: '14px' }}>
                 <a
                   href={profile.resumeUrl}
                   target="_blank"
@@ -247,13 +251,12 @@ const Home = () => {
                     backgroundColor: '#5DD62C',
                     color: '#0F0F0F',
                     fontWeight: '600',
-                    padding: '14px 40px',
+                    padding: '8px 28px',
                     borderRadius: '9999px',
                     textDecoration: 'none',
                     transition: 'all 0.3s ease',
-                    boxShadow: '0 8px 24px rgba(93, 214, 44, 0.2)',
-                    fontSize: '18px',
-                    fontFamily: "'Inter', 'Segoe UI', sans-serif"
+                    fontSize: '14px',
+                    fontFamily: "'Inter', 'Segoe UI', sans-serif",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = '#337418';
@@ -272,14 +275,19 @@ const Home = () => {
         </div>
 
         {/* ===== MY SKILLS ===== */}
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 32px 80px' }}>
-          <h2 className="skills-title" style={{
-            fontSize: '36px',
+        <div style={{
+          maxWidth: '1100px',
+          width: '100%',
+          padding: '40px 0 20px',
+          margin: '20px auto 0',
+        }}>
+          <h2 style={{
+            fontSize: 'clamp(24px, 3vw, 30px)',
             fontWeight: '700',
             textAlign: 'center',
-            color: 'white',
-            marginBottom: '48px',
-            fontFamily: "'Inter', 'Segoe UI', sans-serif"
+            color: '#FFFFFF',
+            marginBottom: '28px',
+            fontFamily: "'Inter', 'Segoe UI', sans-serif",
           }}>
             My Skills
           </h2>
@@ -287,28 +295,27 @@ const Home = () => {
           <div style={{
             backgroundColor: 'rgba(255,255,255,0.05)',
             backdropFilter: 'blur(12px)',
-            borderRadius: '24px',
-            padding: '48px',
-            border: '1px solid rgba(255,255,255,0.05)',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
+            borderRadius: '20px',
+            padding: '36px',
+            border: '1px solid rgba(255,255,255,0.06)',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
           }}>
             <div className="skills-grid" style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '24px'
+              gap: '20px',
             }}>
               {profile?.skills?.map((skill, idx) => (
                 <div
                   key={idx}
-                  className="skill-item"
                   style={{
                     backgroundColor: 'rgba(15, 15, 15, 0.5)',
                     borderRadius: '16px',
-                    padding: '24px',
+                    padding: '22px',
                     textAlign: 'center',
                     border: '1px solid rgba(93, 214, 44, 0.15)',
                     transition: 'all 0.3s ease',
-                    cursor: 'default'
+                    cursor: 'default',
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'scale(1.05)';
@@ -319,10 +326,10 @@ const Home = () => {
                     e.currentTarget.style.borderColor = 'rgba(93, 214, 44, 0.15)';
                   }}
                 >
-                  <div className="skill-icon" style={{ fontSize: '42px', marginBottom: '8px' }}>
+                  <div style={{ fontSize: '36px', marginBottom: '6px' }}>
                     {getSkillIcon(skill)}
                   </div>
-                  <h3 className="skill-name" style={{ color: 'white', fontWeight: '600', fontSize: '18px', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
+                  <h3 style={{ color: 'white', fontWeight: '600', fontSize: '16px', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                     {skill}
                   </h3>
                 </div>
@@ -330,133 +337,111 @@ const Home = () => {
             </div>
           </div>
         </div>
-
-        {/* ===== FOOTER ===== */}
-        <footer className="footer" style={{
-          backgroundColor: 'rgba(0,0,0,0.5)',
-          backdropFilter: 'blur(8px)',
-          borderTop: '1px solid rgba(93, 214, 44, 0.1)',
-          padding: '24px',
-          textAlign: 'center',
-          margin: 0
-        }}>
-          <div className="footer-links" style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '28px',
-            marginBottom: '16px',
-            flexWrap: 'wrap'
-          }}>
-            {profile?.socialLinks?.github && (
-              <a
-                href={profile.socialLinks.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-link"
-                style={{
-                  color: '#6B7280',
-                  textDecoration: 'none',
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  transition: 'all 0.3s ease',
-                  fontFamily: "'Inter', 'Segoe UI', sans-serif"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#5DD62C';
-                  e.currentTarget.style.textShadow = '0 0 20px rgba(93,214,44,0.3)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = '#6B7280';
-                  e.currentTarget.style.textShadow = 'none';
-                }}
-              >
-                🐙 GitHub
-              </a>
-            )}
-            {profile?.socialLinks?.linkedin && (
-              <a
-                href={profile.socialLinks.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-link"
-                style={{
-                  color: '#6B7280',
-                  textDecoration: 'none',
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  transition: 'all 0.3s ease',
-                  fontFamily: "'Inter', 'Segoe UI', sans-serif"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#5DD62C';
-                  e.currentTarget.style.textShadow = '0 0 20px rgba(93,214,44,0.3)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = '#6B7280';
-                  e.currentTarget.style.textShadow = 'none';
-                }}
-              >
-                💼 LinkedIn
-              </a>
-            )}
-            {profile?.socialLinks?.twitter && (
-              <a
-                href={profile.socialLinks.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-link"
-                style={{
-                  color: '#6B7280',
-                  textDecoration: 'none',
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  transition: 'all 0.3s ease',
-                  fontFamily: "'Inter', 'Segoe UI', sans-serif"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#5DD62C';
-                  e.currentTarget.style.textShadow = '0 0 20px rgba(93,214,44,0.3)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = '#6B7280';
-                  e.currentTarget.style.textShadow = 'none';
-                }}
-              >
-                𝕏 X
-              </a>
-            )}
-            {profile?.socialLinks?.discord && (
-              <a
-                href={profile.socialLinks.discord}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-link"
-                style={{
-                  color: '#6B7280',
-                  textDecoration: 'none',
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  transition: 'all 0.3s ease',
-                  fontFamily: "'Inter', 'Segoe UI', sans-serif"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#5DD62C';
-                  e.currentTarget.style.textShadow = '0 0 20px rgba(93,214,44,0.3)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = '#6B7280';
-                  e.currentTarget.style.textShadow = 'none';
-                }}
-              >
-                💬 Discord
-              </a>
-            )}
-          </div>
-          <p className="footer-text" style={{ color: '#6B7280', fontSize: '14px', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
-            © {new Date().getFullYear()} Alex Mwendwa. Built with ❤️
-          </p>
-        </footer>
       </div>
+
+      {/* ===== FOOTER ===== */}
+      <footer style={{
+        position: 'relative',
+        zIndex: 3,
+        width: '100%',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        backdropFilter: 'blur(8px)',
+        borderTop: '1px solid rgba(93, 214, 44, 0.08)',
+        padding: '16px 60px',
+        textAlign: 'center',
+      }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '24px',
+          flexWrap: 'wrap',
+          marginBottom: '6px',
+        }}>
+          {profile?.socialLinks?.github && (
+            <a href={profile.socialLinks.github} target="_blank" rel="noopener noreferrer" style={{
+              color: '#9CA3AF',
+              textDecoration: 'none',
+              fontSize: '14px',
+              fontWeight: '500',
+              transition: 'all 0.3s ease',
+              fontFamily: "'Inter', 'Segoe UI', sans-serif",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#5DD62C';
+              e.currentTarget.style.textShadow = '0 0 15px rgba(93,214,44,0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = '#9CA3AF';
+              e.currentTarget.style.textShadow = 'none';
+            }}>
+              🐙 GitHub
+            </a>
+          )}
+          {profile?.socialLinks?.linkedin && (
+            <a href={profile.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" style={{
+              color: '#9CA3AF',
+              textDecoration: 'none',
+              fontSize: '14px',
+              fontWeight: '500',
+              transition: 'all 0.3s ease',
+              fontFamily: "'Inter', 'Segoe UI', sans-serif",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#5DD62C';
+              e.currentTarget.style.textShadow = '0 0 15px rgba(93,214,44,0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = '#9CA3AF';
+              e.currentTarget.style.textShadow = 'none';
+            }}>
+              💼 LinkedIn
+            </a>
+          )}
+          {profile?.socialLinks?.twitter && (
+            <a href={profile.socialLinks.twitter} target="_blank" rel="noopener noreferrer" style={{
+              color: '#9CA3AF',
+              textDecoration: 'none',
+              fontSize: '14px',
+              fontWeight: '500',
+              transition: 'all 0.3s ease',
+              fontFamily: "'Inter', 'Segoe UI', sans-serif",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#5DD62C';
+              e.currentTarget.style.textShadow = '0 0 15px rgba(93,214,44,0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = '#9CA3AF';
+              e.currentTarget.style.textShadow = 'none';
+            }}>
+              𝕏 X
+            </a>
+          )}
+          {profile?.socialLinks?.discord && (
+            <a href={profile.socialLinks.discord} target="_blank" rel="noopener noreferrer" style={{
+              color: '#9CA3AF',
+              textDecoration: 'none',
+              fontSize: '14px',
+              fontWeight: '500',
+              transition: 'all 0.3s ease',
+              fontFamily: "'Inter', 'Segoe UI', sans-serif",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#5DD62C';
+              e.currentTarget.style.textShadow = '0 0 15px rgba(93,214,44,0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = '#9CA3AF';
+              e.currentTarget.style.textShadow = 'none';
+            }}>
+              💬 Discord
+            </a>
+          )}
+        </div>
+        <p style={{ color: '#6B7280', fontSize: '11px', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
+          © {new Date().getFullYear()} Alex Mwendwa. Built with ❤️
+        </p>
+      </footer>
     </div>
   );
 };

@@ -49,36 +49,48 @@ const Vision = () => {
   }
 
   return (
-    <div style={{ position: 'relative', minHeight: '100vh', width: '100%', backgroundColor: '#02060E' }}>
+    <div style={{
+      position: 'relative',
+      minHeight: '100vh',
+      width: '100%',
+      overflow: 'hidden',
+    }}>
       
-      {/* Glowing Orb */}
+      {/* 🖼️ FULL PAGE BACKGROUND IMAGE */}
       <div style={{
         position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '600px',
-        height: '600px',
-        background: 'radial-gradient(circle, rgba(93,214,44,0.12) 0%, rgba(0,0,0,0) 70%)',
-        borderRadius: '50%',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
         zIndex: 0,
-        pointerEvents: 'none',
-        animation: 'pulseGlow 3s ease-in-out infinite',
+        backgroundImage: `url("https://i.imgur.com/I06ZI7h.jpeg")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
       }} />
 
-      <Sparkles />
+      {/* 🌑 DARK OVERLAY */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+      }} />
 
-      <style>{`
-        @keyframes pulseGlow {
-          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-          50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-        }
-      `}</style>
+      {/* ✨ Sparkles */}
+      <div style={{ position: 'relative', zIndex: 2, width: '100%', height: '100%' }}>
+        <Sparkles />
+      </div>
 
-      {/* Content */}
+      {/* ===== CONTENT ===== */}
       <div style={{
         position: 'relative',
-        zIndex: 1,
+        zIndex: 3,
         minHeight: '100vh',
         padding: '40px 80px 0',
         width: '100%',
@@ -122,8 +134,13 @@ const Vision = () => {
             paddingBottom: '60px'
           }}>
             
-            {/* LEFT: Current Projects */}
-            <div>
+            {/* LEFT: Current Projects — Distinct Panel */}
+            <div style={{
+              backgroundColor: 'rgba(93, 214, 44, 0.05)',
+              borderRadius: '20px',
+              padding: '24px',
+              border: '1px solid rgba(93, 214, 44, 0.15)',
+            }}>
               <h2 style={{
                 fontSize: '24px',
                 fontWeight: '600',
@@ -224,7 +241,7 @@ const Vision = () => {
                                 onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
                                 onMouseLeave={(e) => e.currentTarget.style.color = '#5DD62C'}
                               >
-                                🐙 Track Progress
+                                🔍 View Details
                               </a>
                             )}
                           </div>
@@ -311,8 +328,13 @@ const Vision = () => {
               )}
             </div>
 
-            {/* RIGHT: Certificates */}
-            <div>
+            {/* RIGHT: Certificates — Distinct Panel */}
+            <div style={{
+              backgroundColor: 'rgba(255, 215, 0, 0.05)',
+              borderRadius: '20px',
+              padding: '24px',
+              border: '1px solid rgba(255, 215, 0, 0.15)',
+            }}>
               <h2 style={{
                 fontSize: '24px',
                 fontWeight: '600',
@@ -350,7 +372,7 @@ const Vision = () => {
                         transition: 'all 0.3s ease'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(93,214,44,0.3)';
+                        e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
                       }}
                       onMouseLeave={(e) => {
@@ -425,21 +447,21 @@ const Vision = () => {
                             rel="noopener noreferrer"
                             style={{
                               fontSize: '13px',
-                              color: '#5DD62C',
+                              color: '#FFD700',
                               textDecoration: 'none',
                               padding: '6px 16px',
-                              border: '1px solid rgba(93,214,44,0.3)',
+                              border: '1px solid rgba(255,215,0,0.3)',
                               borderRadius: '8px',
                               transition: 'all 0.3s ease',
                               whiteSpace: 'nowrap'
                             }}
                             onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = 'rgba(93,214,44,0.15)';
-                              e.currentTarget.style.borderColor = '#5DD62C';
+                              e.currentTarget.style.backgroundColor = 'rgba(255,215,0,0.15)';
+                              e.currentTarget.style.borderColor = '#FFD700';
                             }}
                             onMouseLeave={(e) => {
                               e.currentTarget.style.backgroundColor = 'transparent';
-                              e.currentTarget.style.borderColor = 'rgba(93,214,44,0.3)';
+                              e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
                             }}
                           >
                             🔍 Verify

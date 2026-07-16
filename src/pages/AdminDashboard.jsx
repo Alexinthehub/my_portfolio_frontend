@@ -17,6 +17,7 @@ import {
   deleteCertificate,
 } from '../services/api';
 import LoadingSpinner from '../components/LoadingSpinner';
+import Sparkles from '../components/Sparkles';
 
 const AdminDashboard = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
       github: '',
       linkedin: '',
       twitter: '',
-      discord: '', // ✅ Discord added
+      discord: '',
       email: '',
     },
   });
@@ -187,7 +188,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
       await createProject({ ...newProject, techStack: techArray });
       setNewProject({ title: '', description: '', techStack: '', imageUrl: '', liveUrl: '', repoUrl: '' });
       fetchData();
-      alert('✅ Project added successfully!'); // Success message
+      alert('✅ Project added successfully!');
     } catch (err) {
       console.error(err);
       if (err.response?.status === 401) {
@@ -240,7 +241,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
       await createCurrentProject(newCurrentProject);
       setNewCurrentProject({ title: '', description: '', status: 'In Progress', repoUrl: '' });
       fetchData();
-      alert('✅ Current project added successfully!'); // Success message
+      alert('✅ Current project added successfully!');
     } catch (err) {
       console.error(err);
       if (err.response?.status === 401) {
@@ -277,7 +278,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
       await createCertificate(newCertificate);
       setNewCertificate({ title: '', issuer: '', date: '', category: 'Professional', imageUrl: '', verifyUrl: '' });
       fetchData();
-      alert('✅ Certificate added successfully!'); // Success message
+      alert('✅ Certificate added successfully!');
     } catch (err) {
       console.error(err);
       if (err.response?.status === 401) {
@@ -311,32 +312,54 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
   }
 
   return (
-    <div style={{ position: 'relative', minHeight: '100vh', width: '100%', backgroundColor: '#02060E' }}>
+    <div style={{
+      position: 'relative',
+      minHeight: '100vh',
+      width: '100%',
+      overflow: 'hidden',
+    }}>
       
-      {/* Glowing Orb */}
+      {/* 🖼️ FULL PAGE BACKGROUND IMAGE */}
       <div style={{
         position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '600px',
-        height: '600px',
-        background: 'radial-gradient(circle, rgba(93,214,44,0.12) 0%, rgba(0,0,0,0) 70%)',
-        borderRadius: '50%',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
         zIndex: 0,
-        pointerEvents: 'none',
-        animation: 'pulseGlow 3s ease-in-out infinite',
+        backgroundImage: `url("https://i.imgur.com/gZtIeHg.jpeg")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
       }} />
 
-      <style>{`
-        @keyframes pulseGlow {
-          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-          50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-        }
-      `}</style>
+      {/* 🌑 DARK OVERLAY */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+      }} />
 
-      {/* Content */}
-      <div style={{ position: 'relative', zIndex: 1, padding: '40px 80px 0', width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      {/* ✨ Sparkles */}
+      <div style={{ position: 'relative', zIndex: 2, width: '100%', height: '100%' }}>
+        <Sparkles />
+      </div>
+
+      {/* ===== CONTENT ===== */}
+      <div style={{
+        position: 'relative',
+        zIndex: 3,
+        padding: '40px 80px 0',
+        width: '100%',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+      }}>
         
         <div style={{ flex: 1 }}>
           {/* Header */}
@@ -438,7 +461,13 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                 onChange={(e) => setProfileForm({ ...profileForm, skills: e.target.value })}
                 style={{ ...inputStyle, gridColumn: '1 / -1' }}
               />
-              
+              <input
+                type="text"
+                placeholder="Languages (comma separated)"
+                value={profileForm.languages}
+                onChange={(e) => setProfileForm({ ...profileForm, languages: e.target.value })}
+                style={{ ...inputStyle, gridColumn: '1 / -1' }}
+              />
               <input
                 type="url"
                 placeholder="Avatar Image URL"
@@ -502,7 +531,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                 }
                 style={inputStyle}
               />
-              {/* ✅ Discord URL Input */}
               <input
                 type="url"
                 placeholder="Discord URL"
