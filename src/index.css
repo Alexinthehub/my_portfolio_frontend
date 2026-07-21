@@ -303,9 +303,12 @@ body {
   }
 
   /* Navbar */
+/* ===== NAVBAR LOGO — LARGER ON MOBILE ===== */
+@media (max-width: 768px) {
   .navbar-logo {
-    font-size: 18px !important;
+    font-size: 24px !important;
   }
+}
   .navbar-link {
     font-size: 14px !important;
   }

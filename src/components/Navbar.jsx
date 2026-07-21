@@ -41,6 +41,7 @@ const Navbar = ({ isAuthenticated }) => {
         alignItems: 'center',
         width: '100%',
       }}>
+        {/* Logo — Larger on mobile */}
         <Link to="/" className="navbar-logo" style={{
           fontSize: '28px',
           fontWeight: '700',
@@ -147,6 +148,10 @@ const Navbar = ({ isAuthenticated }) => {
           .navbar-link {
             font-size: 20px !important;
             white-space: normal !important;
+          }
+          /* ✅ Increased logo size on mobile */
+          .navbar-logo {
+            font-size: 24px !important;
           }
         }
       `}</style>
