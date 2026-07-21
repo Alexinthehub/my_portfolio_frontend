@@ -311,3 +311,137 @@ img {
     padding: 12px !important;
   }
 }
+/* ===== MOBILE RESPONSIVENESS ===== */
+
+/* Tablets and smaller */
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    gap: 40px !important;
+  }
+  .hero-text {
+    text-align: center !important;
+  }
+  .hero-image {
+    max-width: 300px !important;
+    margin: 0 auto !important;
+  }
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+  .vision-grid {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+}
+
+/* Mobile phones (600px and below) */
+@media (max-width: 600px) {
+  /* Navbar */
+  .navbar {
+    padding: 10px 16px !important;
+  }
+  .navbar-logo {
+    font-size: 20px !important;
+  }
+  .navbar-links {
+    gap: 12px !important;
+  }
+  .navbar-link {
+    font-size: 14px !important;
+  }
+
+  /* Hero */
+  .hero-title {
+    font-size: 32px !important;
+    white-space: normal !important;
+  }
+  .hero-name {
+    font-size: 32px !important;
+  }
+  .hero-subtitle {
+    font-size: 16px !important;
+  }
+  .hero-image {
+    max-width: 220px !important;
+  }
+  .hero-section {
+    padding: 0 20px !important;
+    min-height: 80vh !important;
+  }
+
+  /* Skills */
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+  .skill-item {
+    padding: 16px !important;
+  }
+  .skill-icon {
+    font-size: 30px !important;
+  }
+  .skill-name {
+    font-size: 14px !important;
+  }
+
+  /* Projects */
+  .projects-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .project-card {
+    padding: 16px !important;
+  }
+  .project-title {
+    font-size: 18px !important;
+  }
+  .project-description {
+    font-size: 14px !important;
+  }
+
+  /* Vision */
+  .vision-card {
+    padding: 16px !important;
+  }
+  .vision-title {
+    font-size: 32px !important;
+  }
+
+  /* Contact */
+  .contact-card {
+    padding: 24px 16px !important;
+  }
+  .contact-title {
+    font-size: 28px !important;
+  }
+
+  /* Footer */
+  .footer-links {
+    gap: 16px !important;
+    flex-wrap: wrap !important;
+  }
+  .footer-link {
+    font-size: 13px !important;
+  }
+  .footer-text {
+    font-size: 12px !important;
+  }
+
+  /* Admin */
+  .admin-content {
+    padding: 16px !important;
+  }
+  .admin-card {
+    padding: 16px !important;
+  }
+  .admin-form {
+    grid-template-columns: 1fr !important;
+  }
+}
