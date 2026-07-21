@@ -75,6 +75,39 @@ body {
   50% { opacity: 0; }
 }
 
+/* ===== FORCE OVERRIDE INLINE STYLES ===== */
+.hero-title,
+.hero-title * {
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  max-width: 100% !important;
+}
+
+.hero-grid,
+.projects-grid,
+.vision-grid,
+.skills-grid {
+  display: grid !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.skill-item,
+.project-card,
+.vision-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Override any inline white-space: nowrap on mobile */
+@media (max-width: 768px) {
+  [style*="white-space: nowrap"] {
+    white-space: normal !important;
+  }
+}
+
 /* ===== RESPONSIVE STYLES ===== */
 
 /* Tablets and smaller (1024px and below) */

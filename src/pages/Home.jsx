@@ -25,6 +25,7 @@ const Home = () => {
       position: 'relative',
       minHeight: '100vh',
       width: '100%',
+      backgroundColor: '#02060E',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -32,19 +33,20 @@ const Home = () => {
     }}>
       
       {/* 🖼️ FULL PAGE BACKGROUND IMAGE */}
-<div style={{
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-  zIndex: 0,
-  backgroundImage: `url("/images/home-bg.jpg")`,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center center',
-  backgroundAttachment: 'fixed',
-  backgroundRepeat: 'no-repeat',
-}} />
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 0,
+        backgroundImage: `url("/images/home-bg.jpg")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
+      }} />
+
       {/* 🌑 DARK OVERLAY */}
       <div style={{
         position: 'fixed',
@@ -53,7 +55,7 @@ const Home = () => {
         width: '100%',
         height: '100%',
         zIndex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.65)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
       }} />
 
       {/* ✨ Sparkles */}
@@ -84,26 +86,24 @@ const Home = () => {
         zIndex: 3,
         width: '100%',
         maxWidth: '1400px',
-        padding: '120px 60px 40px',
+        padding: '100px 60px 40px',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'left',
         minHeight: '100vh',
       }}>
         
         {/* ===== HERO SECTION — Two Columns ===== */}
-        <div style={{
+        <div className="hero-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: '60px',
           alignItems: 'center',
           width: '100%',
+          flex: 1,
         }}>
           
           {/* LEFT: Text */}
-          <div style={{
+          <div className="hero-text" style={{
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -120,12 +120,11 @@ const Home = () => {
               HI THERE,
             </p>
 
-            <h1 className="fade-slide-up delay-1" style={{
+            <h1 className="hero-title fade-slide-up delay-1" style={{
               fontSize: 'clamp(36px, 6vw, 56px)',
               fontWeight: '700',
               lineHeight: '1.2',
               margin: 0,
-              whiteSpace: 'nowrap',
               fontFamily: "'Lucida Handwriting', 'Apple Chancery', cursive",
             }}>
               <span style={{ color: '#FFFFFF' }}>I am </span>
@@ -145,7 +144,6 @@ const Home = () => {
                 fontFamily: "'Inter', 'Segoe UI', sans-serif",
                 fontWeight: '500',
                 letterSpacing: '2px',
-                whiteSpace: 'nowrap',
               }}>
                 {profile.title}
               </p>
@@ -153,7 +151,7 @@ const Home = () => {
           </div>
 
           {/* RIGHT: Personal Photo with Glowing Frame */}
-          <div style={{
+          <div className="hero-image" style={{
             display: 'flex',
             justifyContent: 'flex-end',
             alignItems: 'center',
@@ -202,14 +200,14 @@ const Home = () => {
         </div>
 
         {/* ===== WHO AM I? ===== */}
-        <div style={{
+        <div className="bio-card" style={{
+          maxWidth: '700px',
           width: '100%',
+          margin: '50px auto 0',
           display: 'flex',
           justifyContent: 'center',
-          marginTop: '50px',
         }}>
           <div style={{
-            maxWidth: '700px',
             width: '100%',
             backgroundColor: 'rgba(255,255,255,0.06)',
             backdropFilter: 'blur(12px)',
@@ -219,7 +217,7 @@ const Home = () => {
             boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
             textAlign: 'center',
           }}>
-            <h2 style={{
+            <h2 className="bio-title" style={{
               fontSize: 'clamp(28px, 3.5vw, 36px)',
               fontWeight: '700',
               color: '#FFFFFF',
@@ -229,7 +227,7 @@ const Home = () => {
               Who am I?
             </h2>
             
-            <p style={{
+            <p className="bio-text" style={{
               color: '#D1D5DB',
               fontSize: 'clamp(14px, 1.5vw, 16px)',
               lineHeight: '1.6',
@@ -307,6 +305,7 @@ const Home = () => {
               {profile?.skills?.map((skill, idx) => (
                 <div
                   key={idx}
+                  className="skill-item"
                   style={{
                     backgroundColor: 'rgba(15, 15, 15, 0.5)',
                     borderRadius: '16px',
@@ -325,10 +324,10 @@ const Home = () => {
                     e.currentTarget.style.borderColor = 'rgba(93, 214, 44, 0.15)';
                   }}
                 >
-                  <div style={{ fontSize: '36px', marginBottom: '6px' }}>
+                  <div className="skill-icon" style={{ fontSize: '36px', marginBottom: '6px' }}>
                     {getSkillIcon(skill)}
                   </div>
-                  <h3 style={{ color: 'white', fontWeight: '600', fontSize: '16px', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
+                  <h3 className="skill-name" style={{ color: 'white', fontWeight: '600', fontSize: '16px', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                     {skill}
                   </h3>
                 </div>
@@ -339,7 +338,7 @@ const Home = () => {
       </div>
 
       {/* ===== FOOTER ===== */}
-      <footer style={{
+      <footer className="footer" style={{
         position: 'relative',
         zIndex: 3,
         width: '100%',
@@ -349,7 +348,7 @@ const Home = () => {
         padding: '16px 60px',
         textAlign: 'center',
       }}>
-        <div style={{
+        <div className="footer-links" style={{
           display: 'flex',
           justifyContent: 'center',
           gap: '24px',
@@ -357,7 +356,7 @@ const Home = () => {
           marginBottom: '6px',
         }}>
           {profile?.socialLinks?.github && (
-            <a href={profile.socialLinks.github} target="_blank" rel="noopener noreferrer" style={{
+            <a href={profile.socialLinks.github} target="_blank" rel="noopener noreferrer" className="footer-link" style={{
               color: '#9CA3AF',
               textDecoration: 'none',
               fontSize: '14px',
@@ -377,7 +376,7 @@ const Home = () => {
             </a>
           )}
           {profile?.socialLinks?.linkedin && (
-            <a href={profile.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" style={{
+            <a href={profile.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="footer-link" style={{
               color: '#9CA3AF',
               textDecoration: 'none',
               fontSize: '14px',
@@ -397,7 +396,7 @@ const Home = () => {
             </a>
           )}
           {profile?.socialLinks?.twitter && (
-            <a href={profile.socialLinks.twitter} target="_blank" rel="noopener noreferrer" style={{
+            <a href={profile.socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="footer-link" style={{
               color: '#9CA3AF',
               textDecoration: 'none',
               fontSize: '14px',
@@ -417,7 +416,7 @@ const Home = () => {
             </a>
           )}
           {profile?.socialLinks?.discord && (
-            <a href={profile.socialLinks.discord} target="_blank" rel="noopener noreferrer" style={{
+            <a href={profile.socialLinks.discord} target="_blank" rel="noopener noreferrer" className="footer-link" style={{
               color: '#9CA3AF',
               textDecoration: 'none',
               fontSize: '14px',
@@ -437,7 +436,7 @@ const Home = () => {
             </a>
           )}
         </div>
-        <p style={{ color: '#6B7280', fontSize: '11px', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
+        <p className="footer-text" style={{ color: '#6B7280', fontSize: '11px', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
           © {new Date().getFullYear()} Alex Mwendwa. Built with ❤️
         </p>
       </footer>
