@@ -57,19 +57,19 @@ const Vision = () => {
     }}>
       
       {/* 🖼️ FULL PAGE BACKGROUND IMAGE */}
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 0,
-        backgroundImage: `url("https://i.imgur.com/I06ZI7h.jpeg")`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        backgroundAttachment: 'fixed',
-        backgroundRepeat: 'no-repeat',
-      }} />
+<div style={{
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  zIndex: 0,
+  backgroundImage: `url("https://i.imgur.com/I06ZI7h.jpeg")`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center center',
+  backgroundAttachment: 'fixed',
+  backgroundRepeat: 'no-repeat',
+}} />
 
       {/* 🌑 DARK OVERLAY */}
       <div style={{
