@@ -547,3 +547,28 @@ body {
     font-size: 13px !important;
   }
 }
+/* ===== CONTACT PAGE — WIDER PANEL ON MOBILE ===== */
+
+@media (max-width: 768px) {
+  .contact-card {
+    max-width: 100% !important;
+    margin-left: 8px !important;
+    margin-right: 8px !important;
+    padding: 20px 16px !important;
+    border-radius: 16px !important;
+  }
+  .contact-title {
+    font-size: 24px !important;
+  }
+  .contact-input {
+    font-size: 14px !important;
+    padding: 10px 12px !important;
+  }
+  .contact-card label {
+    font-size: 13px !important;
+  }
+  .contact-card button {
+    font-size: 16px !important;
+    padding: 12px !important;
+  }
+}

@@ -42,25 +42,23 @@ const Contact = () => {
     setError(null);
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setSubmitting(true);
-  setSuccess(null);
-  setError(null);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setSuccess(null);
+    setError(null);
 
-  try {
-    console.log('Sending to:', import.meta.env.VITE_API_URL);
-    const response = await sendContactMessage(formData);
-    console.log('Response:', response);
-    setSuccess('✅ Message sent successfully! I will get back to you soon.');
-    setFormData({ name: '', email: '', message: '' });
-  } catch (err) {
-    console.error('Full error:', err);
-    setError('❌ Failed to send message. Please try again later.');
-  } finally {
-    setSubmitting(false);
-  }
-};
+    try {
+      await sendContactMessage(formData);
+      setSuccess('✅ Message sent successfully! I will get back to you soon.');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (err) {
+      setError('❌ Failed to send message. Please try again later.');
+      console.error(err);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   if (pageLoading) {
     return <LoadingSpinner />;
@@ -75,19 +73,19 @@ const handleSubmit = async (e) => {
     }}>
       
       {/* 🖼️ FULL PAGE BACKGROUND IMAGE */}
-<div style={{
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-  zIndex: 0,
-  backgroundImage: `url("/images/contact-bg.jpg")`,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center center',
-  backgroundAttachment: 'fixed',
-  backgroundRepeat: 'no-repeat',
-}} />
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 0,
+        backgroundImage: `url("/images/contact-bg.jpg")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
+      }} />
 
       {/* 🌑 DARK OVERLAY */}
       <div style={{
@@ -97,7 +95,7 @@ const handleSubmit = async (e) => {
         width: '100%',
         height: '100%',
         zIndex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
       }} />
 
       {/* ✨ Sparkles */}
@@ -112,7 +110,7 @@ const handleSubmit = async (e) => {
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        padding: '40px 80px 0',
+        padding: '40px 60px 0',
         width: '100%',
         boxSizing: 'border-box',
       }}>
@@ -477,6 +475,7 @@ const handleSubmit = async (e) => {
           </div>
         </div>
 
+        {/* ===== FOOTER ===== */}
         <footer className="footer" style={{
           maxWidth: '1400px',
           margin: '0 auto',
