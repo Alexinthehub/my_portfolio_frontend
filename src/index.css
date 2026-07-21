@@ -324,3 +324,105 @@ body {
     grid-template-columns: 1fr !important;
   }
 }
+/* ===== MOBILE PANEL RESIZING ===== */
+
+/* Homepage: Image smaller, bio stacked */
+@media (max-width: 768px) {
+  .hero-image img {
+    max-width: 200px !important;
+  }
+  .hero-grid {
+    gap: 20px !important;
+  }
+  .bio-card {
+    margin-top: 10px !important;
+    padding: 16px !important;
+  }
+  .bio-title {
+    font-size: 22px !important;
+  }
+  .bio-text {
+    font-size: 14px !important;
+  }
+
+  /* Vision: Reduce panel size, fix verify button */
+  .vision-grid {
+    gap: 16px !important;
+  }
+  .vision-card {
+    padding: 12px !important;
+  }
+  .vision-card h3 {
+    font-size: 16px !important;
+  }
+  .vision-card p {
+    font-size: 13px !important;
+  }
+  .vision-card .verify-btn {
+    font-size: 12px !important;
+    padding: 4px 12px !important;
+    white-space: nowrap;
+  }
+
+  /* Projects: Smaller cards */
+  .project-card {
+    padding: 14px !important;
+  }
+  .project-title {
+    font-size: 16px !important;
+  }
+  .project-description {
+    font-size: 13px !important;
+  }
+
+  /* Contact: Smaller form */
+  .contact-card {
+    padding: 16px !important;
+  }
+  .contact-title {
+    font-size: 24px !important;
+  }
+  .contact-input {
+    font-size: 14px !important;
+    padding: 10px !important;
+  }
+  .contact-card label {
+    font-size: 13px !important;
+  }
+
+  /* Skills: 2 columns, smaller */
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .skill-item {
+    padding: 12px !important;
+  }
+  .skill-icon {
+    font-size: 24px !important;
+  }
+  .skill-name {
+    font-size: 12px !important;
+  }
+
+  /* Footer: wrap links */
+  .footer-links {
+    gap: 12px !important;
+  }
+  .footer-link {
+    font-size: 12px !important;
+  }
+}
+
+/* Tablet adjustments */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .vision-grid {
+    gap: 24px !important;
+  }
+  .vision-card {
+    padding: 16px !important;
+  }
+  .project-card {
+    padding: 18px !important;
+  }
+}

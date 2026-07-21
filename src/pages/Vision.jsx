@@ -441,31 +441,32 @@ const Vision = () => {
                           </div>
                         </div>
                         {cert.verifyUrl && (
-                          <a
-                            href={cert.verifyUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                              fontSize: '13px',
-                              color: '#FFD700',
-                              textDecoration: 'none',
-                              padding: '6px 16px',
-                              border: '1px solid rgba(255,215,0,0.3)',
-                              borderRadius: '8px',
-                              transition: 'all 0.3s ease',
-                              whiteSpace: 'nowrap'
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = 'rgba(255,215,0,0.15)';
-                              e.currentTarget.style.borderColor = '#FFD700';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = 'transparent';
-                              e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
-                            }}
-                          >
-                            🔍 Verify
-                          </a>
+<a
+  href={cert.verifyUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="verify-btn"
+  style={{
+    fontSize: '13px',
+    color: '#FFD700',
+    textDecoration: 'none',
+    padding: '6px 16px',
+    border: '1px solid rgba(255,215,0,0.3)',
+    borderRadius: '8px',
+    transition: 'all 0.3s ease',
+    whiteSpace: 'nowrap',
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.backgroundColor = 'rgba(255,215,0,0.15)';
+    e.currentTarget.style.borderColor = '#FFD700';
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.backgroundColor = 'transparent';
+    e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
+  }}
+>
+  🔍 Verify
+</a>
                         )}
                       </div>
                     </div>
