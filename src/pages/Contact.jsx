@@ -52,9 +52,21 @@ const Contact = () => {
       await sendContactMessage(formData);
       setSuccess('✅ Message sent successfully! I will get back to you soon.');
       setFormData({ name: '', email: '', message: '' });
+      
+      // ✅ Auto-clear success message after 5 seconds
+      setTimeout(() => {
+        setSuccess(null);
+      }, 5000);
+      
     } catch (err) {
       setError('❌ Failed to send message. Please try again later.');
       console.error(err);
+      
+      // ✅ Auto-clear error message after 5 seconds
+      setTimeout(() => {
+        setError(null);
+      }, 5000);
+      
     } finally {
       setSubmitting(false);
     }
