@@ -30,11 +30,11 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout isAuthenticated={isAuthenticated} />}>
-          <Route index element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/vision" element={<Vision />} />
-          <Route path="/contact" element={<Contact />} />
-        </Route>
+  <Route index element={<Home />} />
+  <Route path="/projects" element={<Projects />} />
+  <Route path="/vision" element={<Vision />} />
+  <Route path="/contact" element={<Contact />} />
+</Route>
 
         <Route
           path="/admin"

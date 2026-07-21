@@ -20,7 +20,7 @@ const Navbar = ({ isAuthenticated }) => {
   }
 
   return (
-    <nav style={{
+    <nav className="navbar" style={{
       backgroundColor: '#0F0F0F',
       borderBottom: '1px solid rgba(93, 214, 44, 0.15)',
       position: 'fixed',
@@ -28,7 +28,7 @@ const Navbar = ({ isAuthenticated }) => {
       left: 0,
       width: '100%',
       zIndex: 50,
-      padding: '16px 80px',
+      padding: '16px 60px',
       boxShadow: '0 4px 30px rgba(0,0,0,0.5)'
     }}>
       <div style={{
@@ -39,15 +39,16 @@ const Navbar = ({ isAuthenticated }) => {
         alignItems: 'center',
         width: '100%'
       }}>
-        {/* Logo with Lucida Handwriting */}
-        <Link to="/" style={{
-          fontSize: '40px',
+        {/* Logo — pushed to the left */}
+        <Link to="/" className="navbar-logo" style={{
+          fontSize: '32px',
           fontWeight: '700',
           color: 'white',
           textDecoration: 'none',
           letterSpacing: '1px',
           transition: 'color 0.3s ease',
-          fontFamily: "'Lucida Handwriting', 'Apple Chancery', cursive"
+          fontFamily: "'Lucida Handwriting', 'Apple Chancery', cursive",
+          flexShrink: 0,
         }}
         onMouseEnter={(e) => e.currentTarget.style.color = '#5DD62C'}
         onMouseLeave={(e) => e.currentTarget.style.color = 'white'}
@@ -55,19 +56,27 @@ const Navbar = ({ isAuthenticated }) => {
           My Portfolio
         </Link>
 
-        <div style={{ display: 'flex', gap: '40px' }}>
+        {/* Navigation Links */}
+        <div className="navbar-links" style={{
+          display: 'flex',
+          gap: '32px',
+          flexWrap: 'wrap',
+          justifyContent: 'flex-end',
+        }}>
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
+              className="navbar-link"
               style={{
                 color: location.pathname === link.path ? '#5DD62C' : 'white',
-                fontSize: '24px',
+                fontSize: '20px',
                 fontWeight: '500',
                 textDecoration: 'none',
                 transition: 'all 0.3s ease',
                 textShadow: location.pathname === link.path ? '0 0 20px rgba(93, 214, 44, 0.4)' : 'none',
-                position: 'relative'
+                position: 'relative',
+                whiteSpace: 'nowrap',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.color = '#5DD62C';
