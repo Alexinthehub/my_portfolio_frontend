@@ -41,7 +41,6 @@ const Navbar = ({ isAuthenticated }) => {
         alignItems: 'center',
         width: '100%',
       }}>
-        {/* Logo */}
         <Link to="/" className="navbar-logo" style={{
           fontSize: '28px',
           fontWeight: '700',
@@ -57,21 +56,22 @@ const Navbar = ({ isAuthenticated }) => {
           My Portfolio
         </Link>
 
-        {/* Hamburger Icon (mobile) */}
+        {/* Hamburger Icon */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
+          className="hamburger-btn"
           style={{
-            display: 'none', // hidden by default, shown on mobile via CSS
+            display: 'none',
             background: 'none',
             border: 'none',
             color: 'white',
-            fontSize: '28px',
+            fontSize: '30px',
             cursor: 'pointer',
             padding: '4px 8px',
+            lineHeight: 1,
           }}
-          className="hamburger-btn"
         >
-          ☰
+          {menuOpen ? '✕' : '☰'}
         </button>
 
         {/* Navigation Links */}
@@ -85,7 +85,7 @@ const Navbar = ({ isAuthenticated }) => {
               key={link.path}
               to={link.path}
               className="navbar-link"
-              onClick={() => setMenuOpen(false)} // close menu on link click
+              onClick={() => setMenuOpen(false)}
               style={{
                 color: location.pathname === link.path ? '#5DD62C' : 'white',
                 fontSize: '18px',
@@ -124,9 +124,7 @@ const Navbar = ({ isAuthenticated }) => {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
       <style>{`
-        /* Show hamburger on mobile */
         @media (max-width: 768px) {
           .hamburger-btn {
             display: block !important;

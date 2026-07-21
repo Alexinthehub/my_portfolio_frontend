@@ -42,23 +42,25 @@ const Contact = () => {
     setError(null);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setSuccess(null);
-    setError(null);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setSubmitting(true);
+  setSuccess(null);
+  setError(null);
 
-    try {
-      await sendContactMessage(formData);
-      setSuccess('✅ Message sent successfully! I will get back to you soon.');
-      setFormData({ name: '', email: '', message: '' });
-    } catch (err) {
-      setError('❌ Failed to send message. Please try again later.');
-      console.error(err);
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  try {
+    console.log('Sending to:', import.meta.env.VITE_API_URL);
+    const response = await sendContactMessage(formData);
+    console.log('Response:', response);
+    setSuccess('✅ Message sent successfully! I will get back to you soon.');
+    setFormData({ name: '', email: '', message: '' });
+  } catch (err) {
+    console.error('Full error:', err);
+    setError('❌ Failed to send message. Please try again later.');
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   if (pageLoading) {
     return <LoadingSpinner />;
