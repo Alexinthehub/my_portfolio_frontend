@@ -80,7 +80,7 @@ const Contact = () => {
   width: '100%',
   height: '100%',
   zIndex: 0,
-  backgroundImage: `url("https://i.imgur.com/TyN3Do9.jpeg")`,
+  backgroundImage: `url("/images/contact-bg.jpg")`,
   backgroundSize: 'cover',
   backgroundPosition: 'center center',
   backgroundAttachment: 'fixed',
