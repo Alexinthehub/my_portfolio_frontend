@@ -303,12 +303,6 @@ body {
   }
 
   /* Navbar */
-/* ===== NAVBAR LOGO — LARGER ON MOBILE ===== */
-@media (max-width: 768px) {
-  .navbar-logo {
-    font-size: 24px !important;
-  }
-}
   .navbar-link {
     font-size: 14px !important;
   }
@@ -327,6 +321,14 @@ body {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* ===== NAVBAR LOGO — LARGER ON MOBILE ===== */
+@media (max-width: 768px) {
+  .navbar-logo {
+    font-size: 24px !important;
+  }
+}
+
 /* ===== MOBILE PANEL RESIZING ===== */
 
 /* Homepage: Image smaller, bio stacked */
@@ -429,6 +431,7 @@ body {
     padding: 18px !important;
   }
 }
+
 /* ===== MOBILE FIXES FOR PROJECTS, VISION, CONTACT ===== */
 
 @media (max-width: 768px) {
@@ -550,6 +553,7 @@ body {
     font-size: 13px !important;
   }
 }
+
 /* ===== CONTACT PAGE — WIDER PANEL ON MOBILE ===== */
 
 @media (max-width: 768px) {
@@ -575,6 +579,7 @@ body {
     padding: 12px !important;
   }
 }
+
 /* ===== ADMIN LOGIN — Mobile Responsive ===== */
 
 @media (max-width: 768px) {
@@ -656,34 +661,38 @@ body {
     font-size: 14px !important;
   }
 }
-/* ===== VISION PAGE — Full Width & Centered on Mobile ===== */
 
+/* ===== VISION PAGE — FINAL FIX ===== */
+/* This MUST be the last rule in the file */
+
+/* Desktop: Keep it as 1fr 1fr */
+.vision-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+  width: 100%;
+}
+
+/* Mobile: Force single column with !important */
 @media (max-width: 768px) {
-  /* Force the grid to single column */
   .vision-grid {
     grid-template-columns: 1fr !important;
     gap: 16px !important;
-    padding-left: 12px !important;
-    padding-right: 12px !important;
+    padding: 0 12px 40px !important;
     width: 100% !important;
     margin: 0 auto !important;
   }
-
-  /* Make sure cards take full width */
+  
   .vision-card {
     width: 100% !important;
     margin: 0 !important;
+    padding: 14px !important;
     box-sizing: border-box !important;
   }
 
-  /* Ensure the parent container doesn't push content */
-  .vision-grid-container {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    width: 100% !important;
-  }
-
-  /* Reduce section title size on mobile */
   .vision-section-title {
     font-size: 20px !important;
   }
