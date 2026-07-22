@@ -89,20 +89,37 @@ const Home = () => {
         }
 
         /* 🔥 STRONGER GLOW ON MOBILE */
-@media (max-width: 768px) {
-  @keyframes glowOrange {
-    0%, 100% {
-      text-shadow: 0 0 40px rgba(255, 107, 53, 0.8),
-                   0 0 80px rgba(255, 107, 53, 0.4);
-    }
-    50% {
-      text-shadow: 0 0 100px rgba(255, 107, 53, 1.2),
-                   0 0 160px rgba(255, 107, 53, 0.8),
-                   0 0 250px rgba(255, 107, 53, 0.4),
-                   0 0 350px rgba(255, 107, 53, 0.2);
-    }
-  }
-}
+        @media (max-width: 768px) {
+          @keyframes glowOrange {
+            0%, 100% {
+              text-shadow: 0 0 20px rgba(255, 107, 53, 0.5),
+                           0 0 40px rgba(255, 107, 53, 0.2);
+            }
+            50% {
+              text-shadow: 0 0 60px rgba(255, 107, 53, 1.0),
+                           0 0 100px rgba(255, 107, 53, 0.6),
+                           0 0 150px rgba(255, 107, 53, 0.3),
+                           0 0 200px rgba(255, 107, 53, 0.15);
+            }
+          }
+
+          /* Mobile-specific layout tweaks */
+          .hero-grid {
+            grid-template-columns: 1fr !important;
+            text-align: center !important;
+            gap: 30px !important;
+          }
+          .hero-text {
+            text-align: center !important;
+          }
+          .hero-image {
+            max-width: 280px !important;
+            margin: 0 auto !important;
+          }
+          .bio-card {
+            margin: 20px auto 0 !important;
+          }
+        }
 
         /* ===== DESKTOP: Hero Name Animation ===== */
         .glow-name {
@@ -116,64 +133,71 @@ const Home = () => {
         zIndex: 3,
         width: '100%',
         maxWidth: '1400px',
-        padding: '100px 60px 40px',
+        padding: '60px 60px 40px',
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
       }}>
         
         {/* ===== HERO SECTION — Two Columns ===== */}
-<div className="hero-text" style={{
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  textAlign: 'left',
-}}>
-  {/* ✅ "HI THERE" in Chalkduster on all devices */}
-  <p className="fade-slide-up delay-1" style={{
-    color: '#5DD62C',
-    fontSize: 'clamp(18px, 2.5vw, 24px)',
-    fontWeight: '600',
-    letterSpacing: '4px',
-    marginBottom: '4px',
-    fontFamily: "'Chalkduster', 'Chalkboard SE', 'Segoe UI', cursive",
-  }}>
-    HI THERE,
-  </p>
+        <div className="hero-grid" style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '60px',
+          alignItems: 'center',
+          width: '100%',
+          flex: 1,
+        }}>
+          
+          {/* LEFT: Text */}
+          <div className="hero-text" style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            textAlign: 'left',
+          }}>
+            <p className="fade-slide-up delay-1" style={{
+              color: '#5DD62C',
+              fontSize: 'clamp(18px, 2.5vw, 24px)',
+              fontWeight: '600',
+              letterSpacing: '4px',
+              marginBottom: '4px',
+              fontFamily: "'Chalkduster', 'Chalkboard SE', 'Segoe UI', cursive",
+            }}>
+              HI THERE,
+            </p>
 
-  {/* Name (Unchanged) */}
-  <h1 className="hero-title fade-slide-up delay-1" style={{
-    fontSize: 'clamp(36px, 6vw, 56px)',
-    fontWeight: '700',
-    lineHeight: '1.2',
-    margin: 0,
-    fontFamily: "'Lucida Handwriting', 'Apple Chancery', cursive",
-  }}>
-    <span style={{ color: '#FFFFFF' }}>I am </span>
-    <span
-      className="glow-name"
-      style={{
-        color: '#FF6B35',
-      }}
-    >
-      {profile?.name || 'Alex Mwendwa'}
-    </span>
-  </h1>
+            <h1 className="hero-title fade-slide-up delay-1" style={{
+              fontSize: 'clamp(36px, 6vw, 56px)',
+              fontWeight: '700',
+              lineHeight: '1.2',
+              margin: 0,
+              fontFamily: "'Lucida Handwriting', 'Apple Chancery', cursive",
+            }}>
+              <span style={{ color: '#FFFFFF' }}>I am </span>
+              <span
+                className="glow-name"
+                style={{
+                  color: '#FF6B35',
+                }}
+              >
+                {profile?.name || 'Alex Mwendwa'}
+              </span>
+            </h1>
 
-  {/* Title (Unchanged) */}
-  {profile?.title && (
-    <p className="fade-slide-up delay-2" style={{
-      fontSize: 'clamp(16px, 2vw, 22px)',
-      color: '#5DD62C',
-      marginTop: '4px',
-      fontFamily: "'Inter', 'Segoe UI', sans-serif",
-      fontWeight: '500',
-      letterSpacing: '2px',
-    }}>
-      {profile.title}
-    </p>
-  )}
-</div>
+            {profile?.title && (
+              <p className="fade-slide-up delay-2" style={{
+                fontSize: 'clamp(16px, 2vw, 22px)',
+                color: '#5DD62C',
+                marginTop: '4px',
+                fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                fontWeight: '500',
+                letterSpacing: '2px',
+              }}>
+                {profile.title}
+              </p>
+            )}
+          </div>
 
           {/* RIGHT: Personal Photo with Glowing Frame */}
           <div className="hero-image" style={{
@@ -228,7 +252,7 @@ const Home = () => {
         <div className="bio-card" style={{
           maxWidth: '700px',
           width: '100%',
-          margin: '50px auto 0',
+          margin: '20px auto 0',
           display: 'flex',
           justifyContent: 'center',
         }}>
@@ -360,6 +384,7 @@ const Home = () => {
             </div>
           </div>
         </div>
+      </div>
 
       {/* ===== FOOTER ===== */}
       <footer className="footer" style={{
