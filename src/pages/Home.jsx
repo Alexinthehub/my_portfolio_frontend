@@ -139,16 +139,16 @@ const Home = () => {
             justifyContent: 'center',
             textAlign: 'left',
           }}>
-            <p className="fade-slide-up delay-1" style={{
-              color: '#5DD62C',
-              fontSize: 'clamp(18px, 2.5vw, 24px)',
-              fontWeight: '600',
-              letterSpacing: '4px',
-              marginBottom: '4px',
-              fontFamily: "'Chalkduster', 'Chalkboard SE', cursive",
-            }}>
-              HI THERE,
-            </p>
+<p className="fade-slide-up delay-1" style={{
+  color: '#5DD62C',
+  fontSize: 'clamp(18px, 2.5vw, 24px)',
+  fontWeight: '600',
+  letterSpacing: '4px',
+  marginBottom: '4px',
+  fontFamily: "'Trattatello', 'Chalkboard SE', cursive",
+}}>
+  HI THERE,
+</p>
 
             <h1 className="hero-title fade-slide-up delay-1" style={{
               fontSize: 'clamp(36px, 6vw, 56px)',
