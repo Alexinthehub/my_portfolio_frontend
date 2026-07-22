@@ -145,7 +145,7 @@ const Home = () => {
   fontWeight: '600',
   letterSpacing: '4px',
   marginBottom: '4px',
-  fontFamily: "'Trattatello', 'Chalkboard SE', cursive",
+  fontFamily: "'Trattatello', 'Playfair Display', 'Georgia', serif",
 }}>
   HI THERE,
 </p>
