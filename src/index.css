@@ -656,22 +656,31 @@ body {
     font-size: 14px !important;
   }
 }
-/* ===== VISION PAGE — Center Panels on Mobile ===== */
+/* ===== VISION PAGE — Full Width & Centered on Mobile ===== */
 
+/* Desktop: Two columns */
 .vision-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 16px;
+  padding-bottom: 40px;
 }
 
+/* Mobile: Single column, full width */
 @media (max-width: 768px) {
   .vision-grid {
-    padding: 0 8px !important;  /* Reduce side padding to center content */
-    margin: 0 auto !important;
+    grid-template-columns: 1fr !important;   /* Single column */
+    gap: 16px !important;
+    padding: 0 12px !important;
     width: 100% !important;
+    margin: 0 auto !important;
   }
   .vision-card {
-    margin: 0 auto !important;
     width: 100% !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
   }
 }

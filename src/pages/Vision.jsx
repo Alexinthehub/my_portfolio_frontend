@@ -125,14 +125,15 @@ const Vision = () => {
           </div>
 
           {/* ===== TWO COLUMN LAYOUT ===== */}
-          <div className="vision-grid" style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '32px',
-            maxWidth: '1400px',
-            margin: '0 auto',
-            paddingBottom: '40px',
-          }}>
+<div className="vision-grid" style={{
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gap: '32px',
+  maxWidth: '1400px',
+  margin: '0 auto',
+  width: '100%',
+  paddingBottom: '40px',
+}}>
             
             {/* ===== LEFT: Current Projects ===== */}
             <div style={{
