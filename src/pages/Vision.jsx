@@ -87,8 +87,7 @@ const Vision = () => {
         <Sparkles />
       </div>
 
-      {/* ===== CONTENT ===== */}
-      {/* ✅ FIXED: Centered with Flexbox on all screens */}
+      {/* ===== CONTENT — FLEXIBLE, CENTERED, PROPER ORDER ===== */}
       <div style={{
         position: 'relative',
         zIndex: 3,
@@ -102,14 +101,17 @@ const Vision = () => {
       }}>
         
         <div style={{
-          flex: 1,
           width: '100%',
-          maxWidth: '1400px',
+          maxWidth: '1000px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '32px',
         }}>
+          
           {/* Page Header */}
           <div style={{
             textAlign: 'center',
-            paddingBottom: '40px',
+            paddingBottom: '20px',
           }}>
             <h1 className="vision-title" style={{
               fontSize: '48px',
@@ -128,377 +130,367 @@ const Vision = () => {
             </p>
           </div>
 
-          {/* ===== TWO COLUMN LAYOUT — Centered with Flexbox ===== */}
+          {/* ===== SECTION 1: CURRENT PROJECTS ===== */}
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '32px',
-            width: '100%',
-            margin: '0 auto',
+            backgroundColor: 'rgba(93, 214, 44, 0.06)',
+            borderRadius: '20px',
+            padding: '24px',
+            border: '1px solid rgba(93, 214, 44, 0.15)',
           }}>
-            
-            {/* ===== LEFT: Current Projects ===== */}
-            <div style={{
-              backgroundColor: 'rgba(93, 214, 44, 0.06)',
-              borderRadius: '20px',
-              padding: '24px',
-              border: '1px solid rgba(93, 214, 44, 0.15)',
+            <h2 className="vision-section-title" style={{
+              fontSize: '24px',
+              fontWeight: '600',
+              color: 'white',
+              marginBottom: '20px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              fontFamily: "'Inter', 'Segoe UI', sans-serif",
+              whiteSpace: 'nowrap',
             }}>
-              <h2 className="vision-section-title" style={{
-                fontSize: '24px',
-                fontWeight: '600',
-                color: 'white',
-                marginBottom: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                fontFamily: "'Inter', 'Segoe UI', sans-serif",
+              🚀 Current Projects
+            </h2>
+
+            {currentProjects.length === 0 ? (
+              <div style={{
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                borderRadius: '16px',
+                padding: '40px',
+                textAlign: 'center',
+                border: '1px solid rgba(255,255,255,0.05)',
               }}>
-                🚀 Current Projects
-              </h2>
-
-              {currentProjects.length === 0 ? (
-                <div style={{
-                  backgroundColor: 'rgba(255,255,255,0.05)',
-                  borderRadius: '16px',
-                  padding: '40px',
-                  textAlign: 'center',
-                  border: '1px solid rgba(255,255,255,0.05)',
-                }}>
-                  <p style={{ color: '#6B7280' }}>No current projects yet. Check back soon!</p>
-                </div>
-              ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  {currentProjects.map((project) => (
-                    <div
-                      key={project._id}
-                      className="vision-card"
-                      style={{
-                        backgroundColor: 'rgba(255,255,255,0.06)',
-                        backdropFilter: 'blur(8px)',
-                        borderRadius: '16px',
-                        padding: '20px 24px',
-                        border: '1px solid rgba(255,255,255,0.06)',
-                        transition: 'all 0.3s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(93,214,44,0.3)';
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
-                      }}
-                    >
-                      <div className="vision-card-row" style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'flex-start',
-                        gap: '16px',
-                      }}>
-                        <div style={{ flex: 1 }}>
-                          <h3 style={{
-                            fontSize: '18px',
-                            fontWeight: '600',
-                            color: 'white',
-                            marginBottom: '4px',
-                            fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                          }}>
-                            {project.title}
-                          </h3>
-                          <p style={{
-                            fontSize: '14px',
-                            color: '#9CA3AF',
-                            marginBottom: '8px',
-                            fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                          }}>
-                            {project.description}
-                          </p>
-                          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
-                            <span className="status-badge" style={{
-                              fontSize: '12px',
-                              fontWeight: '500',
-                              color: project.status === 'Completed' ? '#5DD62C' :
-                                     project.status === 'Beta' ? '#FBBF24' :
-                                     project.status === 'Planning' ? '#60A5FA' : '#F472B6',
-                              backgroundColor: 'rgba(255,255,255,0.06)',
-                              padding: '4px 12px',
-                              borderRadius: '9999px',
-                              border: '1px solid rgba(255,255,255,0.06)',
-                            }}>
-                              {project.status}
-                            </span>
-                            {project.repoUrl && project.status !== 'Completed' && (
-                              <a
-                                href={project.repoUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                  fontSize: '12px',
-                                  color: '#5DD62C',
-                                  textDecoration: 'none',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  gap: '4px',
-                                  transition: 'color 0.3s ease',
-                                }}
-                                onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
-                                onMouseLeave={(e) => e.currentTarget.style.color = '#5DD62C'}
-                              >
-                                🔍 View Details
-                              </a>
-                            )}
-                          </div>
-                        </div>
-
-                        <div style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          alignItems: 'center',
-                          flexShrink: 0,
-                          marginTop: '4px',
+                <p style={{ color: '#6B7280' }}>No current projects yet. Check back soon!</p>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {currentProjects.map((project) => (
+                  <div
+                    key={project._id}
+                    className="vision-card"
+                    style={{
+                      backgroundColor: 'rgba(255,255,255,0.06)',
+                      backdropFilter: 'blur(8px)',
+                      borderRadius: '16px',
+                      padding: '20px 24px',
+                      border: '1px solid rgba(255,255,255,0.06)',
+                      transition: 'all 0.3s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(93,214,44,0.3)';
+                      e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                      e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
+                    }}
+                  >
+                    <div className="vision-card-row" style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      gap: '16px',
+                    }}>
+                      <div style={{ flex: 1 }}>
+                        <h3 style={{
+                          fontSize: '18px',
+                          fontWeight: '600',
+                          color: 'white',
+                          marginBottom: '4px',
+                          fontFamily: "'Inter', 'Segoe UI', sans-serif",
                         }}>
-                          <div style={{ position: 'relative', display: 'inline-block' }}>
-                            <button
-                              onClick={() => handleStar(project._id)}
-                              disabled={starring === project._id}
+                          {project.title}
+                        </h3>
+                        <p style={{
+                          fontSize: '14px',
+                          color: '#9CA3AF',
+                          marginBottom: '8px',
+                          fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                        }}>
+                          {project.description}
+                        </p>
+                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+                          <span className="status-badge" style={{
+                            fontSize: '12px',
+                            fontWeight: '500',
+                            color: project.status === 'Completed' ? '#5DD62C' :
+                                   project.status === 'Beta' ? '#FBBF24' :
+                                   project.status === 'Planning' ? '#60A5FA' : '#F472B6',
+                            backgroundColor: 'rgba(255,255,255,0.06)',
+                            padding: '4px 12px',
+                            borderRadius: '9999px',
+                            border: '1px solid rgba(255,255,255,0.06)',
+                          }}>
+                            {project.status}
+                          </span>
+                          {project.repoUrl && project.status !== 'Completed' && (
+                            <a
+                              href={project.repoUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
                               style={{
-                                background: 'none',
-                                border: 'none',
-                                fontSize: '22px',
-                                cursor: starring === project._id ? 'not-allowed' : 'pointer',
-                                opacity: starring === project._id ? 0.5 : 1,
-                                transition: 'transform 0.2s ease',
-                                display: 'flex',
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                gap: '6px',
-                                color: '#FFFFFF',
-                                padding: '4px 8px',
-                                borderRadius: '8px',
-                              }}
-                              onMouseEnter={(e) => {
-                                if (!starring) {
-                                  e.currentTarget.style.transform = 'scale(1.1)';
-                                  const tooltip = e.currentTarget.parentElement.querySelector('.tooltip-text');
-                                  if (tooltip) {
-                                    tooltip.style.visibility = 'visible';
-                                    tooltip.style.opacity = '1';
-                                  }
-                                }
-                              }}
-                              onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = 'scale(1)';
-                                const tooltip = e.currentTarget.parentElement.querySelector('.tooltip-text');
-                                if (tooltip) {
-                                  tooltip.style.visibility = 'hidden';
-                                  tooltip.style.opacity = '0';
-                                }
-                              }}
-                            >
-                              <span style={{ fontSize: '20px' }}>⭐</span>
-                              <span style={{ fontSize: '16px', fontWeight: '600' }}>{project.starCount || 0}</span>
-                            </button>
-                            <span
-                              className="tooltip-text"
-                              style={{
-                                visibility: 'hidden',
-                                opacity: 0,
-                                width: '140px',
-                                backgroundColor: 'rgba(15,15,15,0.95)',
-                                color: '#D1D5DB',
-                                textAlign: 'center',
-                                borderRadius: '8px',
-                                padding: '6px 12px',
-                                position: 'absolute',
-                                zIndex: 10,
-                                bottom: '115%',
-                                left: '50%',
-                                transform: 'translateX(-50%)',
-                                transition: 'opacity 0.3s ease',
                                 fontSize: '12px',
-                                fontFamily: "'Inter', sans-serif",
-                                border: '1px solid rgba(93,214,44,0.15)',
-                                whiteSpace: 'nowrap',
+                                color: '#5DD62C',
+                                textDecoration: 'none',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                                transition: 'color 0.3s ease',
                               }}
+                              onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
+                              onMouseLeave={(e) => e.currentTarget.style.color = '#5DD62C'}
                             >
-                              Leave a ⭐ to support!
-                            </span>
-                          </div>
+                              🔍 View Details
+                            </a>
+                          )}
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
 
-            {/* ===== RIGHT: Certificates ===== */}
-            <div style={{
-              backgroundColor: 'rgba(255, 215, 0, 0.06)',
-              borderRadius: '20px',
-              padding: '24px',
-              border: '1px solid rgba(255, 215, 0, 0.15)',
-            }}>
-              <h2 className="vision-section-title" style={{
-                fontSize: '24px',
-                fontWeight: '600',
-                color: 'white',
-                marginBottom: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                fontFamily: "'Inter', 'Segoe UI', sans-serif",
-              }}>
-                🏆 Certificates
-              </h2>
-
-              {certificates.length === 0 ? (
-                <div style={{
-                  backgroundColor: 'rgba(255,255,255,0.05)',
-                  borderRadius: '16px',
-                  padding: '40px',
-                  textAlign: 'center',
-                  border: '1px solid rgba(255,255,255,0.05)',
-                }}>
-                  <p style={{ color: '#6B7280' }}>No certificates yet. Check back soon!</p>
-                </div>
-              ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  {certificates.map((cert) => (
-                    <div
-                      key={cert._id}
-                      className="vision-card"
-                      style={{
-                        backgroundColor: 'rgba(255,255,255,0.06)',
-                        backdropFilter: 'blur(8px)',
-                        borderRadius: '16px',
-                        padding: '20px 24px',
-                        border: '1px solid rgba(255,255,255,0.06)',
-                        transition: 'all 0.3s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
-                      }}
-                    >
-                      <div className="vision-card-row" style={{
+                      <div style={{
                         display: 'flex',
+                        flexDirection: 'column',
                         alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: '16px',
+                        flexShrink: 0,
+                        marginTop: '4px',
                       }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, minWidth: 0 }}>
-                          {cert.imageUrl ? (
-                            <img
-                              src={cert.imageUrl}
-                              alt={cert.title}
-                              style={{
-                                width: '56px',
-                                height: '56px',
-                                objectFit: 'cover',
-                                borderRadius: '8px',
-                                border: '1px solid rgba(255,255,255,0.06)',
-                                flexShrink: 0,
-                              }}
-                            />
-                          ) : (
-                            <div style={{
-                              width: '56px',
-                              height: '56px',
-                              backgroundColor: 'rgba(93,214,44,0.1)',
-                              borderRadius: '8px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              fontSize: '24px',
-                              flexShrink: 0,
-                            }}>
-                              🎓
-                            </div>
-                          )}
-                          <div style={{ minWidth: 0 }}>
-                            <h3 style={{
-                              fontSize: '16px',
-                              fontWeight: '600',
-                              color: 'white',
-                              fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                              whiteSpace: 'nowrap',
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                            }}>
-                              {cert.title}
-                            </h3>
-                            <p style={{
-                              fontSize: '13px',
-                              color: '#9CA3AF',
-                              fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                            }}>
-                              {cert.issuer} • {new Date(cert.date).toLocaleDateString()}
-                            </p>
-                            <span style={{
-                              fontSize: '11px',
-                              color: '#6B7280',
-                              backgroundColor: 'rgba(255,255,255,0.04)',
-                              padding: '2px 10px',
-                              borderRadius: '9999px',
-                            }}>
-                              {cert.category}
-                            </span>
-                          </div>
-                        </div>
-
-                        {cert.verifyUrl && (
-                          <a
-                            href={cert.verifyUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="verify-btn"
+                        <div style={{ position: 'relative', display: 'inline-block' }}>
+                          <button
+                            onClick={() => handleStar(project._id)}
+                            disabled={starring === project._id}
                             style={{
-                              fontSize: '13px',
-                              color: '#FFD700',
-                              textDecoration: 'none',
-                              padding: '6px 16px',
-                              border: '1px solid rgba(255,215,0,0.3)',
+                              background: 'none',
+                              border: 'none',
+                              fontSize: '22px',
+                              cursor: starring === project._id ? 'not-allowed' : 'pointer',
+                              opacity: starring === project._id ? 0.5 : 1,
+                              transition: 'transform 0.2s ease',
+                              display: 'flex',
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                              gap: '6px',
+                              color: '#FFFFFF',
+                              padding: '4px 8px',
                               borderRadius: '8px',
-                              transition: 'all 0.3s ease',
-                              whiteSpace: 'nowrap',
-                              flexShrink: 0,
                             }}
                             onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = 'rgba(255,215,0,0.15)';
-                              e.currentTarget.style.borderColor = '#FFD700';
+                              if (!starring) {
+                                e.currentTarget.style.transform = 'scale(1.1)';
+                                const tooltip = e.currentTarget.parentElement.querySelector('.tooltip-text');
+                                if (tooltip) {
+                                  tooltip.style.visibility = 'visible';
+                                  tooltip.style.opacity = '1';
+                                }
+                              }
                             }}
                             onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = 'transparent';
-                              e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
+                              e.currentTarget.style.transform = 'scale(1)';
+                              const tooltip = e.currentTarget.parentElement.querySelector('.tooltip-text');
+                              if (tooltip) {
+                                tooltip.style.visibility = 'hidden';
+                                tooltip.style.opacity = '0';
+                              }
                             }}
                           >
-                            🔍 Verify
-                          </a>
-                        )}
+                            <span style={{ fontSize: '20px' }}>⭐</span>
+                            <span style={{ fontSize: '16px', fontWeight: '600' }}>{project.starCount || 0}</span>
+                          </button>
+                          <span
+                            className="tooltip-text"
+                            style={{
+                              visibility: 'hidden',
+                              opacity: 0,
+                              width: '140px',
+                              backgroundColor: 'rgba(15,15,15,0.95)',
+                              color: '#D1D5DB',
+                              textAlign: 'center',
+                              borderRadius: '8px',
+                              padding: '6px 12px',
+                              position: 'absolute',
+                              zIndex: 10,
+                              bottom: '115%',
+                              left: '50%',
+                              transform: 'translateX(-50%)',
+                              transition: 'opacity 0.3s ease',
+                              fontSize: '12px',
+                              fontFamily: "'Inter', sans-serif",
+                              border: '1px solid rgba(93,214,44,0.15)',
+                              whiteSpace: 'nowrap',
+                            }}
+                          >
+                            Leave a ⭐ to support!
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  ))}
-                </div>
-              )}
-            </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* ===== SECTION 2: CERTIFICATES ===== */}
+          <div style={{
+            backgroundColor: 'rgba(255, 215, 0, 0.06)',
+            borderRadius: '20px',
+            padding: '24px',
+            border: '1px solid rgba(255, 215, 0, 0.15)',
+          }}>
+            <h2 className="vision-section-title" style={{
+              fontSize: '24px',
+              fontWeight: '600',
+              color: 'white',
+              marginBottom: '20px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              fontFamily: "'Inter', 'Segoe UI', sans-serif",
+            }}>
+              🏆 Certificates
+            </h2>
+
+            {certificates.length === 0 ? (
+              <div style={{
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                borderRadius: '16px',
+                padding: '40px',
+                textAlign: 'center',
+                border: '1px solid rgba(255,255,255,0.05)',
+              }}>
+                <p style={{ color: '#6B7280' }}>No certificates yet. Check back soon!</p>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {certificates.map((cert) => (
+                  <div
+                    key={cert._id}
+                    className="vision-card"
+                    style={{
+                      backgroundColor: 'rgba(255,255,255,0.06)',
+                      backdropFilter: 'blur(8px)',
+                      borderRadius: '16px',
+                      padding: '20px 24px',
+                      border: '1px solid rgba(255,255,255,0.06)',
+                      transition: 'all 0.3s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
+                      e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                      e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
+                    }}
+                  >
+                    <div className="vision-card-row" style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '16px',
+                    }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, minWidth: 0 }}>
+                        {cert.imageUrl ? (
+                          <img
+                            src={cert.imageUrl}
+                            alt={cert.title}
+                            style={{
+                              width: '56px',
+                              height: '56px',
+                              objectFit: 'cover',
+                              borderRadius: '8px',
+                              border: '1px solid rgba(255,255,255,0.06)',
+                              flexShrink: 0,
+                            }}
+                          />
+                        ) : (
+                          <div style={{
+                            width: '56px',
+                            height: '56px',
+                            backgroundColor: 'rgba(93,214,44,0.1)',
+                            borderRadius: '8px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '24px',
+                            flexShrink: 0,
+                          }}>
+                            🎓
+                          </div>
+                        )}
+                        <div style={{ minWidth: 0 }}>
+                          <h3 style={{
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            color: 'white',
+                            fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          }}>
+                            {cert.title}
+                          </h3>
+                          <p style={{
+                            fontSize: '13px',
+                            color: '#9CA3AF',
+                            fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                          }}>
+                            {cert.issuer} • {new Date(cert.date).toLocaleDateString()}
+                          </p>
+                          <span style={{
+                            fontSize: '11px',
+                            color: '#6B7280',
+                            backgroundColor: 'rgba(255,255,255,0.04)',
+                            padding: '2px 10px',
+                            borderRadius: '9999px',
+                          }}>
+                            {cert.category}
+                          </span>
+                        </div>
+                      </div>
+
+                      {cert.verifyUrl && (
+                        <a
+                          href={cert.verifyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="verify-btn"
+                          style={{
+                            fontSize: '13px',
+                            color: '#FFD700',
+                            textDecoration: 'none',
+                            padding: '6px 16px',
+                            border: '1px solid rgba(255,215,0,0.3)',
+                            borderRadius: '8px',
+                            transition: 'all 0.3s ease',
+                            whiteSpace: 'nowrap',
+                            flexShrink: 0,
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = 'rgba(255,215,0,0.15)';
+                            e.currentTarget.style.borderColor = '#FFD700';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                            e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
+                          }}
+                        >
+                          🔍 Verify
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
         {/* ===== FOOTER ===== */}
         <footer className="footer" style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
+          maxWidth: '1000px',
+          margin: '40px auto 0',
           textAlign: 'center',
           borderTop: '1px solid rgba(255,255,255,0.05)',
           padding: '24px 0',
           width: '100%',
-          marginTop: 'auto',
         }}>
           <p className="footer-text" style={{ color: '#6B7280', fontSize: '14px' }}>
             © {new Date().getFullYear()} Alex Mwendwa. Built with ❤️
