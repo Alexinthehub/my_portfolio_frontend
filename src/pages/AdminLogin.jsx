@@ -53,22 +53,22 @@ const AdminLogin = ({ setIsAuthenticated }) => {
       overflow: 'hidden',
     }}>
       
-      {/* 🖼️ FULL PAGE BACKGROUND IMAGE */}
-<div style={{
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-  zIndex: 0,
-  backgroundImage: `url("/images/admin-login-bg.jpg")`,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center center',
-  backgroundAttachment: 'fixed',
-  backgroundRepeat: 'no-repeat',
-}} />
+      {/* Background Image */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 0,
+        backgroundImage: `url("/images/admin-login-bg.jpg")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
+      }} />
 
-      {/* 🌑 DARK OVERLAY */}
+      {/* Dark Overlay */}
       <div style={{
         position: 'fixed',
         top: 0,
@@ -76,15 +76,15 @@ const AdminLogin = ({ setIsAuthenticated }) => {
         width: '100%',
         height: '100%',
         zIndex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
       }} />
 
-      {/* ✨ Sparkles */}
+      {/* Sparkles */}
       <div style={{ position: 'relative', zIndex: 2, width: '100%', height: '100%' }}>
         <Sparkles />
       </div>
 
-      {/* ===== CONTENT ===== */}
+      {/* Content */}
       <div style={{
         position: 'relative',
         zIndex: 3,
@@ -97,7 +97,7 @@ const AdminLogin = ({ setIsAuthenticated }) => {
         boxSizing: 'border-box',
       }}>
         
-        <div style={{
+        <div className="admin-login-card" style={{
           maxWidth: '420px',
           width: '100%',
           backgroundColor: 'rgba(255,255,255,0.08)',

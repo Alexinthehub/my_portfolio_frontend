@@ -320,19 +320,19 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     }}>
       
       {/* 🖼️ FULL PAGE BACKGROUND IMAGE */}
-<div style={{
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-  zIndex: 0,
-  backgroundImage: `url("/images/admin-dashboard-bg.jpg")`,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center center',
-  backgroundAttachment: 'fixed',
-  backgroundRepeat: 'no-repeat',
-}} />
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 0,
+        backgroundImage: `url("/images/admin-dashboard-bg.jpg")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
+      }} />
 
       {/* 🌑 DARK OVERLAY */}
       <div style={{
@@ -342,7 +342,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
         width: '100%',
         height: '100%',
         zIndex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
       }} />
 
       {/* ✨ Sparkles */}
@@ -351,10 +351,10 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
       </div>
 
       {/* ===== CONTENT ===== */}
-      <div style={{
+      <div className="admin-dashboard" style={{
         position: 'relative',
         zIndex: 3,
-        padding: '40px 80px 0',
+        padding: '40px 60px 0',
         width: '100%',
         minHeight: '100vh',
         display: 'flex',
@@ -362,15 +362,16 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
       }}>
         
         <div style={{ flex: 1 }}>
-          {/* Header */}
-          <div style={{
+          {/* ===== HEADER ===== */}
+          <div className="admin-dashboard-header" style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             marginBottom: '32px',
             maxWidth: '1400px',
             marginLeft: 'auto',
-            marginRight: 'auto'
+            marginRight: 'auto',
+            width: '100%',
           }}>
             <h1 style={{ fontSize: '32px', fontWeight: '700', color: 'white' }}>
               Admin Dashboard
@@ -386,7 +387,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                 cursor: 'pointer',
                 fontSize: '16px',
                 fontWeight: '500',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.3)';
@@ -404,7 +405,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
           {/* ============================================================ */}
           {/* ✏️ EDIT PROFILE */}
           {/* ============================================================ */}
-          <div style={{
+          <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
             backdropFilter: 'blur(12px)',
             borderRadius: '20px',
@@ -414,15 +415,16 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
             marginBottom: '32px',
             maxWidth: '1400px',
             marginLeft: 'auto',
-            marginRight: 'auto'
+            marginRight: 'auto',
+            width: '100%',
           }}>
             <h2 style={{ fontSize: '22px', fontWeight: '600', color: 'white', marginBottom: '16px' }}>
               ✏️ Edit Profile & Personal Info
             </h2>
-            <form onSubmit={handleProfileUpdate} style={{
+            <form className="admin-form" style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
-              gap: '16px'
+              gap: '16px',
             }}>
               <input
                 type="text"
@@ -557,7 +559,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                   fontSize: '16px',
                   cursor: formLoading ? 'not-allowed' : 'pointer',
                   transition: 'all 0.3s ease',
-                  opacity: formLoading ? 0.7 : 1
+                  opacity: formLoading ? 0.7 : 1,
                 }}
                 onMouseEnter={(e) => {
                   if (!formLoading) {
@@ -578,7 +580,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
           {/* ============================================================ */}
           {/* 📦 ADD PROJECT */}
           {/* ============================================================ */}
-          <div style={{
+          <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
             backdropFilter: 'blur(12px)',
             borderRadius: '20px',
@@ -588,15 +590,16 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
             marginBottom: '32px',
             maxWidth: '1400px',
             marginLeft: 'auto',
-            marginRight: 'auto'
+            marginRight: 'auto',
+            width: '100%',
           }}>
             <h2 style={{ fontSize: '22px', fontWeight: '600', color: 'white', marginBottom: '16px' }}>
               📦 Add New Project
             </h2>
-            <form onSubmit={handleAddProject} style={{
+            <form className="admin-form" onSubmit={handleAddProject} style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
-              gap: '16px'
+              gap: '16px',
             }}>
               <input
                 type="text"
@@ -657,7 +660,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                   fontSize: '16px',
                   cursor: formLoading ? 'not-allowed' : 'pointer',
                   transition: 'all 0.3s ease',
-                  opacity: formLoading ? 0.7 : 1
+                  opacity: formLoading ? 0.7 : 1,
                 }}
                 onMouseEnter={(e) => {
                   if (!formLoading) {
@@ -678,7 +681,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
           {/* ============================================================ */}
           {/* 📂 MANAGE PROJECTS */}
           {/* ============================================================ */}
-          <div style={{
+          <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
             backdropFilter: 'blur(12px)',
             borderRadius: '20px',
@@ -688,7 +691,8 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
             marginBottom: '32px',
             maxWidth: '1400px',
             marginLeft: 'auto',
-            marginRight: 'auto'
+            marginRight: 'auto',
+            width: '100%',
           }}>
             <h2 style={{ fontSize: '22px', fontWeight: '600', color: 'white', marginBottom: '16px' }}>
               📂 Manage Projects ({projects.length})
@@ -696,11 +700,12 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-              gap: '12px'
+              gap: '12px',
             }}>
               {projects.map((p) => (
                 <div
                   key={p._id}
+                  className="admin-messages-item"
                   style={{
                     backgroundColor: 'rgba(255,255,255,0.06)',
                     borderRadius: '12px',
@@ -708,7 +713,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    border: '1px solid rgba(255,255,255,0.05)'
+                    border: '1px solid rgba(255,255,255,0.05)',
                   }}
                 >
                   <div>
@@ -727,7 +732,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                       borderRadius: '8px',
                       cursor: 'pointer',
                       fontSize: '13px',
-                      transition: 'all 0.3s ease'
+                      transition: 'all 0.3s ease',
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.4)';
@@ -746,7 +751,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
           {/* ============================================================ */}
           {/* ✉️ CONTACT MESSAGES */}
           {/* ============================================================ */}
-          <div style={{
+          <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
             backdropFilter: 'blur(12px)',
             borderRadius: '20px',
@@ -756,7 +761,8 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
             marginBottom: '32px',
             maxWidth: '1400px',
             marginLeft: 'auto',
-            marginRight: 'auto'
+            marginRight: 'auto',
+            width: '100%',
           }}>
             <h2 style={{ fontSize: '22px', fontWeight: '600', color: 'white', marginBottom: '16px' }}>
               ✉️ Contact Messages ({messages.length})
@@ -770,6 +776,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                 {messages.map((m) => (
                   <div
                     key={m._id}
+                    className="admin-messages-item"
                     style={{
                       backgroundColor: 'rgba(255,255,255,0.05)',
                       borderRadius: '12px',
@@ -778,7 +785,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'flex-start',
-                      gap: '16px'
+                      gap: '16px',
                     }}
                   >
                     <div style={{ flex: 1 }}>
@@ -803,7 +810,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                         cursor: 'pointer',
                         fontSize: '13px',
                         flexShrink: 0,
-                        transition: 'all 0.3s ease'
+                        transition: 'all 0.3s ease',
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.4)';
@@ -823,7 +830,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
           {/* ============================================================ */}
           {/* 🚀 CURRENT PROJECTS (Vision) */}
           {/* ============================================================ */}
-          <div style={{
+          <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
             backdropFilter: 'blur(12px)',
             borderRadius: '20px',
@@ -833,17 +840,18 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
             marginBottom: '32px',
             maxWidth: '1400px',
             marginLeft: 'auto',
-            marginRight: 'auto'
+            marginRight: 'auto',
+            width: '100%',
           }}>
             <h2 style={{ fontSize: '22px', fontWeight: '600', color: 'white', marginBottom: '16px' }}>
               🚀 Current Projects
             </h2>
 
-            <form onSubmit={handleAddCurrentProject} style={{
+            <form className="admin-form" onSubmit={handleAddCurrentProject} style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
               gap: '16px',
-              marginBottom: '24px'
+              marginBottom: '24px',
             }}>
               <input
                 type="text"
@@ -892,7 +900,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                   fontSize: '15px',
                   cursor: formLoading ? 'not-allowed' : 'pointer',
                   transition: 'all 0.3s ease',
-                  opacity: formLoading ? 0.7 : 1
+                  opacity: formLoading ? 0.7 : 1,
                 }}
                 onMouseEnter={(e) => {
                   if (!formLoading) {
@@ -912,7 +920,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-              gap: '12px'
+              gap: '12px',
             }}>
               {currentProjects.length === 0 ? (
                 <p style={{ color: 'rgba(255,255,255,0.5)', textAlign: 'center', padding: '20px 0', gridColumn: '1 / -1' }}>
@@ -922,6 +930,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                 currentProjects.map((p) => (
                   <div
                     key={p._id}
+                    className="admin-messages-item"
                     style={{
                       backgroundColor: 'rgba(255,255,255,0.06)',
                       borderRadius: '12px',
@@ -929,7 +938,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                      border: '1px solid rgba(255,255,255,0.05)'
+                      border: '1px solid rgba(255,255,255,0.05)',
                     }}
                   >
                     <div>
@@ -947,7 +956,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                             color: '#5DD62C',
                             textDecoration: 'none',
                             display: 'inline-block',
-                            marginTop: '4px'
+                            marginTop: '4px',
                           }}
                           onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
                           onMouseLeave={(e) => e.currentTarget.style.color = '#5DD62C'}
@@ -966,7 +975,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                         borderRadius: '8px',
                         cursor: 'pointer',
                         fontSize: '13px',
-                        transition: 'all 0.3s ease'
+                        transition: 'all 0.3s ease',
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.4)';
@@ -986,7 +995,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
           {/* ============================================================ */}
           {/* 🏆 CERTIFICATES (Vision) */}
           {/* ============================================================ */}
-          <div style={{
+          <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
             backdropFilter: 'blur(12px)',
             borderRadius: '20px',
@@ -996,17 +1005,18 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
             marginBottom: '32px',
             maxWidth: '1400px',
             marginLeft: 'auto',
-            marginRight: 'auto'
+            marginRight: 'auto',
+            width: '100%',
           }}>
             <h2 style={{ fontSize: '22px', fontWeight: '600', color: 'white', marginBottom: '16px' }}>
               🏆 Certificates
             </h2>
 
-            <form onSubmit={handleAddCertificate} style={{
+            <form className="admin-form" onSubmit={handleAddCertificate} style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
               gap: '16px',
-              marginBottom: '24px'
+              marginBottom: '24px',
             }}>
               <input
                 type="text"
@@ -1070,7 +1080,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                   fontSize: '15px',
                   cursor: formLoading ? 'not-allowed' : 'pointer',
                   transition: 'all 0.3s ease',
-                  opacity: formLoading ? 0.7 : 1
+                  opacity: formLoading ? 0.7 : 1,
                 }}
                 onMouseEnter={(e) => {
                   if (!formLoading) {
@@ -1090,7 +1100,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-              gap: '12px'
+              gap: '12px',
             }}>
               {certificates.length === 0 ? (
                 <p style={{ color: 'rgba(255,255,255,0.5)', textAlign: 'center', padding: '20px 0', gridColumn: '1 / -1' }}>
@@ -1100,6 +1110,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                 certificates.map((c) => (
                   <div
                     key={c._id}
+                    className="admin-messages-item"
                     style={{
                       backgroundColor: 'rgba(255,255,255,0.06)',
                       borderRadius: '12px',
@@ -1107,7 +1118,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                      border: '1px solid rgba(255,255,255,0.05)'
+                      border: '1px solid rgba(255,255,255,0.05)',
                     }}
                   >
                     <div>
@@ -1125,7 +1136,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                             color: '#5DD62C',
                             textDecoration: 'none',
                             display: 'inline-block',
-                            marginTop: '4px'
+                            marginTop: '4px',
                           }}
                           onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
                           onMouseLeave={(e) => e.currentTarget.style.color = '#5DD62C'}
@@ -1144,7 +1155,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                         borderRadius: '8px',
                         cursor: 'pointer',
                         fontSize: '13px',
-                        transition: 'all 0.3s ease'
+                        transition: 'all 0.3s ease',
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.4)';
@@ -1161,7 +1172,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
             </div>
           </div>
 
-          {/* Footer */}
+          {/* ===== FOOTER ===== */}
           <footer style={{
             maxWidth: '1400px',
             margin: '0 auto',
@@ -1169,7 +1180,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
             borderTop: '1px solid rgba(255,255,255,0.05)',
             padding: '24px 0',
             width: '100%',
-            marginTop: 'auto'
+            marginTop: 'auto',
           }}>
             <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '14px' }}>
               © {new Date().getFullYear()} Alex Mwendwa. Built with ❤️
