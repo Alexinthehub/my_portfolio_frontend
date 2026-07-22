@@ -88,22 +88,26 @@ const Vision = () => {
       </div>
 
       {/* ===== CONTENT ===== */}
+      {/* ✅ FIXED: Centered with Flexbox on all screens */}
       <div style={{
         position: 'relative',
         zIndex: 3,
         minHeight: '100vh',
-        padding: '40px 60px 0',
         width: '100%',
-        boxSizing: 'border-box',
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
+        padding: '40px 20px 0',
+        boxSizing: 'border-box',
       }}>
         
-        <div style={{ flex: 1 }}>
+        <div style={{
+          flex: 1,
+          width: '100%',
+          maxWidth: '1400px',
+        }}>
           {/* Page Header */}
           <div style={{
-            maxWidth: '1400px',
-            margin: '0 auto',
             textAlign: 'center',
             paddingBottom: '40px',
           }}>
@@ -124,16 +128,13 @@ const Vision = () => {
             </p>
           </div>
 
-          {/* ===== TWO COLUMN LAYOUT ===== */}
-          <div className="vision-grid" style={{
+          {/* ===== TWO COLUMN LAYOUT — Centered with Flexbox ===== */}
+          <div style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gap: '32px',
-            maxWidth: '1400px',
-            margin: '0 auto',
-            padding: '0 16px 40px',
             width: '100%',
-            boxSizing: 'border-box',
+            margin: '0 auto',
           }}>
             
             {/* ===== LEFT: Current Projects ===== */}
@@ -189,7 +190,6 @@ const Vision = () => {
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
                       }}
                     >
-                      {/* Row: Project Info + Star Button */}
                       <div className="vision-card-row" style={{
                         display: 'flex',
                         justifyContent: 'space-between',
@@ -251,7 +251,6 @@ const Vision = () => {
                           </div>
                         </div>
 
-                        {/* Star Button */}
                         <div style={{
                           display: 'flex',
                           flexDirection: 'column',
@@ -387,7 +386,6 @@ const Vision = () => {
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
                       }}
                     >
-                      {/* Certificate Row */}
                       <div className="vision-card-row" style={{
                         display: 'flex',
                         alignItems: 'center',
@@ -454,7 +452,6 @@ const Vision = () => {
                           </div>
                         </div>
 
-                        {/* Verify Button — With class for mobile targeting */}
                         {cert.verifyUrl && (
                           <a
                             href={cert.verifyUrl}
