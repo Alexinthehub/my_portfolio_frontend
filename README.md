@@ -1,69 +1,8 @@
-# 🚀 Alex Mwendwa — Full-Stack Portfolio
+# 🚀 Alex Mwendwa — Full-Stack Developer Portfolio
 
-Welcome to my personal portfolio website! This is more than just a static page — it's a **full-stack, interactive web application** that I built from scratch to showcase my work, share my journey, and connect with the world.
+A modern, fully responsive personal portfolio website built with React, Node.js, Express, and MongoDB. It features a dynamic admin dashboard, project management, contact form with email notifications, and a "Vision" page with star voting for current projects.
 
----
-
-## 📖 What Is This?
-
-Think of this as my **digital home on the internet**. It's a place where you can:
-
-- Learn who I am and what I do
-- See the projects I've built
-- Follow what I'm currently working on
-- View my certificates and achievements
-- Send me a message directly
-- (If you're me) Manage all the content easily through a private admin dashboard
-
-Whether you're a recruiter, a fellow developer, a potential client, or just curious — this site gives you everything you need to know about me and my work.
-
----
-
-## ✨ What Can You Do Here?
-
-### For Visitors (Everyone)
-
-| Section | What It Does |
-| :--- | :--- |
-| **Home** | Introduces me — my name, title, photo, and a short "Who am I?" section. It's the first impression. |
-| **Projects** | A gallery of my portfolio projects. Each card shows the project name, description, tech stack, and links to the live demo and GitHub repo. |
-| **Vision** | Two things: (1) **Current Projects** — what I'm working on right now (you can even leave a ⭐ on projects you like). (2) **Certificates** — my formal achievements, with "Verify" links where applicable. |
-| **Contact** | A simple form where you can send me a message. It goes directly to my email, so I can reply quickly. |
-
-### For Me (Admin)
-
-| Feature | What It Does |
-| :--- | :--- |
-| **Admin Dashboard** | A private area where I can update everything — my profile, skills, projects, certificates, and even view messages people send me. |
-| **Secure Login** | Only I can access the dashboard. It uses a secure login system with a username and password. |
-
----
-
-## 🛠️ How Does It Work? (For the Curious)
-
-Even if you're not a developer, here's a simple breakdown of how the site works behind the scenes:
-
-### The Big Picture
-
-Imagine three main parts working together:
-
-1. **The Website You See (Frontend)** — This is what you're looking at right now. It's built with React and runs in your browser.
-2. **The Brain (Backend)** — A server that processes requests, handles logins, and manages data. It's built with Node.js and Express.
-3. **The Memory (Database)** — Where all the information is stored — my name, projects, messages, certificates, etc. It's hosted on MongoDB Atlas (a cloud database).
-
-┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐
-│ Your Browser │ ──▶ │ The Server │ ──▶ │ Database │
-│ (Frontend) │ ◀── │ (Backend) │ ◀── │ (MongoDB) │
-└─────────────────┘ └─────────────────┘ └─────────────────┘
-
-
-### A Typical Visit
-
-1. You open the website → Your browser loads the React app.
-2. The app asks the server for my profile data.
-3. The server fetches it from the database and sends it back.
-4. The app displays it on the screen.
-5. When you send a message, the app sends it to the server, which saves it in the database and forwards it to my email.
+🔗 **Live Site:** [https://alexmwendwa.rweb.site](https://alexmwendwa.rweb.site)
 
 ---
 
@@ -71,134 +10,370 @@ Imagine three main parts working together:
 
 ### Homepage
 
-*(Screenshot of your homepage goes here)*
+![Homepage](screenshots/Homepage.jpeg)
+
+### Homepage (Hero Section)
+
+![Homepage Hero](screenshots/Homepage1.jpeg)
 
 ### Projects Page
 
-*(Screenshot of your projects page goes here)*
+![Projects](screenshots/Projects.jpeg)
 
 ### Vision Page
 
-*(Screenshot of your vision page goes here)*
+![Vision](screenshots/Vision%20page.jpeg)
 
 ### Contact Page
 
-*(Screenshot of your contact page goes here)*
-
-### Admin Dashboard
-
-*(Screenshot of your admin dashboard goes here)*
+![Contact](screenshots/Contact.jpeg)
 
 ---
 
-## 🗺️ A Quick Tour of the App
+## ✨ Features
 
-### 1. Home
-
-The homepage introduces me with a hero section containing:
-- "HI THERE" heading
-- "I am Alex Mwendwa" with an orange glow
-- A Full Stack Developer and Problem Solver title
-- A short "Who am I?" bio
-- A list of my technical skills (JavaScript, React, Python, etc.)
-- Social links (GitHub, LinkedIn, X, Discord) in the footer
-
-### 2. Projects
-
-This page displays all my portfolio projects. Each project card includes:
-- A screenshot/thumbnail (if available)
-- Project title and description
-- Tech stack badges
-- "Live Demo" and "GitHub" links
-
-### 3. Vision
-
-This page has two main sections:
-- **Current Projects**: Projects I'm actively working on. Visitors can leave a ⭐ to show support.
-- **Certificates**: My formal certifications and achievements, with "Verify" links where applicable.
-
-### 4. Contact
-
-A clean form with fields for:
-- Your Name
-- Your Email
-- Your Message
-
-After submitting, I receive an email notification and the message is saved in the database.
-
-### 5. Admin Dashboard (Private)
-
-After logging in, I can:
-- **Edit Profile**: Update my name, title, bio, skills, languages, avatar, resume link, and social links.
-- **Add/Manage Projects**: Add new portfolio projects with title, description, tech stack, images, and links.
-- **Add/Manage Current Projects**: Add projects for the Vision page with status and repo URL.
-- **Add/Manage Certificates**: Add certificates with title, issuer, date, category, image, and verify URL.
-- **View Contact Messages**: See all messages sent through the contact form.
+| Feature             | What It Does                                                        |
+| :------------------ | :------------------------------------------------------------------ |
+| **Home Page**       | Introduces you with your name, title, bio, skills, and image        |
+| **Projects Page**   | Showcases your portfolio projects with live links and GitHub repos  |
+| **Vision Page**     | Lists current projects (with star voting) and certificates          |
+| **Contact Page**    | Allows visitors to send you messages that go directly to your email |
+| **Admin Dashboard** | Lets you manage all content — projects, profile, messages, and more |
+| **Authentication**  | Only you can access the Admin Dashboard                             |
 
 ---
 
-## 🚀 Running the App Locally
+## 🛠️ Tech Stack
 
-If you're a developer and want to run this on your own machine, here's how:
+┌──────────────────────────────────────────────────────────────┐
+│ FRONTEND (React + Vite) │
+│ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ │
+│ │ Home │ │ Projects │ │ Vision │ │ Contact │ │
+│ └────┬─────┘ └────┬─────┘ └────┬─────┘ └────┬─────┘ │
+│ └─────────────┴─────────────┴─────────────┘ │
+│ │ │
+│ ┌──────▼──────┐ │
+│ │ Axios │ (API Calls) │
+│ └──────┬──────┘ │
+└──────────────────────────┼─────────────────────────────────┘
+│ HTTP / JSON
+┌──────────────────────────▼─────────────────────────────────┐
+│ BACKEND (Node.js + Express) │
+│ ┌──────────────────────────────────────────────────────┐ │
+│ │ Routes │ │
+│ │ /api/profile /api/projects /api/contact /api/auth│ │
+│ └──────────────────────────────────────────────────────┘ │
+│ │ │
+│ ┌──────────────────────────────────────────────────────┐ │
+│ │ Controllers │ │
+│ │ (Business Logic + Database Interaction) │ │
+│ └──────────────────────────────────────────────────────┘ │
+│ │ │
+│ ┌──────────────────────────────────────────────────────┐ │
+│ │ Models │ │
+│ │ Profile Project ContactMessage CurrentProject │ │
+│ │ Certificate │ │
+│ └──────────────────────────────────────────────────────┘ │
+└──────────────────────────┬─────────────────────────────────┘
+│ Mongoose ODM
+┌──────────────────────────▼─────────────────────────────────┐
+│ DATABASE (MongoDB Atlas) │
+│ ┌──────────────────────────────────────────────────────┐ │
+│ │ Collections: profiles, projects, contactmessages, │ │
+│ │ currentprojects, certificates │ │
+│ └──────────────────────────────────────────────────────┘ │
+└──────────────────────────────────────────────────────────────┘
 
-### 1. Clone the Repository
+text
+
+---
+
+## 📡 API Endpoints
+
+┌─────────────────────────────────────────────────────────────────┐
+│ API ENDPOINTS │
+├─────────────────────────────────────────────────────────────────┤
+│ │
+│ GET /api/profile → Get your profile data │
+│ PUT /api/profile → Update your profile (protected)│
+│ │
+│ GET /api/projects → Get all projects │
+│ POST /api/projects → Add a project (protected) │
+│ DELETE /api/projects/:id → Delete project (protected) │
+│ │
+│ POST /api/contact → Send a contact message │
+│ GET /api/contact → Get messages (protected) │
+│ DELETE /api/contact/:id → Delete message (protected) │
+│ │
+│ GET /api/current-projects → Get current projects │
+│ POST /api/current-projects → Add current project (protected)│
+│ DELETE /api/current-projects/:id → Delete (protected) │
+│ PUT /api/current-projects/:id/star → Add a star │
+│ │
+│ GET /api/certificates → Get certificates │
+│ POST /api/certificates → Add certificate (protected) │
+│ DELETE /api/certificates/:id → Delete certificate (protected) │
+│ │
+│ POST /api/admin/login → Admin login │
+└─────────────────────────────────────────────────────────────────┘
+
+text
+
+---
+
+## 🛡️ Authentication Flow
+
+┌─────────────┐ ┌─────────────┐
+│ Browser │ │ Server │
+│ (Frontend) │ │ (Backend) │
+└──────┬──────┘ └──────┬──────┘
+│ │
+│ 1. POST /api/admin/login │
+│ (email + password) │
+│ ─────────────────────────▶ │
+│ │
+│ 2. Validate credentials │
+│ 3. Generate JWT Token │
+│ │
+│ 4. Returns JWT Token │
+│ ◀───────────────────────── │
+│ │
+│ 5. Store Token in │
+│ localStorage │
+│ │
+│ 6. Request with │
+│ Authorization: Bearer │
+│ <token> │
+│ ─────────────────────────▶ │
+│ │
+│ 7. Verify Token │
+│ 8. Allow/Deny Access │
+│ │
+│ 9. Response │
+│ ◀───────────────────────── │
+└────────────────────────────┘
+
+text
+
+---
+
+## 📂 Project Structure
+
+src/
+├── components/ # Reusable UI components
+│ ├── Layout.jsx
+│ ├── Navbar.jsx
+│ ├── LoadingSpinner.jsx
+│ └── Sparkles.jsx
+├── pages/ # Full pages
+│ ├── Home.jsx
+│ ├── Projects.jsx
+│ ├── Vision.jsx
+│ ├── Contact.jsx
+│ ├── AdminLogin.jsx
+│ └── AdminDashboard.jsx
+├── services/ # API calls (Axios)
+│ └── api.js
+├── hooks/ # Custom React hooks
+├── utils/ # Helper functions
+│ └── skillIcons.js
+├── App.jsx # Main app with routing
+└── main.jsx # Entry point
+
+text
+
+---
+
+## 🛠️ Admin Dashboard
+
+┌─────────────────────────────────────────────────────────────────┐
+│ ADMIN DASHBOARD │
+├─────────────────────────────────────────────────────────────────┤
+│ │
+│ ┌───────────────────────────────────────────────────────────┐ │
+│ │ ✏️ EDIT PROFILE │ │
+│ │ Name: [Alex Mwendwa] Title: [Full Stack Developer] │ │
+│ │ Bio: [I'm a passionate...] About: [Longer description] │ │
+│ │ Skills: [JavaScript, React, Python, ...] │ │
+│ │ Avatar: [URL] Resume: [URL] │ │
+│ │ Social: [GitHub, LinkedIn, Twitter, Discord] │ │
+│ │ [Update Profile] │ │
+│ └───────────────────────────────────────────────────────────┘ │
+│ │
+│ ┌───────────────────────────────────────────────────────────┐ │
+│ │ 📦 ADD PROJECT │ │
+│ │ Title: [E-Commerce API] │ │
+│ │ Description: [Built a...] │ │
+│ │ Tech Stack: [Node.js, Redis, Docker] │ │
+│ │ Image URL: [https://i.imgur.com/...] │ │
+│ │ Live URL: [https://api.example.com] │ │
+│ │ Repo URL: [https://github.com/...] │ │
+│ │ [Add Project] │ │
+│ └───────────────────────────────────────────────────────────┘ │
+│ │
+│ ┌───────────────────────────────────────────────────────────┐ │
+│ │ 📂 MANAGE PROJECTS (3) │ │
+│ │ ┌──────────────────────────────────────────────────┐ │ │
+│ │ │ E-Commerce API | Node.js, Redis, Docker |🗑️│ │ │
+│ │ │ Task Management | Python, Django, Shell |🗑️│ │ │
+│ │ │ AI Chatbot | Python, TensorFlow |🗑️│ │ │
+│ │ └──────────────────────────────────────────────────┘ │ │
+│ └───────────────────────────────────────────────────────────┘ │
+│ │
+│ ┌───────────────────────────────────────────────────────────┐ │
+│ │ ✉️ CONTACT MESSAGES (2) │ │
+│ │ ┌──────────────────────────────────────────────────┐ │ │
+│ │ │ John (john@email.com): "Hello, I need..." |🗑️│ │ │
+│ │ │ Jane (jane@email.com): "Hi, can you..." |🗑️│ │ │
+│ │ └──────────────────────────────────────────────────┘ │ │
+│ └───────────────────────────────────────────────────────────┘ │
+│ │
+│ ┌───────────────────────────────────────────────────────────┐ │
+│ │ 🚀 CURRENT PROJECTS (Vision) │ │
+│ │ Title: [DocuMint] Description: [An automated...] │ │
+│ │ Status: [In Progress] Repo URL: [https://...] │ │
+│ │ [Add Current Project] │ │
+│ └───────────────────────────────────────────────────────────┘ │
+│ │
+│ ┌───────────────────────────────────────────────────────────┐ │
+│ │ 🏆 CERTIFICATES │ │
+│ │ Title: [Back-End Web Development] │ │
+│ │ Issuer: [ALX Africa] Date: [18/09/2025] │ │
+│ │ Category: [Certification] Image URL: [https://...] │ │
+│ │ Verify URL: [https://savanna.alxafrica.com/...] │ │
+│ │ [Add Certificate] │ │
+│ └───────────────────────────────────────────────────────────┘ │
+│ │
+│ [Logout] │
+└─────────────────────────────────────────────────────────────────┘
+
+text
+
+---
+
+## 🚀 Deployment
+
+### 📦 Backend (Render)
+
+┌─────────────────────┐
+│ RENDER │
+│ (Cloud Application │
+│ Platform) │
+│ │
+│ Hosts your Node.js/ │
+│ Express API server │
+│ at onrender.com │
+└─────────────────────┘
+
+text
+
+### 🌐 Frontend (Vercel)
+
+┌─────────────────────┐
+│ VERCEL │
+│ (Frontend Cloud) │
+│ │
+│ Hosts your React │
+│ portfolio site │
+│ at vercel.app │
+└─────────────────────┘
+
+text
+
+### 🗄️ Database (MongoDB Atlas)
+
+┌─────────────────────┐
+│ MONGODB ATLAS │
+│ (Cloud Database) │
+│ │
+│ Hosts your data │
+│ Always online │
+└─────────────────────┘
+
+text
+
+### 🔄 The Full Picture
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ YOUR DEPLOYMENT SETUP │
+├─────────────────────────────────────────────────────────────────────┤
+│ │
+│ ┌─────────────────────┐ ┌─────────────────────────────┐ │
+│ │ VERCEL │ │ RENDER │ │
+│ │ (Frontend Cloud) │ │ (Cloud Application │ │
+│ │ │ │ Platform) │ │
+│ │ Hosts your React │ │ │ │
+│ │ portfolio site │ │ Hosts your Node.js/Express│ │
+│ │ at │ │ API server at │ │
+│ │ vercel.app │ │ onrender.com │ │
+│ └──────────┬───────────┘ └──────────────┬──────────────┘ │
+│ │ │ │
+│ │ ┌─────────────────────────────┐ │ │
+│ └─────▶│ MONGODB ATLAS │◀┘ │
+│ │ (Cloud Database) │ │
+│ │ Hosts your data │ │
+│ └─────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────┘
+
+text
+
+---
+
+## 🚀 Running Locally
+
+### Frontend
 
 ```bash
-git clone https://github.com/yourusername/my_portfolio_frontend.git
 cd my_portfolio_frontend
-
-2. Install Dependencies
-bash
 npm install
-3. Set Up Environment Variables
-Create a .env file in the root folder:
+npm run dev
+# Visit http://localhost:5173
+Backend
+bash
+cd my_portfolio_backend
+npm install
+npm run dev
+# API runs on http://localhost:5001
+Environment Variables
+Frontend (.env):
 
 env
 VITE_API_URL=http://localhost:5001/api
-4. Start the Development Server
-bash
-npm run dev
-Open http://localhost:5173 in your browser.
+Backend (.env):
 
-🛠️ Tech Stack
-Category	Technologies Used
-Frontend	React (with Vite), Tailwind CSS, Axios, React Router
-Backend	Node.js, Express.js, MongoDB, Mongoose, JWT, Nodemailer
-Hosting	Vercel (Frontend), Render (Backend), MongoDB Atlas (Database)
-🌐 Deployment
-This app is deployed on two platforms:
-
-Frontend → Vercel — hosts the website itself.
-
-Backend → Render — hosts the server and API.
-
-Database → MongoDB Atlas — hosts the data.
-
-All deployments are connected to GitHub, so every time I push changes, the site updates automatically.
-
-📬 Contact
-Email: alexandermwendwa3@gmail.com
-
-GitHub: github.com/Alexinthehub
-
-LinkedIn: linkedin.com/in/yourusername
-
-🧠 About This Project
-I built this portfolio as a way to:
-
-Showcase my skills and projects in a professional way
-
-Learn full-stack development by building something real
-
-Have a single place where people can learn about me and contact me
-
-Practice modern web development tools and practices
-
-This project was built from the ground up over several weeks. It includes everything from design to deployment — a truly complete full-stack application.
-
+env
+PORT=5001
+MONGO_URI=mongodb+srv://...
+JWT_SECRET=your_secret
+ADMIN_EMAIL=your_email@gmail.com
+ADMIN_PASSWORD=your_password
+RESEND_API_KEY=re_...
+RESEND_SENDER_EMAIL=onboarding@resend.dev
+RECIPIENT_EMAIL=your_email@gmail.com
+📌 Final URLs
+Link	URL
+Live Portfolio	https://alexmwendwa.rweb.site
+Admin Dashboard	https://alexmwendwa.rweb.site/admin
+Backend API	https://my-portfolio-backend-k2ym.onrender.com
+GitHub (Frontend)	https://github.com/Alexinthehub/my_portfolio_frontend
+GitHub (Backend)	https://github.com/Alexinthehub/my_portfolio_backend
+🎯 Your Tech Stack
+text
+┌──────────────────────────────────────────────────────────────┐
+│                    YOUR TECH STACK                          │
+├──────────────────────────────────────────────────────────────┤
+│                                                              │
+│  🎨 Frontend:    React (Vite)                               │
+│  🔗 API Layer:   Axios                                      │
+│  🖥️ Backend:     Node.js + Express.js                       │
+│  🗄️ Database:    MongoDB Atlas (Cloud)                      │
+│  🔐 Auth:        JWT (JSON Web Tokens)                      │
+│  ☁️ Hosting:     Vercel (Frontend) + Render (Backend)       │
+│  📦 Version Control: GitHub                                 │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
 📝 License
 This project is open source and available under the MIT License.
 
 Built with ❤️ by Alex Mwendwa
-
-Thank you for visiting! 🚀
+```
