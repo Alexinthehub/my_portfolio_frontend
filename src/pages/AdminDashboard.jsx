@@ -153,31 +153,38 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
   }, []);
 
   // --- Profile Update ---
-  const handleProfileUpdate = async (e) => {
-    e.preventDefault();
-    setFormLoading(true);
-    try {
-      const skillsArray = profileForm.skills.split(',').map((s) => s.trim()).filter(Boolean);
-      const languagesArray = profileForm.languages.split(',').map((l) => l.trim()).filter(Boolean);
-      const payload = {
-        ...profileForm,
-        skills: skillsArray,
-        languages: languagesArray,
-      };
-      await updateProfile(payload);
-      alert('✅ Profile updated successfully!');
-      fetchData();
-    } catch (err) {
-      console.error(err);
-      if (err.response?.status === 401) {
-        handleLogout();
-      } else {
-        alert('❌ Failed to update profile.');
-      }
-    } finally {
-      setFormLoading(false);
-    }
-  };
+const handleProfileUpdate = async (e) => {
+  e.preventDefault();
+  console.log('🔄 Update profile form submitted');
+
+  setFormLoading(true);
+
+  try {
+    // Log what we're sending
+    const skillsArray = profileForm.skills.split(',').map((s) => s.trim()).filter(Boolean);
+    const languagesArray = profileForm.languages.split(',').map((l) => l.trim()).filter(Boolean);
+
+    const payload = {
+      ...profileForm,
+      skills: skillsArray,
+      languages: languagesArray,
+    };
+
+    console.log('📦 Sending payload:', payload);
+
+    const response = await updateProfile(payload);
+    console.log('✅ Update response:', response);
+
+    alert('✅ Profile updated successfully!');
+    fetchData();
+  } catch (err) {
+    console.error('❌ Update failed:', err);
+    console.error('❌ Error response:', err.response);
+    alert('❌ Failed to update profile. Check console for details.');
+  } finally {
+    setFormLoading(false);
+  }
+};
 
   // --- Project CRUD ---
   const handleAddProject = async (e) => {
