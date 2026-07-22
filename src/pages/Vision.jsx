@@ -123,6 +123,9 @@ const Vision = () => {
             font-size: 11px !important;
             padding: 2px 10px !important;
           }
+          .vision-title {
+            font-size: 32px !important;
+          }
         }
 
         @media (max-width: 480px) {
@@ -138,7 +141,7 @@ const Vision = () => {
         }
       `}</style>
 
-      {/* ===== CONTENT ===== */}
+      {/* ===== CONTENT — Footer will stick to bottom ===== */}
       <div style={{
         position: 'relative',
         zIndex: 3,
@@ -151,9 +154,11 @@ const Vision = () => {
         boxSizing: 'border-box',
       }}>
         
+        {/* Main content — grows to fill available space */}
         <div style={{
           width: '100%',
           maxWidth: '1400px',
+          flex: 1,
           display: 'flex',
           flexDirection: 'column',
           gap: '32px',
@@ -537,10 +542,10 @@ const Vision = () => {
           </div>
         </div>
 
-        {/* ===== FOOTER ===== */}
+        {/* ===== FOOTER — Sticks to bottom ===== */}
         <footer className="footer" style={{
           maxWidth: '1400px',
-          margin: '40px auto 0',
+          marginTop: 'auto',
           textAlign: 'center',
           borderTop: '1px solid rgba(255,255,255,0.05)',
           padding: '24px 0',
