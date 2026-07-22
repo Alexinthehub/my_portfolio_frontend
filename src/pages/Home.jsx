@@ -123,64 +123,57 @@ const Home = () => {
       }}>
         
         {/* ===== HERO SECTION — Two Columns ===== */}
-        <div className="hero-grid" style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '60px',
-          alignItems: 'center',
-          width: '100%',
-          flex: 1,
-        }}>
-          
-          {/* LEFT: Text */}
-          <div className="hero-text" style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            textAlign: 'left',
-          }}>
-<p className="fade-slide-up delay-1" style={{
-  color: '#5DD62C',
-  fontSize: 'clamp(18px, 2.5vw, 24px)',
-  fontWeight: '600',
-  letterSpacing: '4px',
-  marginBottom: '4px',
-  fontFamily: "'Trattatello', 'Playfair Display', 'Georgia', serif",
+<div className="hero-text" style={{
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  textAlign: 'left',
 }}>
-  HI THERE,
-</p>
+  {/* ✅ "HI THERE" in Chalkduster on all devices */}
+  <p className="fade-slide-up delay-1" style={{
+    color: '#5DD62C',
+    fontSize: 'clamp(18px, 2.5vw, 24px)',
+    fontWeight: '600',
+    letterSpacing: '4px',
+    marginBottom: '4px',
+    fontFamily: "'Chalkduster', 'Chalkboard SE', 'Segoe UI', cursive",
+  }}>
+    HI THERE,
+  </p>
 
-            <h1 className="hero-title fade-slide-up delay-1" style={{
-              fontSize: 'clamp(36px, 6vw, 56px)',
-              fontWeight: '700',
-              lineHeight: '1.2',
-              margin: 0,
-              fontFamily: "'Lucida Handwriting', 'Apple Chancery', cursive",
-            }}>
-              <span style={{ color: '#FFFFFF' }}>I am </span>
-              <span
-                className="glow-name"
-                style={{
-                  color: '#FF6B35',
-                }}
-              >
-                {profile?.name || 'Alex Mwendwa'}
-              </span>
-            </h1>
+  {/* Name (Unchanged) */}
+  <h1 className="hero-title fade-slide-up delay-1" style={{
+    fontSize: 'clamp(36px, 6vw, 56px)',
+    fontWeight: '700',
+    lineHeight: '1.2',
+    margin: 0,
+    fontFamily: "'Lucida Handwriting', 'Apple Chancery', cursive",
+  }}>
+    <span style={{ color: '#FFFFFF' }}>I am </span>
+    <span
+      className="glow-name"
+      style={{
+        color: '#FF6B35',
+      }}
+    >
+      {profile?.name || 'Alex Mwendwa'}
+    </span>
+  </h1>
 
-            {profile?.title && (
-              <p className="fade-slide-up delay-2" style={{
-                fontSize: 'clamp(16px, 2vw, 22px)',
-                color: '#5DD62C',
-                marginTop: '4px',
-                fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                fontWeight: '500',
-                letterSpacing: '2px',
-              }}>
-                {profile.title}
-              </p>
-            )}
-          </div>
+  {/* Title (Unchanged) */}
+  {profile?.title && (
+    <p className="fade-slide-up delay-2" style={{
+      fontSize: 'clamp(16px, 2vw, 22px)',
+      color: '#5DD62C',
+      marginTop: '4px',
+      fontFamily: "'Inter', 'Segoe UI', sans-serif",
+      fontWeight: '500',
+      letterSpacing: '2px',
+    }}>
+      {profile.title}
+    </p>
+  )}
+</div>
 
           {/* RIGHT: Personal Photo with Glowing Frame */}
           <div className="hero-image" style={{
@@ -367,7 +360,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </div>
 
       {/* ===== FOOTER ===== */}
       <footer className="footer" style={{
