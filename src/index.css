@@ -656,3 +656,22 @@ body {
     font-size: 14px !important;
   }
 }
+/* ===== VISION PAGE — Center Panels on Mobile ===== */
+
+.vision-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+@media (max-width: 768px) {
+  .vision-grid {
+    padding: 0 8px !important;  /* Reduce side padding to center content */
+    margin: 0 auto !important;
+    width: 100% !important;
+  }
+  .vision-card {
+    margin: 0 auto !important;
+    width: 100% !important;
+  }
+}
