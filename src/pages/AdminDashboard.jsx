@@ -152,39 +152,43 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     fetchData();
   }, []);
 
-  // --- Profile Update ---
-const handleProfileUpdate = async (e) => {
-  e.preventDefault();
-  console.log('🔄 Update profile form submitted');
+  // --- Profile Update (with Debug Logs) ---
+  const handleProfileUpdate = async (e) => {
+    e.preventDefault();
+    console.log('🔄 Update profile form submitted');
 
-  setFormLoading(true);
+    setFormLoading(true);
 
-  try {
-    // Log what we're sending
-    const skillsArray = profileForm.skills.split(',').map((s) => s.trim()).filter(Boolean);
-    const languagesArray = profileForm.languages.split(',').map((l) => l.trim()).filter(Boolean);
+    try {
+      // Convert comma-separated strings to arrays
+      const skillsArray = profileForm.skills.split(',').map((s) => s.trim()).filter(Boolean);
+      const languagesArray = profileForm.languages.split(',').map((l) => l.trim()).filter(Boolean);
 
-    const payload = {
-      ...profileForm,
-      skills: skillsArray,
-      languages: languagesArray,
-    };
+      const payload = {
+        ...profileForm,
+        skills: skillsArray,
+        languages: languagesArray,
+      };
 
-    console.log('📦 Sending payload:', payload);
+      console.log('📦 Sending payload:', payload);
 
-    const response = await updateProfile(payload);
-    console.log('✅ Update response:', response);
+      const response = await updateProfile(payload);
+      console.log('✅ Update response:', response);
 
-    alert('✅ Profile updated successfully!');
-    fetchData();
-  } catch (err) {
-    console.error('❌ Update failed:', err);
-    console.error('❌ Error response:', err.response);
-    alert('❌ Failed to update profile. Check console for details.');
-  } finally {
-    setFormLoading(false);
-  }
-};
+      alert('✅ Profile updated successfully!');
+      fetchData();
+    } catch (err) {
+      console.error('❌ Update failed:', err);
+      console.error('❌ Error response:', err.response);
+      if (err.response?.status === 401) {
+        handleLogout();
+      } else {
+        alert('❌ Failed to update profile. Check console for details.');
+      }
+    } finally {
+      setFormLoading(false);
+    }
+  };
 
   // --- Project CRUD ---
   const handleAddProject = async (e) => {
@@ -428,7 +432,7 @@ const handleProfileUpdate = async (e) => {
             <h2 style={{ fontSize: '22px', fontWeight: '600', color: 'white', marginBottom: '16px' }}>
               ✏️ Edit Profile & Personal Info
             </h2>
-            <form className="admin-form" style={{
+            <form className="admin-form" onSubmit={handleProfileUpdate} style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
               gap: '16px',
