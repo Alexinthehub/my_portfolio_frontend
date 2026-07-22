@@ -1,4 +1,4 @@
-// src/App.jsx
+
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Layout from './components/Layout';
@@ -29,13 +29,15 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public routes with Layout */}
         <Route path="/" element={<Layout isAuthenticated={isAuthenticated} />}>
-  <Route index element={<Home />} />
-  <Route path="/projects" element={<Projects />} />
-  <Route path="/vision" element={<Vision />} />
-  <Route path="/contact" element={<Contact />} />
-</Route>
+          <Route index element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/vision" element={<Vision />} />
+          <Route path="/contact" element={<Contact />} />
+        </Route>
 
+        {/* ✅ Admin routes — NO Layout */}
         <Route
           path="/admin"
           element={
@@ -52,7 +54,7 @@ function App() {
             isAuthenticated ? (
               <AdminDashboard setIsAuthenticated={setIsAuthenticated} />
             ) : (
-              <Navigate to="/" replace />
+              <Navigate to="/admin" replace />
             )
           }
         />
