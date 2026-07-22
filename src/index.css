@@ -658,29 +658,33 @@ body {
 }
 /* ===== VISION PAGE — Full Width & Centered on Mobile ===== */
 
-/* Desktop: Two columns */
-.vision-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 16px;
-  padding-bottom: 40px;
-}
-
-/* Mobile: Single column, full width */
 @media (max-width: 768px) {
+  /* Force the grid to single column */
   .vision-grid {
-    grid-template-columns: 1fr !important;   /* Single column */
+    grid-template-columns: 1fr !important;
     gap: 16px !important;
-    padding: 0 12px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
     width: 100% !important;
     margin: 0 auto !important;
   }
+
+  /* Make sure cards take full width */
   .vision-card {
     width: 100% !important;
     margin: 0 !important;
     box-sizing: border-box !important;
+  }
+
+  /* Ensure the parent container doesn't push content */
+  .vision-grid-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Reduce section title size on mobile */
+  .vision-section-title {
+    font-size: 20px !important;
   }
 }
