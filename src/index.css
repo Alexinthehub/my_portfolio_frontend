@@ -703,3 +703,20 @@ body {
     padding-right: 0 !important;
   }
 }
+/* ===== VISION PAGE — Responsive Grid ===== */
+
+/* Desktop: side by side */
+.vision-grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  width: 100%;
+}
+
+/* Mobile: stacked (one above the other) */
+@media (max-width: 768px) {
+  .vision-grid-container {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+}
