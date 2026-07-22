@@ -74,9 +74,39 @@ const Home = () => {
         .delay-1 { animation-delay: 0.2s; opacity: 0; }
         .delay-2 { animation-delay: 0.5s; opacity: 0; }
         .delay-3 { animation-delay: 0.8s; opacity: 0; }
+
+        /* ===== ORANGE GLOW KEYFRAMES ===== */
         @keyframes glowOrange {
-          0%, 100% { text-shadow: 0 0 15px rgba(255, 107, 53, 0.3); }
-          50% { text-shadow: 0 0 40px rgba(255, 107, 53, 0.8), 0 0 80px rgba(255, 107, 53, 0.3); }
+          0%, 100% {
+            text-shadow: 0 0 15px rgba(255, 107, 53, 0.3),
+                         0 0 30px rgba(255, 107, 53, 0.1);
+          }
+          50% {
+            text-shadow: 0 0 40px rgba(255, 107, 53, 0.8),
+                         0 0 80px rgba(255, 107, 53, 0.4),
+                         0 0 120px rgba(255, 107, 53, 0.2);
+          }
+        }
+
+        /* 🔥 STRONGER GLOW ON MOBILE */
+        @media (max-width: 768px) {
+          @keyframes glowOrange {
+            0%, 100% {
+              text-shadow: 0 0 20px rgba(255, 107, 53, 0.5),
+                           0 0 40px rgba(255, 107, 53, 0.2);
+            }
+            50% {
+              text-shadow: 0 0 60px rgba(255, 107, 53, 1.0),
+                           0 0 100px rgba(255, 107, 53, 0.6),
+                           0 0 150px rgba(255, 107, 53, 0.3),
+                           0 0 200px rgba(255, 107, 53, 0.15);
+            }
+          }
+        }
+
+        /* ===== DESKTOP: Hero Name Animation ===== */
+        .glow-name {
+          animation: fadeSlideUp 1s ease-out forwards, glowOrange 2s ease-in-out infinite 1.2s;
         }
       `}</style>
 
@@ -128,10 +158,12 @@ const Home = () => {
               fontFamily: "'Lucida Handwriting', 'Apple Chancery', cursive",
             }}>
               <span style={{ color: '#FFFFFF' }}>I am </span>
-              <span style={{
-                color: '#FF6B35',
-                animation: 'fadeSlideUp 1s ease-out forwards, glowOrange 2s ease-in-out infinite 1.2s',
-              }}>
+              <span
+                className="glow-name"
+                style={{
+                  color: '#FF6B35',
+                }}
+              >
                 {profile?.name || 'Alex Mwendwa'}
               </span>
             </h1>
