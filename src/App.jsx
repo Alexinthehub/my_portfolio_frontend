@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Layout from './components/Layout';
@@ -37,7 +36,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Route>
 
-        {/* ✅ Admin routes — NO Layout */}
+        {/* Admin routes */}
         <Route
           path="/admin"
           element={

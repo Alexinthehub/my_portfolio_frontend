@@ -1,5 +1,11 @@
 {
   "env": {
     "VITE_API_URL": "https://my-portfolio-backend-k2ym.onrender.com/api"
-  }
+  },
+  "rewrites": [
+    {
+      "source": "(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
