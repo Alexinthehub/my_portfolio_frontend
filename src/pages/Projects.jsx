@@ -74,7 +74,7 @@ const Projects = () => {
         width: '100%',
         height: '100%',
         zIndex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
       }} />
 
       {/* ✨ Sparkles */}
@@ -86,11 +86,12 @@ const Projects = () => {
       <div style={{
         position: 'relative',
         zIndex: 3,
-        padding: '40px 80px 0',
+        padding: '40px 20px 0',
         width: '100%',
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
+        boxSizing: 'border-box',
       }}>
         
         <div style={{ flex: 1 }}>
@@ -150,7 +151,9 @@ const Projects = () => {
                     boxShadow: '0 8px 32px rgba(0,0,0,0.3), 0 0 20px rgba(93, 214, 44, 0.05)',
                     transition: 'all 0.4s ease',
                     display: 'flex',
-                    flexDirection: 'column'
+                    flexDirection: 'column',
+                    width: '100%',
+                    boxSizing: 'border-box',
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
@@ -170,7 +173,7 @@ const Projects = () => {
                       borderRadius: '12px',
                       overflow: 'hidden',
                       marginBottom: '16px',
-                      backgroundColor: 'rgba(0,0,0,0.3)'
+                      backgroundColor: 'rgba(0,0,0,0.3)',
                     }}>
                       <img
                         src={project.imageUrl}
@@ -179,10 +182,17 @@ const Projects = () => {
                           width: '100%',
                           height: '200px',
                           objectFit: 'cover',
-                          transition: 'transform 0.3s ease'
+                          transition: 'transform 0.3s ease',
+                          display: 'block',
+                          maxWidth: '100%',
                         }}
                         onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.03)'}
                         onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                        onError={(e) => {
+                          // Fallback: hide broken image and show placeholder
+                          e.currentTarget.style.display = 'none';
+                          e.currentTarget.parentElement.style.backgroundColor = 'rgba(93,214,44,0.05)';
+                        }}
                       />
                     </div>
                   )}

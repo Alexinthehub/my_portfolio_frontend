@@ -697,14 +697,16 @@ body {
     font-size: 20px !important;
   }
 }
+
+/* ===== VISION PAGE — FIX PARENT CONTAINER ===== */
 @media (max-width: 768px) {
   .vision-content {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
 }
-/* ===== VISION PAGE — Responsive Grid ===== */
 
+/* ===== VISION PAGE — Responsive Grid ===== */
 /* Desktop: side by side */
 .vision-grid-container {
   display: grid;
@@ -718,5 +720,99 @@ body {
   .vision-grid-container {
     grid-template-columns: 1fr !important;
     gap: 20px !important;
+  }
+}
+
+/* ================================================================ */
+/* ===== MOBILE FIXES: WIDER PANELS, SHORTER CARDS ===== */
+/* ================================================================ */
+
+/* --- Who Am I? — Mobile --- */
+@media (max-width: 768px) {
+  .bio-card {
+    max-width: 100% !important;
+    padding: 16px !important;
+    margin: 10px auto 0 !important;
+    width: 100% !important;
+  }
+  .bio-card > div {
+    padding: 16px !important;
+  }
+  .bio-title {
+    font-size: 22px !important;
+  }
+  .bio-text {
+    font-size: 14px !important;
+  }
+
+  /* --- My Skills — Mobile --- */
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    width: 100% !important;
+  }
+  .skill-item {
+    padding: 12px !important;
+  }
+  .skill-icon {
+    font-size: 24px !important;
+  }
+  .skill-name {
+    font-size: 12px !important;
+  }
+
+  /* --- Projects — Mobile --- */
+  .projects-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    padding: 0 4px !important;
+    width: 100% !important;
+  }
+  .project-card {
+    padding: 14px !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  .project-title {
+    font-size: 18px !important;
+  }
+  .project-description {
+    font-size: 14px !important;
+  }
+}
+
+/* --- Extra small phones --- */
+@media (max-width: 480px) {
+  .bio-card {
+    padding: 12px !important;
+  }
+  .bio-title {
+    font-size: 20px !important;
+  }
+  .bio-text {
+    font-size: 13px !important;
+  }
+  .skills-grid {
+    gap: 8px !important;
+    padding: 10px !important;
+  }
+  .skill-item {
+    padding: 10px !important;
+  }
+  .skill-icon {
+    font-size: 20px !important;
+  }
+  .skill-name {
+    font-size: 11px !important;
+  }
+  .project-card {
+    padding: 12px !important;
+  }
+  .project-title {
+    font-size: 16px !important;
+  }
+  .project-description {
+    font-size: 13px !important;
   }
 }
