@@ -1,3 +1,4 @@
+// src/App.jsx
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Layout from './components/Layout';
@@ -12,13 +13,24 @@ import LoadingSpinner from './components/LoadingSpinner';
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return !!localStorage.getItem('token');
+    // Check both storages
+    return !!localStorage.getItem('token') || !!sessionStorage.getItem('token');
   });
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     setIsAuthenticated(!!token);
     setIsLoading(false);
+  }, []);
+
+  // This effect listens for changes in storage (e.g., logout in another tab)
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+      setIsAuthenticated(!!token);
+    };
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
   if (isLoading) {
@@ -36,7 +48,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Route>
 
-        {/* Admin routes */}
+        {/* Admin routes — NO Layout */}
         <Route
           path="/admin"
           element={
@@ -53,7 +65,7 @@ function App() {
             isAuthenticated ? (
               <AdminDashboard setIsAuthenticated={setIsAuthenticated} />
             ) : (
-              <Navigate to="/admin" replace />
+              <Navigate to="/" replace />
             )
           }
         />

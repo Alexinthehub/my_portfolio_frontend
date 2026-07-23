@@ -16,11 +16,11 @@ const AdminLogin = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if token exists in localStorage or sessionStorage
+    // On mount, check if we already have a token
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (token) {
       setIsAuthenticated(true);
-      navigate('/admin/dashboard');
+      navigate('/admin/dashboard', { replace: true });
     }
     const timer = setTimeout(() => {
       setPageLoading(false);
@@ -41,13 +41,16 @@ const AdminLogin = ({ setIsAuthenticated }) => {
       if (rememberMe) {
         localStorage.setItem('token', token);
         localStorage.setItem('rememberMe', 'true');
+        sessionStorage.removeItem('token'); // Clean up any old session token
       } else {
         sessionStorage.setItem('token', token);
         localStorage.removeItem('rememberMe');
+        localStorage.removeItem('token'); // Ensure local token is removed
       }
 
+      // ✅ Set auth state and navigate
       setIsAuthenticated(true);
-      navigate('/admin/dashboard');
+      navigate('/admin/dashboard', { replace: true });
     } catch (err) {
       setError('Invalid email or password. Please try again.');
       setLoading(false);
