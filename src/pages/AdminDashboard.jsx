@@ -6,15 +6,18 @@ import {
   getProjects,
   createProject,
   deleteProject,
+  updateProject, // ✅ New import
   deleteMessage,
   getProfile,
   updateProfile,
   getCurrentProjects,
   createCurrentProject,
   deleteCurrentProject,
+  updateCurrentProject, // ✅ New import
   getCertificates,
   createCertificate,
   deleteCertificate,
+  updateCertificate, // ✅ New import
 } from '../services/api';
 import LoadingSpinner from '../components/LoadingSpinner';
 import Sparkles from '../components/Sparkles';
@@ -44,10 +47,21 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     },
   });
 
-  // --- Projects & Messages State ---
+  // --- Projects State ---
   const [messages, setMessages] = useState([]);
   const [projects, setProjects] = useState([]);
   const [newProject, setNewProject] = useState({
+    title: '',
+    description: '',
+    techStack: '',
+    imageUrl: '',
+    liveUrl: '',
+    repoUrl: '',
+  });
+
+  // ✏️ Edit Project State
+  const [editingProject, setEditingProject] = useState(null);
+  const [editProjectData, setEditProjectData] = useState({
     title: '',
     description: '',
     techStack: '',
@@ -65,9 +79,29 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     repoUrl: '',
   });
 
+  // ✏️ Edit Current Project State
+  const [editingCurrentProject, setEditingCurrentProject] = useState(null);
+  const [editCurrentProjectData, setEditCurrentProjectData] = useState({
+    title: '',
+    description: '',
+    status: 'In Progress',
+    repoUrl: '',
+  });
+
   // --- Certificates State ---
   const [certificates, setCertificates] = useState([]);
   const [newCertificate, setNewCertificate] = useState({
+    title: '',
+    issuer: '',
+    date: '',
+    category: 'Professional',
+    imageUrl: '',
+    verifyUrl: '',
+  });
+
+  // ✏️ Edit Certificate State
+  const [editingCertificate, setEditingCertificate] = useState(null);
+  const [editCertificateData, setEditCertificateData] = useState({
     title: '',
     issuer: '',
     date: '',
@@ -90,6 +124,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('rememberMe');
+    sessionStorage.removeItem('token');
     setIsAuthenticated(false);
     window.location.href = '/';
   };
@@ -133,6 +168,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
       if (err.response?.status === 401) {
         localStorage.removeItem('token');
         localStorage.removeItem('rememberMe');
+        sessionStorage.removeItem('token');
         setIsAuthenticated(false);
         window.location.href = '/';
         return;
@@ -144,7 +180,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (!token) {
       window.location.href = '/';
       return;
@@ -152,38 +188,27 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     fetchData();
   }, []);
 
-  // --- Profile Update (with Debug Logs) ---
+  // --- Profile Update ---
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
-    console.log('🔄 Update profile form submitted');
-
     setFormLoading(true);
-
     try {
-      // Convert comma-separated strings to arrays
       const skillsArray = profileForm.skills.split(',').map((s) => s.trim()).filter(Boolean);
       const languagesArray = profileForm.languages.split(',').map((l) => l.trim()).filter(Boolean);
-
       const payload = {
         ...profileForm,
         skills: skillsArray,
         languages: languagesArray,
       };
-
-      console.log('📦 Sending payload:', payload);
-
-      const response = await updateProfile(payload);
-      console.log('✅ Update response:', response);
-
+      await updateProfile(payload);
       alert('✅ Profile updated successfully!');
       fetchData();
     } catch (err) {
-      console.error('❌ Update failed:', err);
-      console.error('❌ Error response:', err.response);
+      console.error(err);
       if (err.response?.status === 401) {
         handleLogout();
       } else {
-        alert('❌ Failed to update profile. Check console for details.');
+        alert('❌ Failed to update profile.');
       }
     } finally {
       setFormLoading(false);
@@ -206,6 +231,48 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
         handleLogout();
       } else {
         alert('❌ Failed to add project.');
+      }
+    } finally {
+      setFormLoading(false);
+    }
+  };
+
+  // ✏️ Edit Project Functions
+  const handleEditProject = (project) => {
+    setEditingProject(project._id);
+    setEditProjectData({
+      title: project.title || '',
+      description: project.description || '',
+      techStack: project.techStack?.join(', ') || '',
+      imageUrl: project.imageUrl || '',
+      liveUrl: project.liveUrl || '',
+      repoUrl: project.repoUrl || '',
+    });
+  };
+
+  const handleUpdateProject = async (e) => {
+    e.preventDefault();
+    setFormLoading(true);
+    try {
+      const techArray = editProjectData.techStack.split(',').map((item) => item.trim());
+      await updateProject(editingProject, { ...editProjectData, techStack: techArray });
+      setEditingProject(null);
+      setEditProjectData({
+        title: '',
+        description: '',
+        techStack: '',
+        imageUrl: '',
+        liveUrl: '',
+        repoUrl: '',
+      });
+      fetchData();
+      alert('✅ Project updated successfully!');
+    } catch (err) {
+      console.error(err);
+      if (err.response?.status === 401) {
+        handleLogout();
+      } else {
+        alert('❌ Failed to update project.');
       }
     } finally {
       setFormLoading(false);
@@ -265,6 +332,43 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     }
   };
 
+  // ✏️ Edit Current Project Functions
+  const handleEditCurrentProject = (project) => {
+    setEditingCurrentProject(project._id);
+    setEditCurrentProjectData({
+      title: project.title || '',
+      description: project.description || '',
+      status: project.status || 'In Progress',
+      repoUrl: project.repoUrl || '',
+    });
+  };
+
+  const handleUpdateCurrentProject = async (e) => {
+    e.preventDefault();
+    setFormLoading(true);
+    try {
+      await updateCurrentProject(editingCurrentProject, editCurrentProjectData);
+      setEditingCurrentProject(null);
+      setEditCurrentProjectData({
+        title: '',
+        description: '',
+        status: 'In Progress',
+        repoUrl: '',
+      });
+      fetchData();
+      alert('✅ Current project updated successfully!');
+    } catch (err) {
+      console.error(err);
+      if (err.response?.status === 401) {
+        handleLogout();
+      } else {
+        alert('❌ Failed to update current project.');
+      }
+    } finally {
+      setFormLoading(false);
+    }
+  };
+
   const handleDeleteCurrentProject = async (id) => {
     if (window.confirm('Delete this current project?')) {
       try {
@@ -296,6 +400,47 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
         handleLogout();
       } else {
         alert('❌ Failed to add certificate.');
+      }
+    } finally {
+      setFormLoading(false);
+    }
+  };
+
+  // ✏️ Edit Certificate Functions
+  const handleEditCertificate = (cert) => {
+    setEditingCertificate(cert._id);
+    setEditCertificateData({
+      title: cert.title || '',
+      issuer: cert.issuer || '',
+      date: cert.date ? cert.date.split('T')[0] : '',
+      category: cert.category || 'Professional',
+      imageUrl: cert.imageUrl || '',
+      verifyUrl: cert.verifyUrl || '',
+    });
+  };
+
+  const handleUpdateCertificate = async (e) => {
+    e.preventDefault();
+    setFormLoading(true);
+    try {
+      await updateCertificate(editingCertificate, editCertificateData);
+      setEditingCertificate(null);
+      setEditCertificateData({
+        title: '',
+        issuer: '',
+        date: '',
+        category: 'Professional',
+        imageUrl: '',
+        verifyUrl: '',
+      });
+      fetchData();
+      alert('✅ Certificate updated successfully!');
+    } catch (err) {
+      console.error(err);
+      if (err.response?.status === 401) {
+        handleLogout();
+      } else {
+        alert('❌ Failed to update certificate.');
       }
     } finally {
       setFormLoading(false);
@@ -690,7 +835,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
           </div>
 
           {/* ============================================================ */}
-          {/* 📂 MANAGE PROJECTS */}
+          {/* 📂 MANAGE PROJECTS (with Edit) */}
           {/* ============================================================ */}
           <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
@@ -733,30 +878,184 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                       {p.techStack?.join(', ')}
                     </p>
                   </div>
-                  <button
-                    onClick={() => handleDeleteProject(p._id)}
-                    style={{
-                      backgroundColor: 'rgba(239, 68, 68, 0.2)',
-                      color: '#FCA5A5',
-                      border: '1px solid rgba(239, 68, 68, 0.2)',
-                      padding: '6px 14px',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      fontSize: '13px',
-                      transition: 'all 0.3s ease',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.4)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
-                    }}
-                  >
-                    Delete
-                  </button>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    {/* ✏️ Edit Button */}
+                    <button
+                      onClick={() => handleEditProject(p)}
+                      style={{
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        color: '#93C5FD',
+                        border: '1px solid rgba(59, 130, 246, 0.2)',
+                        padding: '6px 14px',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                        transition: 'all 0.3s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgba(59, 130, 246, 0.4)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgba(59, 130, 246, 0.2)';
+                      }}
+                    >
+                      Edit
+                    </button>
+                    {/* 🗑️ Delete Button */}
+                    <button
+                      onClick={() => handleDeleteProject(p._id)}
+                      style={{
+                        backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                        color: '#FCA5A5',
+                        border: '1px solid rgba(239, 68, 68, 0.2)',
+                        padding: '6px 14px',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                        transition: 'all 0.3s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.4)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
+
+            {/* ✏️ Edit Project Form (Inline) */}
+            {editingProject && (
+              <div style={{
+                marginTop: '24px',
+                padding: '20px',
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                borderRadius: '16px',
+                border: '1px solid rgba(59, 130, 246, 0.3)',
+              }}>
+                <h3 style={{ color: 'white', fontSize: '18px', marginBottom: '16px' }}>
+                  ✏️ Edit Project
+                </h3>
+                <form className="admin-form" onSubmit={handleUpdateProject} style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '16px',
+                }}>
+                  <input
+                    type="text"
+                    placeholder="Title"
+                    value={editProjectData.title}
+                    onChange={(e) => setEditProjectData({ ...editProjectData, title: e.target.value })}
+                    style={inputStyle}
+                    required
+                  />
+                  <input
+                    type="text"
+                    placeholder="Description"
+                    value={editProjectData.description}
+                    onChange={(e) => setEditProjectData({ ...editProjectData, description: e.target.value })}
+                    style={inputStyle}
+                    required
+                  />
+                  <input
+                    type="text"
+                    placeholder="Tech Stack (comma separated)"
+                    value={editProjectData.techStack}
+                    onChange={(e) => setEditProjectData({ ...editProjectData, techStack: e.target.value })}
+                    style={{ ...inputStyle, gridColumn: '1 / -1' }}
+                    required
+                  />
+                  <input
+                    type="url"
+                    placeholder="Image URL"
+                    value={editProjectData.imageUrl}
+                    onChange={(e) => setEditProjectData({ ...editProjectData, imageUrl: e.target.value })}
+                    style={inputStyle}
+                  />
+                  <input
+                    type="url"
+                    placeholder="Live URL"
+                    value={editProjectData.liveUrl}
+                    onChange={(e) => setEditProjectData({ ...editProjectData, liveUrl: e.target.value })}
+                    style={inputStyle}
+                  />
+                  <input
+                    type="url"
+                    placeholder="Repo URL"
+                    value={editProjectData.repoUrl}
+                    onChange={(e) => setEditProjectData({ ...editProjectData, repoUrl: e.target.value })}
+                    style={inputStyle}
+                  />
+                  <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '12px' }}>
+                    <button
+                      type="submit"
+                      disabled={formLoading}
+                      style={{
+                        backgroundColor: '#3B82F6',
+                        color: 'white',
+                        fontWeight: '600',
+                        padding: '12px 24px',
+                        borderRadius: '12px',
+                        border: 'none',
+                        fontSize: '15px',
+                        cursor: formLoading ? 'not-allowed' : 'pointer',
+                        transition: 'all 0.3s ease',
+                        opacity: formLoading ? 0.7 : 1,
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!formLoading) {
+                          e.currentTarget.style.backgroundColor = '#2563EB';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!formLoading) {
+                          e.currentTarget.style.backgroundColor = '#3B82F6';
+                        }
+                      }}
+                    >
+                      {formLoading ? 'Updating...' : 'Update Project'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingProject(null);
+                        setEditProjectData({
+                          title: '',
+                          description: '',
+                          techStack: '',
+                          imageUrl: '',
+                          liveUrl: '',
+                          repoUrl: '',
+                        });
+                      }}
+                      style={{
+                        backgroundColor: 'rgba(255,255,255,0.1)',
+                        color: 'white',
+                        fontWeight: '600',
+                        padding: '12px 24px',
+                        borderRadius: '12px',
+                        border: '1px solid rgba(255,255,255,0.2)',
+                        cursor: 'pointer',
+                        fontSize: '15px',
+                        transition: 'all 0.3s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
           </div>
 
           {/* ============================================================ */}
@@ -839,7 +1138,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
           </div>
 
           {/* ============================================================ */}
-          {/* 🚀 CURRENT PROJECTS (Vision) */}
+          {/* 🚀 CURRENT PROJECTS (with Edit) */}
           {/* ============================================================ */}
           <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
@@ -976,35 +1275,174 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                         </a>
                       )}
                     </div>
-                    <button
-                      onClick={() => handleDeleteCurrentProject(p._id)}
-                      style={{
-                        backgroundColor: 'rgba(239, 68, 68, 0.2)',
-                        color: '#FCA5A5',
-                        border: '1px solid rgba(239, 68, 68, 0.2)',
-                        padding: '6px 14px',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        fontSize: '13px',
-                        transition: 'all 0.3s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.4)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
-                      }}
-                    >
-                      Delete
-                    </button>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      {/* ✏️ Edit Button */}
+                      <button
+                        onClick={() => handleEditCurrentProject(p)}
+                        style={{
+                          backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                          color: '#93C5FD',
+                          border: '1px solid rgba(59, 130, 246, 0.2)',
+                          padding: '6px 14px',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          fontSize: '13px',
+                          transition: 'all 0.3s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = 'rgba(59, 130, 246, 0.4)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'rgba(59, 130, 246, 0.2)';
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteCurrentProject(p._id)}
+                        style={{
+                          backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                          color: '#FCA5A5',
+                          border: '1px solid rgba(239, 68, 68, 0.2)',
+                          padding: '6px 14px',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          fontSize: '13px',
+                          transition: 'all 0.3s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.4)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 ))
               )}
             </div>
+
+            {/* ✏️ Edit Current Project Form */}
+            {editingCurrentProject && (
+              <div style={{
+                marginTop: '24px',
+                padding: '20px',
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                borderRadius: '16px',
+                border: '1px solid rgba(59, 130, 246, 0.3)',
+              }}>
+                <h3 style={{ color: 'white', fontSize: '18px', marginBottom: '16px' }}>
+                  ✏️ Edit Current Project
+                </h3>
+                <form className="admin-form" onSubmit={handleUpdateCurrentProject} style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '16px',
+                }}>
+                  <input
+                    type="text"
+                    placeholder="Title"
+                    value={editCurrentProjectData.title}
+                    onChange={(e) => setEditCurrentProjectData({ ...editCurrentProjectData, title: e.target.value })}
+                    style={{ ...inputStyle, gridColumn: '1 / -1' }}
+                    required
+                  />
+                  <input
+                    type="text"
+                    placeholder="Description"
+                    value={editCurrentProjectData.description}
+                    onChange={(e) => setEditCurrentProjectData({ ...editCurrentProjectData, description: e.target.value })}
+                    style={{ ...inputStyle, gridColumn: '1 / -1' }}
+                    required
+                  />
+                  <select
+                    value={editCurrentProjectData.status}
+                    onChange={(e) => setEditCurrentProjectData({ ...editCurrentProjectData, status: e.target.value })}
+                    style={inputStyle}
+                  >
+                    <option value="In Progress">In Progress</option>
+                    <option value="Planning">Planning</option>
+                    <option value="Beta">Beta</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+                  <input
+                    type="url"
+                    placeholder="GitHub Repo URL (optional)"
+                    value={editCurrentProjectData.repoUrl}
+                    onChange={(e) => setEditCurrentProjectData({ ...editCurrentProjectData, repoUrl: e.target.value })}
+                    style={inputStyle}
+                  />
+                  <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '12px' }}>
+                    <button
+                      type="submit"
+                      disabled={formLoading}
+                      style={{
+                        backgroundColor: '#3B82F6',
+                        color: 'white',
+                        fontWeight: '600',
+                        padding: '12px 24px',
+                        borderRadius: '12px',
+                        border: 'none',
+                        fontSize: '15px',
+                        cursor: formLoading ? 'not-allowed' : 'pointer',
+                        transition: 'all 0.3s ease',
+                        opacity: formLoading ? 0.7 : 1,
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!formLoading) {
+                          e.currentTarget.style.backgroundColor = '#2563EB';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!formLoading) {
+                          e.currentTarget.style.backgroundColor = '#3B82F6';
+                        }
+                      }}
+                    >
+                      {formLoading ? 'Updating...' : 'Update Current Project'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingCurrentProject(null);
+                        setEditCurrentProjectData({
+                          title: '',
+                          description: '',
+                          status: 'In Progress',
+                          repoUrl: '',
+                        });
+                      }}
+                      style={{
+                        backgroundColor: 'rgba(255,255,255,0.1)',
+                        color: 'white',
+                        fontWeight: '600',
+                        padding: '12px 24px',
+                        borderRadius: '12px',
+                        border: '1px solid rgba(255,255,255,0.2)',
+                        cursor: 'pointer',
+                        fontSize: '15px',
+                        transition: 'all 0.3s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
           </div>
 
           {/* ============================================================ */}
-          {/* 🏆 CERTIFICATES (Vision) */}
+          {/* 🏆 CERTIFICATES (with Edit) */}
           {/* ============================================================ */}
           <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
@@ -1156,31 +1594,187 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                         </a>
                       )}
                     </div>
-                    <button
-                      onClick={() => handleDeleteCertificate(c._id)}
-                      style={{
-                        backgroundColor: 'rgba(239, 68, 68, 0.2)',
-                        color: '#FCA5A5',
-                        border: '1px solid rgba(239, 68, 68, 0.2)',
-                        padding: '6px 14px',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        fontSize: '13px',
-                        transition: 'all 0.3s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.4)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
-                      }}
-                    >
-                      Delete
-                    </button>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      {/* ✏️ Edit Button */}
+                      <button
+                        onClick={() => handleEditCertificate(c)}
+                        style={{
+                          backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                          color: '#93C5FD',
+                          border: '1px solid rgba(59, 130, 246, 0.2)',
+                          padding: '6px 14px',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          fontSize: '13px',
+                          transition: 'all 0.3s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = 'rgba(59, 130, 246, 0.4)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'rgba(59, 130, 246, 0.2)';
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteCertificate(c._id)}
+                        style={{
+                          backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                          color: '#FCA5A5',
+                          border: '1px solid rgba(239, 68, 68, 0.2)',
+                          padding: '6px 14px',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          fontSize: '13px',
+                          transition: 'all 0.3s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.4)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 ))
               )}
             </div>
+
+            {/* ✏️ Edit Certificate Form */}
+            {editingCertificate && (
+              <div style={{
+                marginTop: '24px',
+                padding: '20px',
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                borderRadius: '16px',
+                border: '1px solid rgba(59, 130, 246, 0.3)',
+              }}>
+                <h3 style={{ color: 'white', fontSize: '18px', marginBottom: '16px' }}>
+                  ✏️ Edit Certificate
+                </h3>
+                <form className="admin-form" onSubmit={handleUpdateCertificate} style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '16px',
+                }}>
+                  <input
+                    type="text"
+                    placeholder="Title"
+                    value={editCertificateData.title}
+                    onChange={(e) => setEditCertificateData({ ...editCertificateData, title: e.target.value })}
+                    style={{ ...inputStyle, gridColumn: '1 / -1' }}
+                    required
+                  />
+                  <input
+                    type="text"
+                    placeholder="Issuer"
+                    value={editCertificateData.issuer}
+                    onChange={(e) => setEditCertificateData({ ...editCertificateData, issuer: e.target.value })}
+                    style={inputStyle}
+                    required
+                  />
+                  <input
+                    type="date"
+                    placeholder="Date"
+                    value={editCertificateData.date}
+                    onChange={(e) => setEditCertificateData({ ...editCertificateData, date: e.target.value })}
+                    style={inputStyle}
+                    required
+                  />
+                  <select
+                    value={editCertificateData.category}
+                    onChange={(e) => setEditCertificateData({ ...editCertificateData, category: e.target.value })}
+                    style={inputStyle}
+                  >
+                    <option value="Academics">Academics</option>
+                    <option value="Professional">Professional</option>
+                    <option value="Certification">Certification</option>
+                    <option value="Award">Award</option>
+                  </select>
+                  <input
+                    type="url"
+                    placeholder="Image URL (optional)"
+                    value={editCertificateData.imageUrl}
+                    onChange={(e) => setEditCertificateData({ ...editCertificateData, imageUrl: e.target.value })}
+                    style={{ ...inputStyle, gridColumn: '1 / -1' }}
+                  />
+                  <input
+                    type="url"
+                    placeholder="Verify URL (optional)"
+                    value={editCertificateData.verifyUrl}
+                    onChange={(e) => setEditCertificateData({ ...editCertificateData, verifyUrl: e.target.value })}
+                    style={{ ...inputStyle, gridColumn: '1 / -1' }}
+                  />
+                  <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '12px' }}>
+                    <button
+                      type="submit"
+                      disabled={formLoading}
+                      style={{
+                        backgroundColor: '#3B82F6',
+                        color: 'white',
+                        fontWeight: '600',
+                        padding: '12px 24px',
+                        borderRadius: '12px',
+                        border: 'none',
+                        fontSize: '15px',
+                        cursor: formLoading ? 'not-allowed' : 'pointer',
+                        transition: 'all 0.3s ease',
+                        opacity: formLoading ? 0.7 : 1,
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!formLoading) {
+                          e.currentTarget.style.backgroundColor = '#2563EB';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!formLoading) {
+                          e.currentTarget.style.backgroundColor = '#3B82F6';
+                        }
+                      }}
+                    >
+                      {formLoading ? 'Updating...' : 'Update Certificate'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingCertificate(null);
+                        setEditCertificateData({
+                          title: '',
+                          issuer: '',
+                          date: '',
+                          category: 'Professional',
+                          imageUrl: '',
+                          verifyUrl: '',
+                        });
+                      }}
+                      style={{
+                        backgroundColor: 'rgba(255,255,255,0.1)',
+                        color: 'white',
+                        fontWeight: '600',
+                        padding: '12px 24px',
+                        borderRadius: '12px',
+                        border: '1px solid rgba(255,255,255,0.2)',
+                        cursor: 'pointer',
+                        fontSize: '15px',
+                        transition: 'all 0.3s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
           </div>
 
           {/* ===== FOOTER ===== */}

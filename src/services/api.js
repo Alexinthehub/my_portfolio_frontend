@@ -34,6 +34,7 @@ export const createProject = (data) => api.post('/projects', data);
 export const updateProject = (id, data) => api.put(`/projects/${id}`, data);
 export const deleteProject = (id) => api.delete(`/projects/${id}`);
 
+
 // --- Contact ---
 export const sendContactMessage = (data) => api.post('/contact', data);
 export const getMessages = () => api.get('/contact');
@@ -44,11 +45,14 @@ export const markMessageAsRead = (id) => api.put(`/contact/${id}/read`);
 export const getCurrentProjects = () => api.get('/current-projects');
 export const createCurrentProject = (data) => api.post('/current-projects', data);
 export const deleteCurrentProject = (id) => api.delete(`/current-projects/${id}`);
+export const updateCurrentProject = (id, data) => api.put(`/current-projects/${id}`, data); 
 export const starCurrentProject = (id) => api.put(`/current-projects/${id}/star`);
+
 
 // --- 🏆 Certificates (Vision) ---
 export const getCertificates = () => api.get('/certificates');
 export const createCertificate = (data) => api.post('/certificates', data);
+export const updateCertificate = (id, data) => api.put(`/certificates/${id}`, data);
 export const deleteCertificate = (id) => api.delete(`/certificates/${id}`);
 
 export default api;

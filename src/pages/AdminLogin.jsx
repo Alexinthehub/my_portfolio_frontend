@@ -16,6 +16,12 @@ const AdminLogin = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Check if token exists in localStorage or sessionStorage
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true);
+      navigate('/admin/dashboard');
+    }
     const timer = setTimeout(() => {
       setPageLoading(false);
     }, 600);
@@ -29,10 +35,17 @@ const AdminLogin = ({ setIsAuthenticated }) => {
 
     try {
       const response = await adminLogin(email, password);
-      localStorage.setItem('token', response.data.token);
+      const token = response.data.token;
+
+      // ✅ Store token based on rememberMe
       if (rememberMe) {
+        localStorage.setItem('token', token);
         localStorage.setItem('rememberMe', 'true');
+      } else {
+        sessionStorage.setItem('token', token);
+        localStorage.removeItem('rememberMe');
       }
+
       setIsAuthenticated(true);
       navigate('/admin/dashboard');
     } catch (err) {
