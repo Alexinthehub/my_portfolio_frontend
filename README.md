@@ -117,8 +117,6 @@ text
 │ POST /api/admin/login → Admin login │
 └─────────────────────────────────────────────────────────────────┘
 
-text
-
 ---
 
 ## 🛡️ Authentication Flow
@@ -153,8 +151,6 @@ text
 │ ◀───────────────────────── │
 └────────────────────────────┘
 
-text
-
 ---
 
 ## 📂 Project Structure
@@ -179,8 +175,6 @@ src/
 │ └── skillIcons.js
 ├── App.jsx # Main app with routing
 └── main.jsx # Entry point
-
-text
 
 ---
 
@@ -247,7 +241,14 @@ text
 │ [Logout] │
 └─────────────────────────────────────────────────────────────────┘
 
-text
+### 🔐 Admin Dashboard — Remember Me & Full Edit
+
+- **Remember Me:** Stay logged in across browser sessions with a simple checkbox.
+- **Edit Projects:** Update your portfolio projects without deleting and re-adding them.
+- **Edit Current Projects:** Modify your Vision page projects on the fly.
+- **Edit Certificates:** Update certificate details, verify URLs, and categories instantly.
+
+No deleting and re-adding — everything is fully editable!
 
 ---
 
@@ -265,8 +266,6 @@ text
 │ at onrender.com │
 └─────────────────────┘
 
-text
-
 ### 🌐 Frontend (Vercel)
 
 ┌─────────────────────┐
@@ -278,8 +277,6 @@ text
 │ at vercel.app │
 └─────────────────────┘
 
-text
-
 ### 🗄️ Database (MongoDB Atlas)
 
 ┌─────────────────────┐
@@ -289,8 +286,6 @@ text
 │ Hosts your data │
 │ Always online │
 └─────────────────────┘
-
-text
 
 ### 🔄 The Full Picture
 
@@ -314,8 +309,6 @@ text
 │ │ Hosts your data │ │
 │ └─────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────────────┘
-
-text
 
 ---
 
@@ -358,7 +351,7 @@ Backend API	https://my-portfolio-backend-k2ym.onrender.com
 GitHub (Frontend)	https://github.com/Alexinthehub/my_portfolio_frontend
 GitHub (Backend)	https://github.com/Alexinthehub/my_portfolio_backend
 🎯 Your Tech Stack
-text
+
 ┌──────────────────────────────────────────────────────────────┐
 │                    YOUR TECH STACK                          │
 ├──────────────────────────────────────────────────────────────┤
