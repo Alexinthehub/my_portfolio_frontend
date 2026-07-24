@@ -26,6 +26,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
   const [pageLoading, setPageLoading] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [isLoggingOut, setIsLoggingOut] = useState(false); // ✅ NEW: prevents API calls after logout
 
   // --- Profile State ---
   const [profile, setProfile] = useState(null);
@@ -77,7 +78,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     description: '',
     status: 'In Progress',
     repoUrl: '',
-    imageUrl: '',   // ✅ ADDED imageUrl
+    imageUrl: '',
   });
 
   // ✏️ Edit Current Project State
@@ -87,7 +88,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     description: '',
     status: 'In Progress',
     repoUrl: '',
-    imageUrl: '',   // ✅ ADDED imageUrl
+    imageUrl: '',
   });
 
   // --- Certificates State ---
@@ -122,17 +123,37 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  // --- Logout (FIXED: now uses navigate('/') to go Home) ---
+  // --- Logout (FIXED: adds fallback redirect and prevents API calls) ---
   const handleLogout = () => {
+    setIsLoggingOut(true); // ✅ Prevent API calls after logout
+    
+    // Clear all tokens
     localStorage.removeItem('token');
     localStorage.removeItem('rememberMe');
     sessionStorage.removeItem('token');
+    
+    // Update authentication state
     setIsAuthenticated(false);
-    navigate('/');  // ✅ Redirects to Home page instead of Login
+    
+    // Try React Router navigation first
+    try {
+      navigate('/');
+    } catch (err) {
+      console.error('Navigate failed:', err);
+    }
+    
+    // ✅ FALLBACK: Force a hard redirect after a tiny delay
+    // This ensures the page actually moves even if React Router fails
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 100);
   };
 
   // --- Fetch All Data ---
   const fetchData = async () => {
+    // ✅ If we're logging out, don't fetch anything
+    if (isLoggingOut) return;
+    
     try {
       const [profileRes, messagesRes, projectsRes, currentProjectsRes, certificatesRes] = await Promise.all([
         getProfile(),
@@ -168,11 +189,12 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     } catch (err) {
       console.error('Error fetching data:', err);
       if (err.response?.status === 401) {
+        // If token expired, clear everything and redirect
         localStorage.removeItem('token');
         localStorage.removeItem('rememberMe');
         sessionStorage.removeItem('token');
         setIsAuthenticated(false);
-        navigate('/');
+        window.location.href = '/';
         return;
       }
       alert('⚠️ Failed to load some data. Please refresh the page.');
@@ -181,18 +203,25 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     }
   };
 
+  // ✅ Updated useEffect with proper cleanup
   useEffect(() => {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (!token) {
-      navigate('/');
+      window.location.href = '/';
       return;
     }
     fetchData();
+    
+    // Cleanup function to prevent memory leaks
+    return () => {
+      // Any cleanup if needed
+    };
   }, []);
 
   // --- Profile Update ---
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
+    if (isLoggingOut) return;
     setFormLoading(true);
     try {
       const skillsArray = profileForm.skills.split(',').map((s) => s.trim()).filter(Boolean);
@@ -220,6 +249,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
   // --- Project CRUD ---
   const handleAddProject = async (e) => {
     e.preventDefault();
+    if (isLoggingOut) return;
     setFormLoading(true);
     try {
       const techArray = newProject.techStack.split(',').map((item) => item.trim());
@@ -254,6 +284,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
 
   const handleUpdateProject = async (e) => {
     e.preventDefault();
+    if (isLoggingOut) return;
     setFormLoading(true);
     try {
       const techArray = editProjectData.techStack.split(',').map((item) => item.trim());
@@ -316,6 +347,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
   // --- Current Project CRUD ---
   const handleAddCurrentProject = async (e) => {
     e.preventDefault();
+    if (isLoggingOut) return;
     setFormLoading(true);
     try {
       await createCurrentProject(newCurrentProject);
@@ -342,12 +374,13 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
       description: project.description || '',
       status: project.status || 'In Progress',
       repoUrl: project.repoUrl || '',
-      imageUrl: project.imageUrl || '',   // ✅ Added
+      imageUrl: project.imageUrl || '',
     });
   };
 
   const handleUpdateCurrentProject = async (e) => {
     e.preventDefault();
+    if (isLoggingOut) return;
     setFormLoading(true);
     try {
       await updateCurrentProject(editingCurrentProject, editCurrentProjectData);
@@ -392,6 +425,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
   // --- Certificate CRUD ---
   const handleAddCertificate = async (e) => {
     e.preventDefault();
+    if (isLoggingOut) return;
     setFormLoading(true);
     try {
       await createCertificate(newCertificate);
@@ -425,6 +459,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
 
   const handleUpdateCertificate = async (e) => {
     e.preventDefault();
+    if (isLoggingOut) return;
     setFormLoading(true);
     try {
       await updateCertificate(editingCertificate, editCertificateData);
