@@ -242,6 +242,31 @@ const Vision = () => {
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
                       }}
                     >
+                      {/* ✅ NEW: Display project image/avatar */}
+                      {project.imageUrl && (
+                        <div style={{
+                          width: '100%',
+                          height: '160px',
+                          borderRadius: '12px',
+                          overflow: 'hidden',
+                          marginBottom: '12px',
+                          backgroundColor: 'rgba(0,0,0,0.3)',
+                        }}>
+                          <img
+                            src={project.imageUrl}
+                            alt={project.title}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                            }}
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                            }}
+                          />
+                        </div>
+                      )}
+
                       <div className="vision-card-row" style={{
                         display: 'flex',
                         justifyContent: 'space-between',
