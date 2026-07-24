@@ -6,18 +6,18 @@ import {
   getProjects,
   createProject,
   deleteProject,
-  updateProject, // ✅ New import
+  updateProject,
   deleteMessage,
   getProfile,
   updateProfile,
   getCurrentProjects,
   createCurrentProject,
   deleteCurrentProject,
-  updateCurrentProject, // ✅ New import
+  updateCurrentProject,
   getCertificates,
   createCertificate,
   deleteCertificate,
-  updateCertificate, // ✅ New import
+  updateCertificate,
 } from '../services/api';
 import LoadingSpinner from '../components/LoadingSpinner';
 import Sparkles from '../components/Sparkles';
@@ -77,6 +77,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     description: '',
     status: 'In Progress',
     repoUrl: '',
+    imageUrl: '',   // ✅ ADDED imageUrl
   });
 
   // ✏️ Edit Current Project State
@@ -86,6 +87,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     description: '',
     status: 'In Progress',
     repoUrl: '',
+    imageUrl: '',   // ✅ ADDED imageUrl
   });
 
   // --- Certificates State ---
@@ -317,7 +319,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     setFormLoading(true);
     try {
       await createCurrentProject(newCurrentProject);
-      setNewCurrentProject({ title: '', description: '', status: 'In Progress', repoUrl: '' });
+      setNewCurrentProject({ title: '', description: '', status: 'In Progress', repoUrl: '', imageUrl: '' });
       fetchData();
       alert('✅ Current project added successfully!');
     } catch (err) {
@@ -340,6 +342,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
       description: project.description || '',
       status: project.status || 'In Progress',
       repoUrl: project.repoUrl || '',
+      imageUrl: project.imageUrl || '',   // ✅ Added
     });
   };
 
@@ -354,6 +357,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
         description: '',
         status: 'In Progress',
         repoUrl: '',
+        imageUrl: '',
       });
       fetchData();
       alert('✅ Current project updated successfully!');
@@ -879,7 +883,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                     </p>
                   </div>
                   <div style={{ display: 'flex', gap: '8px' }}>
-                    {/* ✏️ Edit Button */}
                     <button
                       onClick={() => handleEditProject(p)}
                       style={{
@@ -901,7 +904,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                     >
                       Edit
                     </button>
-                    {/* 🗑️ Delete Button */}
                     <button
                       onClick={() => handleDeleteProject(p._id)}
                       style={{
@@ -1138,7 +1140,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
           </div>
 
           {/* ============================================================ */}
-          {/* 🚀 CURRENT PROJECTS (with Edit) */}
+          {/* 🚀 CURRENT PROJECTS (with Edit) - NOW WITH imageUrl */}
           {/* ============================================================ */}
           <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
@@ -1157,6 +1159,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
               🚀 Current Projects
             </h2>
 
+            {/* ADD CURRENT PROJECT FORM with imageUrl */}
             <form className="admin-form" onSubmit={handleAddCurrentProject} style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
@@ -1196,6 +1199,14 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                 onChange={(e) => setNewCurrentProject({ ...newCurrentProject, repoUrl: e.target.value })}
                 style={inputStyle}
               />
+              {/* ✅ NEW: Image URL input for adding */}
+              <input
+                type="url"
+                placeholder="Image / Avatar URL (optional)"
+                value={newCurrentProject.imageUrl}
+                onChange={(e) => setNewCurrentProject({ ...newCurrentProject, imageUrl: e.target.value })}
+                style={{ ...inputStyle, gridColumn: '1 / -1' }}
+              />
               <button
                 type="submit"
                 disabled={formLoading}
@@ -1227,6 +1238,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
               </button>
             </form>
 
+            {/* CURRENT PROJECTS LIST */}
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
@@ -1256,6 +1268,11 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                       <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px' }}>
                         {p.status} • ⭐ {p.starCount || 0}
                       </p>
+                      {p.imageUrl && (
+                        <div style={{ marginTop: '4px' }}>
+                          <img src={p.imageUrl} alt={p.title} style={{ maxWidth: '60px', maxHeight: '60px', borderRadius: '8px', objectFit: 'cover' }} />
+                        </div>
+                      )}
                       {p.repoUrl && p.status !== 'Completed' && (
                         <a
                           href={p.repoUrl}
@@ -1276,7 +1293,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                       )}
                     </div>
                     <div style={{ display: 'flex', gap: '8px' }}>
-                      {/* ✏️ Edit Button */}
                       <button
                         onClick={() => handleEditCurrentProject(p)}
                         style={{
@@ -1325,7 +1341,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
               )}
             </div>
 
-            {/* ✏️ Edit Current Project Form */}
+            {/* ✏️ Edit Current Project Form with imageUrl */}
             {editingCurrentProject && (
               <div style={{
                 marginTop: '24px',
@@ -1375,6 +1391,14 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                     onChange={(e) => setEditCurrentProjectData({ ...editCurrentProjectData, repoUrl: e.target.value })}
                     style={inputStyle}
                   />
+                  {/* ✅ NEW: Image URL input for editing */}
+                  <input
+                    type="url"
+                    placeholder="Image / Avatar URL (optional)"
+                    value={editCurrentProjectData.imageUrl}
+                    onChange={(e) => setEditCurrentProjectData({ ...editCurrentProjectData, imageUrl: e.target.value })}
+                    style={{ ...inputStyle, gridColumn: '1 / -1' }}
+                  />
                   <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '12px' }}>
                     <button
                       type="submit"
@@ -1413,6 +1437,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                           description: '',
                           status: 'In Progress',
                           repoUrl: '',
+                          imageUrl: '',
                         });
                       }}
                       style={{
@@ -1595,7 +1620,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                       )}
                     </div>
                     <div style={{ display: 'flex', gap: '8px' }}>
-                      {/* ✏️ Edit Button */}
                       <button
                         onClick={() => handleEditCertificate(c)}
                         style={{
