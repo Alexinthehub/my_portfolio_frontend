@@ -70,13 +70,13 @@ const Contact = () => {
   }
 
   return (
-    <div className="contact-page" style={{
+    <div className="contact-page page-container" style={{
       position: 'relative',
       minHeight: '100vh',
       width: '100%',
       overflow: 'hidden',
     }}>
-      {/* FULL PAGE BACKGROUND */}
+      {/* BACKGROUND */}
       <div style={{
         position: 'fixed',
         top: 0,
@@ -91,7 +91,7 @@ const Contact = () => {
         backgroundRepeat: 'no-repeat',
       }} />
 
-      {/* DARK OVERLAY */}
+      {/* OVERLAY */}
       <div style={{
         position: 'fixed',
         top: 0,
@@ -108,7 +108,7 @@ const Contact = () => {
       </div>
 
       {/* CONTENT */}
-      <div style={{
+      <div className="page-content" style={{
         position: 'relative',
         zIndex: 3,
         minHeight: '100vh',
@@ -117,6 +117,7 @@ const Contact = () => {
         padding: '40px 20px 0',
         width: '100%',
         boxSizing: 'border-box',
+        flex: 1,
       }}>
         <div style={{
           flex: 1,
@@ -400,20 +401,7 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Footer */}
-        <footer style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          textAlign: 'center',
-          borderTop: '1px solid rgba(255,255,255,0.05)',
-          padding: '24px 0',
-          width: '100%',
-          marginTop: 'auto'
-        }}>
-          <p style={{ color: '#6B7280', fontSize: '14px' }}>
-            © {new Date().getFullYear()} Alex Mwendwa. Built with ❤️
-          </p>
-        </footer>
+        {/* ✅ NO FOOTER HERE – Layout.jsx provides it */}
       </div>
     </div>
   );

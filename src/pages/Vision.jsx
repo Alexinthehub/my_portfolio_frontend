@@ -49,7 +49,7 @@ const Vision = () => {
   }
 
   return (
-    <div className="vision-page" style={{
+    <div className="vision-page page-container" style={{
       position: 'relative',
       minHeight: '100vh',
       width: '100%',
@@ -87,7 +87,7 @@ const Vision = () => {
       </div>
 
       {/* CONTENT */}
-      <div style={{
+      <div className="page-content" style={{
         position: 'relative',
         zIndex: 3,
         minHeight: '100vh',
@@ -97,6 +97,7 @@ const Vision = () => {
         alignItems: 'center',
         padding: '40px 20px 0',
         boxSizing: 'border-box',
+        flex: 1,
       }}>
         <div style={{
           width: '100%',
@@ -463,19 +464,7 @@ const Vision = () => {
           </div>
         </div>
 
-        {/* FOOTER */}
-        <footer style={{
-          maxWidth: '1400px',
-          marginTop: 'auto',
-          textAlign: 'center',
-          borderTop: '1px solid rgba(255,255,255,0.05)',
-          padding: '24px 0',
-          width: '100%',
-        }}>
-          <p style={{ color: '#6B7280', fontSize: '14px' }}>
-            © {new Date().getFullYear()} Alex Mwendwa. Built with ❤️
-          </p>
-        </footer>
+        {/* ✅ NO FOOTER HERE – Layout.jsx provides it */}
       </div>
     </div>
   );

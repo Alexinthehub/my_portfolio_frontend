@@ -21,7 +21,7 @@ const Home = () => {
   }
 
   return (
-    <div className="home-page" style={{
+    <div className="home-page page-container" style={{
       position: 'relative',
       minHeight: '100vh',
       width: '100%',
@@ -63,7 +63,7 @@ const Home = () => {
       </div>
 
       {/* CONTENT */}
-      <div style={{
+      <div className="page-content" style={{
         position: 'relative',
         zIndex: 3,
         width: '100%',
@@ -71,7 +71,7 @@ const Home = () => {
         padding: '60px 60px 40px',
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100vh',
+        flex: 1,
       }}>
         {/* HERO */}
         <div className="hero-grid">
@@ -133,7 +133,7 @@ const Home = () => {
                 zIndex: 0,
               }} />
               <img
-                src={profile?.avatar || 'https://i.imgur.com/q5jPf1h.jpeg'}
+                src={profile?.avatar ? `${profile.avatar}?t=${Date.now()}` : 'https://i.imgur.com/q5jPf1h.jpeg'}
                 alt={profile?.name || 'Alex Mwendwa'}
                 style={{
                   width: '100%',
@@ -260,109 +260,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* FOOTER */}
-      <footer style={{
-        position: 'relative',
-        zIndex: 3,
-        width: '100%',
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        backdropFilter: 'blur(8px)',
-        borderTop: '1px solid rgba(93, 214, 44, 0.08)',
-        padding: '16px 60px',
-        textAlign: 'center',
-      }}>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: '24px',
-          flexWrap: 'wrap',
-          marginBottom: '6px',
-        }}>
-          {profile?.socialLinks?.github && (
-            <a href={profile.socialLinks.github} target="_blank" rel="noopener noreferrer" style={{
-              color: '#9CA3AF',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: '500',
-              transition: 'all 0.3s ease',
-              fontFamily: "'Inter', 'Segoe UI', sans-serif",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = '#5DD62C';
-              e.currentTarget.style.textShadow = '0 0 15px rgba(93,214,44,0.3)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = '#9CA3AF';
-              e.currentTarget.style.textShadow = 'none';
-            }}>
-              🐙 GitHub
-            </a>
-          )}
-          {profile?.socialLinks?.linkedin && (
-            <a href={profile.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" style={{
-              color: '#9CA3AF',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: '500',
-              transition: 'all 0.3s ease',
-              fontFamily: "'Inter', 'Segoe UI', sans-serif",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = '#5DD62C';
-              e.currentTarget.style.textShadow = '0 0 15px rgba(93,214,44,0.3)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = '#9CA3AF';
-              e.currentTarget.style.textShadow = 'none';
-            }}>
-              💼 LinkedIn
-            </a>
-          )}
-          {profile?.socialLinks?.twitter && (
-            <a href={profile.socialLinks.twitter} target="_blank" rel="noopener noreferrer" style={{
-              color: '#9CA3AF',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: '500',
-              transition: 'all 0.3s ease',
-              fontFamily: "'Inter', 'Segoe UI', sans-serif",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = '#5DD62C';
-              e.currentTarget.style.textShadow = '0 0 15px rgba(93,214,44,0.3)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = '#9CA3AF';
-              e.currentTarget.style.textShadow = 'none';
-            }}>
-              𝕏 X
-            </a>
-          )}
-          {profile?.socialLinks?.discord && (
-            <a href={profile.socialLinks.discord} target="_blank" rel="noopener noreferrer" style={{
-              color: '#9CA3AF',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: '500',
-              transition: 'all 0.3s ease',
-              fontFamily: "'Inter', 'Segoe UI', sans-serif",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = '#5DD62C';
-              e.currentTarget.style.textShadow = '0 0 15px rgba(93,214,44,0.3)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = '#9CA3AF';
-              e.currentTarget.style.textShadow = 'none';
-            }}>
-              💬 Discord
-            </a>
-          )}
-        </div>
-        <p style={{ color: '#6B7280', fontSize: '11px', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
-          © {new Date().getFullYear()} Alex Mwendwa. Built with ❤️
-        </p>
-      </footer>
+      {/* ✅ NO FOOTER HERE – Layout.jsx provides it */}
     </div>
   );
 };
