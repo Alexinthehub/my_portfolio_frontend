@@ -122,13 +122,13 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  // --- Logout ---
+  // --- Logout (FIXED: now uses navigate('/') to go Home) ---
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('rememberMe');
     sessionStorage.removeItem('token');
     setIsAuthenticated(false);
-    window.location.href = '/';
+    navigate('/');  // ✅ Redirects to Home page instead of Login
   };
 
   // --- Fetch All Data ---
@@ -172,7 +172,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
         localStorage.removeItem('rememberMe');
         sessionStorage.removeItem('token');
         setIsAuthenticated(false);
-        window.location.href = '/';
+        navigate('/');
         return;
       }
       alert('⚠️ Failed to load some data. Please refresh the page.');
@@ -184,7 +184,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
   useEffect(() => {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (!token) {
-      window.location.href = '/';
+      navigate('/');
       return;
     }
     fetchData();
