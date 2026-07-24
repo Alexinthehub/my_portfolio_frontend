@@ -126,6 +126,10 @@ const Vision = () => {
           .vision-title {
             font-size: 32px !important;
           }
+          .project-avatar {
+            width: 48px !important;
+            height: 48px !important;
+          }
         }
 
         @media (max-width: 480px) {
@@ -137,6 +141,10 @@ const Vision = () => {
           }
           .vision-card p {
             font-size: 12px !important;
+          }
+          .project-avatar {
+            width: 40px !important;
+            height: 40px !important;
           }
         }
       `}</style>
@@ -229,7 +237,7 @@ const Vision = () => {
                         backgroundColor: 'rgba(255,255,255,0.06)',
                         backdropFilter: 'blur(8px)',
                         borderRadius: '16px',
-                        padding: '20px 24px',
+                        padding: '16px 20px',
                         border: '1px solid rgba(255,255,255,0.06)',
                         transition: 'all 0.3s ease',
                       }}
@@ -242,92 +250,128 @@ const Vision = () => {
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
                       }}
                     >
-                      {/* ✅ NEW: Display project image/avatar */}
-                      {project.imageUrl && (
-                        <div style={{
-                          width: '100%',
-                          height: '160px',
-                          borderRadius: '12px',
-                          overflow: 'hidden',
-                          marginBottom: '12px',
-                          backgroundColor: 'rgba(0,0,0,0.3)',
-                        }}>
-                          <img
-                            src={project.imageUrl}
-                            alt={project.title}
-                            style={{
-                              width: '100%',
-                              height: '100%',
-                              objectFit: 'cover',
-                            }}
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                            }}
-                          />
-                        </div>
-                      )}
-
-                      <div className="vision-card-row" style={{
+                      <div style={{
                         display: 'flex',
-                        justifyContent: 'space-between',
                         alignItems: 'flex-start',
-                        gap: '16px',
+                        justifyContent: 'space-between',
+                        gap: '12px',
                       }}>
-                        <div style={{ flex: 1 }}>
-                          <h3 style={{
-                            fontSize: '18px',
-                            fontWeight: '600',
-                            color: 'white',
-                            marginBottom: '4px',
-                            fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                          }}>
-                            {project.title}
-                          </h3>
-                          <p style={{
-                            fontSize: '14px',
-                            color: '#9CA3AF',
-                            marginBottom: '8px',
-                            fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                          }}>
-                            {project.description}
-                          </p>
-                          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
-                            <span className="status-badge" style={{
-                              fontSize: '12px',
-                              fontWeight: '500',
-                              color: project.status === 'Completed' ? '#5DD62C' :
-                                     project.status === 'Beta' ? '#FBBF24' :
-                                     project.status === 'Planning' ? '#60A5FA' : '#F472B6',
-                              backgroundColor: 'rgba(255,255,255,0.06)',
-                              padding: '4px 12px',
-                              borderRadius: '9999px',
-                              border: '1px solid rgba(255,255,255,0.06)',
+                        {/* LEFT: Avatar + Text */}
+                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', flex: 1, minWidth: 0 }}>
+                          {/* Avatar / Image */}
+                          {project.imageUrl ? (
+                            <img
+                              src={project.imageUrl}
+                              alt={project.title}
+                              className="project-avatar"
+                              style={{
+                                width: '56px',
+                                height: '56px',
+                                objectFit: 'cover',
+                                borderRadius: '12px',
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                flexShrink: 0,
+                                marginTop: '2px',
+                              }}
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                                // fallback icon will show after image fails
+                                const parent = e.target.parentNode;
+                                const fallback = document.createElement('div');
+                                fallback.className = 'project-avatar-fallback';
+                                fallback.style.cssText = `
+                                  width: 56px;
+                                  height: 56px;
+                                  background: rgba(93,214,44,0.15);
+                                  border-radius: 12px;
+                                  display: flex;
+                                  align-items: center;
+                                  justify-content: center;
+                                  font-size: 24px;
+                                  flex-shrink: 0;
+                                  margin-top: 2px;
+                                `;
+                                fallback.innerText = '🚀';
+                                parent.replaceChild(fallback, e.target);
+                              }}
+                            />
+                          ) : (
+                            <div style={{
+                              width: '56px',
+                              height: '56px',
+                              backgroundColor: 'rgba(93,214,44,0.12)',
+                              borderRadius: '12px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: '24px',
+                              flexShrink: 0,
+                              marginTop: '2px',
                             }}>
-                              {project.status}
-                            </span>
-                            {project.repoUrl && project.status !== 'Completed' && (
-                              <a
-                                href={project.repoUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                  fontSize: '12px',
-                                  color: '#5DD62C',
-                                  textDecoration: 'none',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  gap: '4px',
-                                  transition: 'color 0.3s ease',
-                                }}
-                                onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
-                                onMouseLeave={(e) => e.currentTarget.style.color = '#5DD62C'}
-                              >
-                                🔍 View Details
-                              </a>
-                            )}
+                              🚀
+                            </div>
+                          )}
+
+                          {/* Text Content */}
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <h3 style={{
+                              fontSize: '17px',
+                              fontWeight: '600',
+                              color: 'white',
+                              marginBottom: '2px',
+                              fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                              lineHeight: 1.3,
+                            }}>
+                              {project.title}
+                            </h3>
+                            <p style={{
+                              fontSize: '14px',
+                              color: '#9CA3AF',
+                              marginBottom: '6px',
+                              fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                              lineHeight: 1.4,
+                            }}>
+                              {project.description}
+                            </p>
+                            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+                              <span className="status-badge" style={{
+                                fontSize: '12px',
+                                fontWeight: '500',
+                                color: project.status === 'Completed' ? '#5DD62C' :
+                                       project.status === 'Beta' ? '#FBBF24' :
+                                       project.status === 'Planning' ? '#60A5FA' : '#F472B6',
+                                backgroundColor: 'rgba(255,255,255,0.06)',
+                                padding: '2px 12px',
+                                borderRadius: '9999px',
+                                border: '1px solid rgba(255,255,255,0.06)',
+                              }}>
+                                {project.status}
+                              </span>
+                              {project.repoUrl && project.status !== 'Completed' && (
+                                <a
+                                  href={project.repoUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  style={{
+                                    fontSize: '12px',
+                                    color: '#5DD62C',
+                                    textDecoration: 'none',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '4px',
+                                    transition: 'color 0.3s ease',
+                                  }}
+                                  onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
+                                  onMouseLeave={(e) => e.currentTarget.style.color = '#5DD62C'}
+                                >
+                                  🔍 View Details
+                                </a>
+                              )}
+                            </div>
                           </div>
                         </div>
 
+                        {/* RIGHT: Star Button */}
                         <div style={{
                           display: 'flex',
                           flexDirection: 'column',
@@ -342,16 +386,16 @@ const Vision = () => {
                               style={{
                                 background: 'none',
                                 border: 'none',
-                                fontSize: '22px',
+                                fontSize: '20px',
                                 cursor: starring === project._id ? 'not-allowed' : 'pointer',
                                 opacity: starring === project._id ? 0.5 : 1,
                                 transition: 'transform 0.2s ease',
                                 display: 'flex',
                                 flexDirection: 'row',
                                 alignItems: 'center',
-                                gap: '6px',
+                                gap: '4px',
                                 color: '#FFFFFF',
-                                padding: '4px 8px',
+                                padding: '4px 6px',
                                 borderRadius: '8px',
                               }}
                               onMouseEnter={(e) => {
@@ -450,7 +494,7 @@ const Vision = () => {
                         backgroundColor: 'rgba(255,255,255,0.06)',
                         backdropFilter: 'blur(8px)',
                         borderRadius: '16px',
-                        padding: '20px 24px',
+                        padding: '16px 20px',
                         border: '1px solid rgba(255,255,255,0.06)',
                         transition: 'all 0.3s ease',
                       }}
@@ -463,13 +507,13 @@ const Vision = () => {
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
                       }}
                     >
-                      <div className="vision-card-row" style={{
+                      <div style={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        gap: '16px',
+                        gap: '12px',
                       }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, minWidth: 0 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: 1, minWidth: 0 }}>
                           {cert.imageUrl ? (
                             <img
                               src={cert.imageUrl}
@@ -478,8 +522,8 @@ const Vision = () => {
                                 width: '56px',
                                 height: '56px',
                                 objectFit: 'cover',
-                                borderRadius: '8px',
-                                border: '1px solid rgba(255,255,255,0.06)',
+                                borderRadius: '12px',
+                                border: '1px solid rgba(255,255,255,0.1)',
                                 flexShrink: 0,
                               }}
                             />
@@ -487,8 +531,8 @@ const Vision = () => {
                             <div style={{
                               width: '56px',
                               height: '56px',
-                              backgroundColor: 'rgba(93,214,44,0.1)',
-                              borderRadius: '8px',
+                              backgroundColor: 'rgba(255,215,0,0.12)',
+                              borderRadius: '12px',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
