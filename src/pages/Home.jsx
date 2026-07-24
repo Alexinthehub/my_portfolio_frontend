@@ -87,15 +87,15 @@ const Home = () => {
               HI THERE,
             </p>
 
-            <h1 style={{
-              fontSize: 'clamp(36px, 6vw, 56px)',
+            <h1 className="hero-title-wrapper fade-slide-up delay-1" style={{
               fontWeight: '700',
               lineHeight: '1.2',
               margin: 0,
               fontFamily: "'Lucida Handwriting', 'Apple Chancery', cursive",
+              fontSize: 'clamp(36px, 6vw, 56px)',
             }}>
-              <span style={{ color: '#FFFFFF' }}>I am </span>
-              <span className="glow-name" style={{ color: '#FF6B35' }}>
+              <span className="iam-part" style={{ color: '#FFFFFF' }}>I am </span>
+              <span className="name-part glow-name" style={{ color: '#FF6B35' }}>
                 {profile?.name || 'Alex Mwendwa'}
               </span>
             </h1>
@@ -243,14 +243,7 @@ const Home = () => {
             My Skills
           </h2>
 
-          <div style={{
-            backgroundColor: 'rgba(255,255,255,0.05)',
-            backdropFilter: 'blur(12px)',
-            borderRadius: '20px',
-            padding: '36px',
-            border: '1px solid rgba(255,255,255,0.06)',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-          }}>
+          <div className="skills-wrapper">
             <div className="skills-grid">
               {profile?.skills?.map((skill, idx) => (
                 <div key={idx} className="skill-item">

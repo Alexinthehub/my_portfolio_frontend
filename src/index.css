@@ -955,11 +955,21 @@ body {
   animation: fadeSlideUp 1s ease-out forwards, glowOrange 2s ease-in-out infinite 1.2s;
 }
 
-/* Skills Grid */
+/* ---- Skills Grid ---- */
+.home-page .skills-wrapper {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
 .home-page .skills-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  justify-items: center;
+  align-items: stretch;
 }
 .home-page .skill-item {
   background: rgba(15, 15, 15, 0.5);
@@ -969,6 +979,11 @@ body {
   border: 1px solid rgba(93, 214, 44, 0.15);
   transition: all 0.3s ease;
   cursor: default;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .home-page .skill-item:hover {
   transform: scale(1.05);
@@ -977,12 +992,28 @@ body {
 .home-page .skill-icon {
   font-size: 36px;
   margin-bottom: 6px;
+  line-height: 1;
 }
 .home-page .skill-name {
   color: white;
   font-weight: 600;
   font-size: 16px;
   font-family: 'Inter', 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+/* ---- Hero Title - Name in one line ---- */
+.home-page .hero-title-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.home-page .hero-title-wrapper .name-part {
+  white-space: nowrap;
+}
+.home-page .hero-title-wrapper .iam-part {
+  white-space: nowrap;
 }
 
 /* Home Page Responsive */
@@ -1002,6 +1033,8 @@ body {
   .home-page .bio-card {
     margin: 20px auto 0 !important;
   }
+
+  /* Skills: 3 per row */
   .home-page .skills-grid {
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 12px !important;
@@ -1014,6 +1047,16 @@ body {
   }
   .home-page .skill-name {
     font-size: 14px !important;
+  }
+
+  /* Hero title: name stays on one line, smaller font */
+  .home-page .hero-title-wrapper {
+    font-size: clamp(28px, 5vw, 40px) !important;
+    justify-content: center;
+  }
+  .home-page .hero-title-wrapper .iam-part,
+  .home-page .hero-title-wrapper .name-part {
+    font-size: clamp(28px, 5vw, 40px) !important;
   }
 }
 @media (max-width: 480px) {
@@ -1030,8 +1073,16 @@ body {
   .home-page .skill-name {
     font-size: 12px !important;
   }
-}
 
+  .home-page .hero-title-wrapper {
+    font-size: clamp(22px, 4.5vw, 30px) !important;
+    justify-content: center;
+  }
+  .home-page .hero-title-wrapper .iam-part,
+  .home-page .hero-title-wrapper .name-part {
+    font-size: clamp(22px, 4.5vw, 30px) !important;
+  }
+}
 /* ---------- VISION PAGE ---------- */
 .vision-page .vision-grid-container {
   display: grid;
