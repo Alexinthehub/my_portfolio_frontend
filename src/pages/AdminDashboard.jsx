@@ -26,7 +26,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
   const [pageLoading, setPageLoading] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [isLoggingOut, setIsLoggingOut] = useState(false); // ✅ NEW: prevents API calls after logout
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   // --- Profile State ---
   const [profile, setProfile] = useState(null);
@@ -123,27 +123,32 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  // --- Logout (FIXED: adds fallback redirect and prevents API calls) ---
+  // ======================================================================
+  //  SAFE LOGOUT FUNCTION (with guard for setIsAuthenticated)
+  // ======================================================================
   const handleLogout = () => {
-    setIsLoggingOut(true); // ✅ Prevent API calls after logout
-    
+    setIsLoggingOut(true);
+
     // Clear all tokens
     localStorage.removeItem('token');
     localStorage.removeItem('rememberMe');
     sessionStorage.removeItem('token');
-    
-    // Update authentication state
-    setIsAuthenticated(false);
-    
-    // Try React Router navigation first
+
+    // Update authentication state (only if the prop is a function)
+    if (typeof setIsAuthenticated === 'function') {
+      setIsAuthenticated(false);
+    } else {
+      console.warn('setIsAuthenticated is not a function. Please check App.jsx');
+    }
+
+    // Try React Router navigation
     try {
       navigate('/');
     } catch (err) {
       console.error('Navigate failed:', err);
     }
-    
-    // ✅ FALLBACK: Force a hard redirect after a tiny delay
-    // This ensures the page actually moves even if React Router fails
+
+    // Fallback hard redirect
     setTimeout(() => {
       window.location.href = '/';
     }, 100);
@@ -151,9 +156,8 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
 
   // --- Fetch All Data ---
   const fetchData = async () => {
-    // ✅ If we're logging out, don't fetch anything
     if (isLoggingOut) return;
-    
+
     try {
       const [profileRes, messagesRes, projectsRes, currentProjectsRes, certificatesRes] = await Promise.all([
         getProfile(),
@@ -189,33 +193,23 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     } catch (err) {
       console.error('Error fetching data:', err);
       if (err.response?.status === 401) {
-        // If token expired, clear everything and redirect
-        localStorage.removeItem('token');
-        localStorage.removeItem('rememberMe');
-        sessionStorage.removeItem('token');
-        setIsAuthenticated(false);
-        window.location.href = '/';
-        return;
+        // Token expired – logout
+        handleLogout();
+      } else {
+        alert('⚠️ Failed to load some data. Please refresh the page.');
       }
-      alert('⚠️ Failed to load some data. Please refresh the page.');
     } finally {
       setLoading(false);
     }
   };
 
-  // ✅ Updated useEffect with proper cleanup
   useEffect(() => {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (!token) {
-      window.location.href = '/';
+      handleLogout();
       return;
     }
     fetchData();
-    
-    // Cleanup function to prevent memory leaks
-    return () => {
-      // Any cleanup if needed
-    };
   }, []);
 
   // --- Profile Update ---
@@ -366,7 +360,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     }
   };
 
-  // ✏️ Edit Current Project Functions
   const handleEditCurrentProject = (project) => {
     setEditingCurrentProject(project._id);
     setEditCurrentProjectData({
@@ -444,7 +437,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     }
   };
 
-  // ✏️ Edit Certificate Functions
   const handleEditCertificate = (cert) => {
     setEditingCertificate(cert._id);
     setEditCertificateData({
@@ -513,7 +505,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
       width: '100%',
       overflow: 'hidden',
     }}>
-      
       {/* 🖼️ FULL PAGE BACKGROUND IMAGE */}
       <div style={{
         position: 'fixed',
@@ -555,7 +546,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
         display: 'flex',
         flexDirection: 'column',
       }}>
-        
         <div style={{ flex: 1 }}>
           {/* ===== HEADER ===== */}
           <div className="admin-dashboard-header" style={{
@@ -1175,7 +1165,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
           </div>
 
           {/* ============================================================ */}
-          {/* 🚀 CURRENT PROJECTS (with Edit) - NOW WITH imageUrl */}
+          {/* 🚀 CURRENT PROJECTS (with Edit) */}
           {/* ============================================================ */}
           <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
@@ -1194,7 +1184,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
               🚀 Current Projects
             </h2>
 
-            {/* ADD CURRENT PROJECT FORM with imageUrl */}
             <form className="admin-form" onSubmit={handleAddCurrentProject} style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
@@ -1234,7 +1223,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                 onChange={(e) => setNewCurrentProject({ ...newCurrentProject, repoUrl: e.target.value })}
                 style={inputStyle}
               />
-              {/* ✅ NEW: Image URL input for adding */}
               <input
                 type="url"
                 placeholder="Image / Avatar URL (optional)"
@@ -1273,7 +1261,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
               </button>
             </form>
 
-            {/* CURRENT PROJECTS LIST */}
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
@@ -1376,7 +1363,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
               )}
             </div>
 
-            {/* ✏️ Edit Current Project Form with imageUrl */}
+            {/* ✏️ Edit Current Project Form */}
             {editingCurrentProject && (
               <div style={{
                 marginTop: '24px',
@@ -1426,7 +1413,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                     onChange={(e) => setEditCurrentProjectData({ ...editCurrentProjectData, repoUrl: e.target.value })}
                     style={inputStyle}
                   />
-                  {/* ✅ NEW: Image URL input for editing */}
                   <input
                     type="url"
                     placeholder="Image / Avatar URL (optional)"
