@@ -531,3 +531,36 @@ body {
     white-space: normal !important;
   }
 }
+/* ================================================================ */
+/* ===== FOOTER STICKY BOTTOM ===== */
+/* ================================================================ */
+
+/* Make every page's main container fill the viewport */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Fallback */
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
+  width: 100%;
+}
+
+/* The content area should grow to push footer down */
+.page-content {
+  flex: 1 0 auto;
+  width: 100%;
+}
+
+/* Footer stays at bottom */
+.page-footer {
+  flex-shrink: 0;
+  width: 100%;
+  margin-top: auto;
+}
+
+/* Ensure footer on all pages uses this */
+footer.footer-sticky {
+  margin-top: auto !important;
+  position: relative !important;
+  bottom: 0 !important;
+  width: 100% !important;
+}

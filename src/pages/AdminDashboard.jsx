@@ -213,32 +213,33 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
   }, []);
 
   // --- Profile Update ---
-  const handleProfileUpdate = async (e) => {
-    e.preventDefault();
-    if (isLoggingOut) return;
-    setFormLoading(true);
-    try {
-      const skillsArray = profileForm.skills.split(',').map((s) => s.trim()).filter(Boolean);
-      const languagesArray = profileForm.languages.split(',').map((l) => l.trim()).filter(Boolean);
-      const payload = {
-        ...profileForm,
-        skills: skillsArray,
-        languages: languagesArray,
-      };
-      await updateProfile(payload);
-      alert('✅ Profile updated successfully!');
-      fetchData();
-    } catch (err) {
-      console.error(err);
-      if (err.response?.status === 401) {
-        handleLogout();
-      } else {
-        alert('❌ Failed to update profile.');
-      }
-    } finally {
-      setFormLoading(false);
+const handleProfileUpdate = async (e) => {
+  e.preventDefault();
+  if (isLoggingOut) return;
+  setFormLoading(true);
+  try {
+    const skillsArray = profileForm.skills.split(',').map((s) => s.trim()).filter(Boolean);
+    const languagesArray = profileForm.languages.split(',').map((l) => l.trim()).filter(Boolean);
+    const payload = {
+      ...profileForm,
+      skills: skillsArray,
+      languages: languagesArray,
+    };
+    await updateProfile(payload);
+    alert('✅ Profile updated successfully!');
+    await fetchData(); 
+  } catch (err) {
+    console.error(err);
+    if (err.response?.status === 401) {
+      handleLogout();
+    } else {
+      alert('❌ Failed to update profile.');
     }
-  };
+  } finally {
+    setFormLoading(false);
+  }
+};
+
 
   // --- Project CRUD ---
   const handleAddProject = async (e) => {

@@ -170,7 +170,7 @@ const Vision = () => {
                         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', flex: 1, minWidth: 0 }}>
                           {project.imageUrl ? (
                             <img
-                              src={project.imageUrl}
+                              src={project.imageUrl ? `${project.imageUrl}?t=${Date.now()}` : ''}
                               alt={project.title}
                               className="project-avatar"
                               onError={(e) => {
