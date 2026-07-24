@@ -223,8 +223,8 @@ body {
 }
 
 .home-page .skill-item {
-  flex: 0 0 calc(25% - 20px);
-  min-width: 120px;
+  flex: 0 0 calc(25% - 20px); /* 4 per row on desktop */
+  min-width: 100px;
   background: rgba(15, 15, 15, 0.5);
   border-radius: 16px;
   padding: 22px;
@@ -256,6 +256,13 @@ body {
 }
 
 /* ---- Home Page Responsive ---- */
+@media (max-width: 1024px) {
+  .home-page .skill-item {
+    flex: 0 0 calc(25% - 20px) !important;
+    min-width: 90px !important;
+  }
+}
+
 @media (max-width: 768px) {
   .home-page .hero-grid {
     grid-template-columns: 1fr !important;
@@ -273,7 +280,6 @@ body {
     margin: 20px auto 0 !important;
   }
 
-  /* Hero title - smaller, name stays on one line */
   .home-page .hero-title-wrapper {
     font-size: clamp(28px, 5vw, 40px) !important;
     justify-content: center;
@@ -283,7 +289,7 @@ body {
     font-size: clamp(28px, 5vw, 40px) !important;
   }
 
-  /* Skills: 3 per row, centered */
+  /* Skills: FORCE 3 per row */
   .home-page .skills-wrapper {
     padding: 20px !important;
   }
@@ -292,7 +298,7 @@ body {
   }
   .home-page .skill-item {
     flex: 0 0 calc(33.333% - 12px) !important;
-    min-width: 80px !important;
+    min-width: 0 !important;
     padding: 16px 10px !important;
   }
   .home-page .skill-icon {
@@ -317,14 +323,14 @@ body {
   }
   .home-page .skill-item {
     flex: 0 0 calc(33.333% - 8px) !important;
-    min-width: 70px !important;
-    padding: 12px 8px !important;
+    min-width: 0 !important;
+    padding: 12px 6px !important;
   }
   .home-page .skill-icon {
-    font-size: 24px !important;
+    font-size: 22px !important;
   }
   .home-page .skill-name {
-    font-size: 12px !important;
+    font-size: 11px !important;
   }
 }
 
