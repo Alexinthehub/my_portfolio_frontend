@@ -49,14 +49,13 @@ const Vision = () => {
   }
 
   return (
-    <div style={{
+    <div className="vision-page" style={{
       position: 'relative',
       minHeight: '100vh',
       width: '100%',
       overflow: 'hidden',
     }}>
-      
-      {/* 🖼️ FULL PAGE BACKGROUND IMAGE */}
+      {/* BACKGROUND */}
       <div style={{
         position: 'fixed',
         top: 0,
@@ -71,7 +70,7 @@ const Vision = () => {
         backgroundRepeat: 'no-repeat',
       }} />
 
-      {/* 🌑 DARK OVERLAY */}
+      {/* OVERLAY */}
       <div style={{
         position: 'fixed',
         top: 0,
@@ -82,74 +81,12 @@ const Vision = () => {
         backgroundColor: 'rgba(0, 0, 0, 0.75)',
       }} />
 
-      {/* ✨ Sparkles */}
+      {/* SPARKLES */}
       <div style={{ position: 'relative', zIndex: 2, width: '100%', height: '100%' }}>
         <Sparkles />
       </div>
 
-      <style>{`
-        /* ===== VISION PAGE RESPONSIVE GRID ===== */
-        .vision-grid-container {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 32px;
-          width: 100%;
-        }
-
-        /* Mobile: stacked */
-        @media (max-width: 768px) {
-          .vision-grid-container {
-            grid-template-columns: 1fr !important;
-            gap: 20px !important;
-          }
-          .vision-section-title {
-            font-size: 20px !important;
-          }
-          .vision-card {
-            padding: 14px !important;
-          }
-          .vision-card h3 {
-            font-size: 16px !important;
-          }
-          .vision-card p {
-            font-size: 13px !important;
-          }
-          .verify-btn {
-            font-size: 12px !important;
-            padding: 4px 10px !important;
-            white-space: nowrap !important;
-          }
-          .status-badge {
-            font-size: 11px !important;
-            padding: 2px 10px !important;
-          }
-          .vision-title {
-            font-size: 32px !important;
-          }
-          .project-avatar {
-            width: 48px !important;
-            height: 48px !important;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .vision-card {
-            padding: 10px !important;
-          }
-          .vision-card h3 {
-            font-size: 14px !important;
-          }
-          .vision-card p {
-            font-size: 12px !important;
-          }
-          .project-avatar {
-            width: 40px !important;
-            height: 40px !important;
-          }
-        }
-      `}</style>
-
-      {/* ===== CONTENT — Footer will stick to bottom ===== */}
+      {/* CONTENT */}
       <div style={{
         position: 'relative',
         zIndex: 3,
@@ -161,8 +98,6 @@ const Vision = () => {
         padding: '40px 20px 0',
         boxSizing: 'border-box',
       }}>
-        
-        {/* Main content — grows to fill available space */}
         <div style={{
           width: '100%',
           maxWidth: '1400px',
@@ -171,19 +106,12 @@ const Vision = () => {
           flexDirection: 'column',
           gap: '32px',
         }}>
-          
-          {/* Page Header */}
+          {/* PAGE HEADER */}
           <div style={{
             textAlign: 'center',
             paddingBottom: '20px',
           }}>
-            <h1 className="vision-title" style={{
-              fontSize: '48px',
-              fontWeight: '700',
-              color: 'white',
-              marginBottom: '12px',
-              fontFamily: "'Inter', 'Segoe UI', sans-serif",
-            }}>
+            <h1 className="vision-title">
               🔭 My Vision
             </h1>
             <p style={{
@@ -194,26 +122,16 @@ const Vision = () => {
             </p>
           </div>
 
-          {/* ===== TWO COLUMN LAYOUT ===== */}
+          {/* TWO COLUMNS */}
           <div className="vision-grid-container">
-            
-            {/* ===== LEFT: Current Projects ===== */}
+            {/* LEFT: Current Projects */}
             <div style={{
               backgroundColor: 'rgba(93, 214, 44, 0.06)',
               borderRadius: '20px',
               padding: '24px',
               border: '1px solid rgba(93, 214, 44, 0.15)',
             }}>
-              <h2 className="vision-section-title" style={{
-                fontSize: '24px',
-                fontWeight: '600',
-                color: 'white',
-                marginBottom: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                fontFamily: "'Inter', 'Segoe UI', sans-serif",
-              }}>
+              <h2 className="vision-section-title">
                 🚀 Current Projects
               </h2>
 
@@ -233,14 +151,6 @@ const Vision = () => {
                     <div
                       key={project._id}
                       className="vision-card"
-                      style={{
-                        backgroundColor: 'rgba(255,255,255,0.06)',
-                        backdropFilter: 'blur(8px)',
-                        borderRadius: '16px',
-                        padding: '16px 20px',
-                        border: '1px solid rgba(255,255,255,0.06)',
-                        transition: 'all 0.3s ease',
-                      }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.borderColor = 'rgba(93,214,44,0.3)';
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
@@ -258,27 +168,15 @@ const Vision = () => {
                       }}>
                         {/* LEFT: Avatar + Text */}
                         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', flex: 1, minWidth: 0 }}>
-                          {/* Avatar / Image */}
                           {project.imageUrl ? (
                             <img
                               src={project.imageUrl}
                               alt={project.title}
                               className="project-avatar"
-                              style={{
-                                width: '56px',
-                                height: '56px',
-                                objectFit: 'cover',
-                                borderRadius: '12px',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                flexShrink: 0,
-                                marginTop: '2px',
-                              }}
                               onError={(e) => {
                                 e.target.style.display = 'none';
-                                // fallback icon will show after image fails
                                 const parent = e.target.parentNode;
                                 const fallback = document.createElement('div');
-                                fallback.className = 'project-avatar-fallback';
                                 fallback.style.cssText = `
                                   width: 56px;
                                   height: 56px;
@@ -312,7 +210,6 @@ const Vision = () => {
                             </div>
                           )}
 
-                          {/* Text Content */}
                           <div style={{ flex: 1, minWidth: 0 }}>
                             <h3 style={{
                               fontSize: '17px',
@@ -335,15 +232,9 @@ const Vision = () => {
                             </p>
                             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
                               <span className="status-badge" style={{
-                                fontSize: '12px',
-                                fontWeight: '500',
                                 color: project.status === 'Completed' ? '#5DD62C' :
                                        project.status === 'Beta' ? '#FBBF24' :
                                        project.status === 'Planning' ? '#60A5FA' : '#F472B6',
-                                backgroundColor: 'rgba(255,255,255,0.06)',
-                                padding: '2px 12px',
-                                borderRadius: '9999px',
-                                border: '1px solid rgba(255,255,255,0.06)',
                               }}>
                                 {project.status}
                               </span>
@@ -371,7 +262,7 @@ const Vision = () => {
                           </div>
                         </div>
 
-                        {/* RIGHT: Star Button */}
+                        {/* RIGHT: STAR */}
                         <div style={{
                           display: 'flex',
                           flexDirection: 'column',
@@ -420,29 +311,26 @@ const Vision = () => {
                               <span style={{ fontSize: '20px' }}>⭐</span>
                               <span style={{ fontSize: '16px', fontWeight: '600' }}>{project.starCount || 0}</span>
                             </button>
-                            <span
-                              className="tooltip-text"
-                              style={{
-                                visibility: 'hidden',
-                                opacity: 0,
-                                width: '140px',
-                                backgroundColor: 'rgba(15,15,15,0.95)',
-                                color: '#D1D5DB',
-                                textAlign: 'center',
-                                borderRadius: '8px',
-                                padding: '6px 12px',
-                                position: 'absolute',
-                                zIndex: 10,
-                                bottom: '115%',
-                                left: '50%',
-                                transform: 'translateX(-50%)',
-                                transition: 'opacity 0.3s ease',
-                                fontSize: '12px',
-                                fontFamily: "'Inter', sans-serif",
-                                border: '1px solid rgba(93,214,44,0.15)',
-                                whiteSpace: 'nowrap',
-                              }}
-                            >
+                            <span className="tooltip-text" style={{
+                              visibility: 'hidden',
+                              opacity: 0,
+                              width: '140px',
+                              backgroundColor: 'rgba(15,15,15,0.95)',
+                              color: '#D1D5DB',
+                              textAlign: 'center',
+                              borderRadius: '8px',
+                              padding: '6px 12px',
+                              position: 'absolute',
+                              zIndex: 10,
+                              bottom: '115%',
+                              left: '50%',
+                              transform: 'translateX(-50%)',
+                              transition: 'opacity 0.3s ease',
+                              fontSize: '12px',
+                              fontFamily: "'Inter', sans-serif",
+                              border: '1px solid rgba(93,214,44,0.15)',
+                              whiteSpace: 'nowrap',
+                            }}>
                               Leave a ⭐ to support!
                             </span>
                           </div>
@@ -454,23 +342,14 @@ const Vision = () => {
               )}
             </div>
 
-            {/* ===== RIGHT: Certificates ===== */}
+            {/* RIGHT: CERTIFICATES */}
             <div style={{
               backgroundColor: 'rgba(255, 215, 0, 0.06)',
               borderRadius: '20px',
               padding: '24px',
               border: '1px solid rgba(255, 215, 0, 0.15)',
             }}>
-              <h2 className="vision-section-title" style={{
-                fontSize: '24px',
-                fontWeight: '600',
-                color: 'white',
-                marginBottom: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                fontFamily: "'Inter', 'Segoe UI', sans-serif",
-              }}>
+              <h2 className="vision-section-title">
                 🏆 Certificates
               </h2>
 
@@ -490,14 +369,6 @@ const Vision = () => {
                     <div
                       key={cert._id}
                       className="vision-card"
-                      style={{
-                        backgroundColor: 'rgba(255,255,255,0.06)',
-                        backdropFilter: 'blur(8px)',
-                        borderRadius: '16px',
-                        padding: '16px 20px',
-                        border: '1px solid rgba(255,255,255,0.06)',
-                        transition: 'all 0.3s ease',
-                      }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
@@ -579,25 +450,6 @@ const Vision = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="verify-btn"
-                            style={{
-                              fontSize: '13px',
-                              color: '#FFD700',
-                              textDecoration: 'none',
-                              padding: '6px 16px',
-                              border: '1px solid rgba(255,215,0,0.3)',
-                              borderRadius: '8px',
-                              transition: 'all 0.3s ease',
-                              whiteSpace: 'nowrap',
-                              flexShrink: 0,
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = 'rgba(255,215,0,0.15)';
-                              e.currentTarget.style.borderColor = '#FFD700';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = 'transparent';
-                              e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
-                            }}
                           >
                             🔍 Verify
                           </a>
@@ -611,8 +463,8 @@ const Vision = () => {
           </div>
         </div>
 
-        {/* ===== FOOTER — Sticks to bottom ===== */}
-        <footer className="footer" style={{
+        {/* FOOTER */}
+        <footer style={{
           maxWidth: '1400px',
           marginTop: 'auto',
           textAlign: 'center',
@@ -620,7 +472,7 @@ const Vision = () => {
           padding: '24px 0',
           width: '100%',
         }}>
-          <p className="footer-text" style={{ color: '#6B7280', fontSize: '14px' }}>
+          <p style={{ color: '#6B7280', fontSize: '14px' }}>
             © {new Date().getFullYear()} Alex Mwendwa. Built with ❤️
           </p>
         </footer>

@@ -21,7 +21,7 @@ const Home = () => {
   }
 
   return (
-    <div style={{
+    <div className="home-page" style={{
       position: 'relative',
       minHeight: '100vh',
       width: '100%',
@@ -31,8 +31,7 @@ const Home = () => {
       alignItems: 'center',
       overflow: 'hidden',
     }}>
-      
-      {/* 🖼️ FULL PAGE BACKGROUND IMAGE */}
+      {/* BACKGROUND */}
       <div style={{
         position: 'fixed',
         top: 0,
@@ -47,7 +46,7 @@ const Home = () => {
         backgroundRepeat: 'no-repeat',
       }} />
 
-      {/* 🌑 DARK OVERLAY */}
+      {/* OVERLAY */}
       <div style={{
         position: 'fixed',
         top: 0,
@@ -58,76 +57,12 @@ const Home = () => {
         backgroundColor: 'rgba(0, 0, 0, 0.7)',
       }} />
 
-      {/* ✨ Sparkles */}
+      {/* SPARKLES */}
       <div style={{ position: 'relative', zIndex: 2, width: '100%', height: '100%' }}>
         <Sparkles />
       </div>
 
-      <style>{`
-        @keyframes fadeSlideUp {
-          0% { opacity: 0; transform: translateY(30px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        .fade-slide-up {
-          animation: fadeSlideUp 1s ease-out forwards;
-        }
-        .delay-1 { animation-delay: 0.2s; opacity: 0; }
-        .delay-2 { animation-delay: 0.5s; opacity: 0; }
-        .delay-3 { animation-delay: 0.8s; opacity: 0; }
-
-        /* ===== ORANGE GLOW KEYFRAMES ===== */
-        @keyframes glowOrange {
-          0%, 100% {
-            text-shadow: 0 0 15px rgba(255, 107, 53, 0.3),
-                         0 0 30px rgba(255, 107, 53, 0.1);
-          }
-          50% {
-            text-shadow: 0 0 40px rgba(255, 107, 53, 0.8),
-                         0 0 80px rgba(255, 107, 53, 0.4),
-                         0 0 120px rgba(255, 107, 53, 0.2);
-          }
-        }
-
-        /* 🔥 STRONGER GLOW ON MOBILE */
-        @media (max-width: 768px) {
-          @keyframes glowOrange {
-            0%, 100% {
-              text-shadow: 0 0 20px rgba(255, 107, 53, 0.5),
-                           0 0 40px rgba(255, 107, 53, 0.2);
-            }
-            50% {
-              text-shadow: 0 0 60px rgba(255, 107, 53, 1.0),
-                           0 0 100px rgba(255, 107, 53, 0.6),
-                           0 0 150px rgba(255, 107, 53, 0.3),
-                           0 0 200px rgba(255, 107, 53, 0.15);
-            }
-          }
-
-          /* Mobile-specific layout tweaks */
-          .hero-grid {
-            grid-template-columns: 1fr !important;
-            text-align: center !important;
-            gap: 30px !important;
-          }
-          .hero-text {
-            text-align: center !important;
-          }
-          .hero-image {
-            max-width: 280px !important;
-            margin: 0 auto !important;
-          }
-          .bio-card {
-            margin: 20px auto 0 !important;
-          }
-        }
-
-        /* ===== DESKTOP: Hero Name Animation ===== */
-        .glow-name {
-          animation: fadeSlideUp 1s ease-out forwards, glowOrange 2s ease-in-out infinite 1.2s;
-        }
-      `}</style>
-
-      {/* ===== CONTENT ===== */}
+      {/* CONTENT */}
       <div style={{
         position: 'relative',
         zIndex: 3,
@@ -138,24 +73,9 @@ const Home = () => {
         flexDirection: 'column',
         minHeight: '100vh',
       }}>
-        
-        {/* ===== HERO SECTION — Two Columns ===== */}
-        <div className="hero-grid" style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '60px',
-          alignItems: 'center',
-          width: '100%',
-          flex: 1,
-        }}>
-          
-          {/* LEFT: Text */}
-          <div className="hero-text" style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            textAlign: 'left',
-          }}>
+        {/* HERO */}
+        <div className="hero-grid">
+          <div className="hero-text">
             <p className="fade-slide-up delay-1" style={{
               color: '#5DD62C',
               fontSize: 'clamp(18px, 2.5vw, 24px)',
@@ -167,7 +87,7 @@ const Home = () => {
               HI THERE,
             </p>
 
-            <h1 className="hero-title fade-slide-up delay-1" style={{
+            <h1 style={{
               fontSize: 'clamp(36px, 6vw, 56px)',
               fontWeight: '700',
               lineHeight: '1.2',
@@ -175,12 +95,7 @@ const Home = () => {
               fontFamily: "'Lucida Handwriting', 'Apple Chancery', cursive",
             }}>
               <span style={{ color: '#FFFFFF' }}>I am </span>
-              <span
-                className="glow-name"
-                style={{
-                  color: '#FF6B35',
-                }}
-              >
+              <span className="glow-name" style={{ color: '#FF6B35' }}>
                 {profile?.name || 'Alex Mwendwa'}
               </span>
             </h1>
@@ -199,12 +114,8 @@ const Home = () => {
             )}
           </div>
 
-          {/* RIGHT: Personal Photo with Glowing Frame */}
-          <div className="hero-image" style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-          }}>
+          {/* RIGHT: Photo */}
+          <div className="hero-image">
             <div style={{
               position: 'relative',
               width: '100%',
@@ -248,14 +159,8 @@ const Home = () => {
           </div>
         </div>
 
-        {/* ===== WHO AM I? ===== */}
-        <div className="bio-card" style={{
-          maxWidth: '700px',
-          width: '100%',
-          margin: '20px auto 0',
-          display: 'flex',
-          justifyContent: 'center',
-        }}>
+        {/* BIO */}
+        <div className="bio-card">
           <div style={{
             width: '100%',
             backgroundColor: 'rgba(255,255,255,0.06)',
@@ -266,7 +171,7 @@ const Home = () => {
             boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
             textAlign: 'center',
           }}>
-            <h2 className="bio-title" style={{
+            <h2 style={{
               fontSize: 'clamp(28px, 3.5vw, 36px)',
               fontWeight: '700',
               color: '#FFFFFF',
@@ -276,7 +181,7 @@ const Home = () => {
               Who am I?
             </h2>
             
-            <p className="bio-text" style={{
+            <p style={{
               color: '#D1D5DB',
               fontSize: 'clamp(14px, 1.5vw, 16px)',
               lineHeight: '1.6',
@@ -320,7 +225,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* ===== MY SKILLS ===== */}
+        {/* SKILLS */}
         <div style={{
           maxWidth: '1100px',
           width: '100%',
@@ -346,37 +251,13 @@ const Home = () => {
             border: '1px solid rgba(255,255,255,0.06)',
             boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
           }}>
-            <div className="skills-grid" style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '20px',
-            }}>
+            <div className="skills-grid">
               {profile?.skills?.map((skill, idx) => (
-                <div
-                  key={idx}
-                  className="skill-item"
-                  style={{
-                    backgroundColor: 'rgba(15, 15, 15, 0.5)',
-                    borderRadius: '16px',
-                    padding: '22px',
-                    textAlign: 'center',
-                    border: '1px solid rgba(93, 214, 44, 0.15)',
-                    transition: 'all 0.3s ease',
-                    cursor: 'default',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.05)';
-                    e.currentTarget.style.borderColor = '#5DD62C';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.borderColor = 'rgba(93, 214, 44, 0.15)';
-                  }}
-                >
-                  <div className="skill-icon" style={{ fontSize: '36px', marginBottom: '6px' }}>
+                <div key={idx} className="skill-item">
+                  <div className="skill-icon">
                     {getSkillIcon(skill)}
                   </div>
-                  <h3 className="skill-name" style={{ color: 'white', fontWeight: '600', fontSize: '16px', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
+                  <h3 className="skill-name">
                     {skill}
                   </h3>
                 </div>
@@ -386,8 +267,8 @@ const Home = () => {
         </div>
       </div>
 
-      {/* ===== FOOTER ===== */}
-      <footer className="footer" style={{
+      {/* FOOTER */}
+      <footer style={{
         position: 'relative',
         zIndex: 3,
         width: '100%',
@@ -397,7 +278,7 @@ const Home = () => {
         padding: '16px 60px',
         textAlign: 'center',
       }}>
-        <div className="footer-links" style={{
+        <div style={{
           display: 'flex',
           justifyContent: 'center',
           gap: '24px',
@@ -405,7 +286,7 @@ const Home = () => {
           marginBottom: '6px',
         }}>
           {profile?.socialLinks?.github && (
-            <a href={profile.socialLinks.github} target="_blank" rel="noopener noreferrer" className="footer-link" style={{
+            <a href={profile.socialLinks.github} target="_blank" rel="noopener noreferrer" style={{
               color: '#9CA3AF',
               textDecoration: 'none',
               fontSize: '14px',
@@ -425,7 +306,7 @@ const Home = () => {
             </a>
           )}
           {profile?.socialLinks?.linkedin && (
-            <a href={profile.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="footer-link" style={{
+            <a href={profile.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" style={{
               color: '#9CA3AF',
               textDecoration: 'none',
               fontSize: '14px',
@@ -445,7 +326,7 @@ const Home = () => {
             </a>
           )}
           {profile?.socialLinks?.twitter && (
-            <a href={profile.socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="footer-link" style={{
+            <a href={profile.socialLinks.twitter} target="_blank" rel="noopener noreferrer" style={{
               color: '#9CA3AF',
               textDecoration: 'none',
               fontSize: '14px',
@@ -465,7 +346,7 @@ const Home = () => {
             </a>
           )}
           {profile?.socialLinks?.discord && (
-            <a href={profile.socialLinks.discord} target="_blank" rel="noopener noreferrer" className="footer-link" style={{
+            <a href={profile.socialLinks.discord} target="_blank" rel="noopener noreferrer" style={{
               color: '#9CA3AF',
               textDecoration: 'none',
               fontSize: '14px',
@@ -485,7 +366,7 @@ const Home = () => {
             </a>
           )}
         </div>
-        <p className="footer-text" style={{ color: '#6B7280', fontSize: '11px', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
+        <p style={{ color: '#6B7280', fontSize: '11px', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
           © {new Date().getFullYear()} Alex Mwendwa. Built with ❤️
         </p>
       </footer>

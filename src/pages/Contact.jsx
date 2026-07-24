@@ -16,7 +16,6 @@ const Contact = () => {
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
 
-  // Fetch profile for social links
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -52,21 +51,15 @@ const Contact = () => {
       await sendContactMessage(formData);
       setSuccess('✅ Message sent successfully! I will get back to you soon.');
       setFormData({ name: '', email: '', message: '' });
-      
-      // ✅ Auto-clear success message after 5 seconds
       setTimeout(() => {
         setSuccess(null);
       }, 5000);
-      
     } catch (err) {
       setError('❌ Failed to send message. Please try again later.');
       console.error(err);
-      
-      // ✅ Auto-clear error message after 5 seconds
       setTimeout(() => {
         setError(null);
       }, 5000);
-      
     } finally {
       setSubmitting(false);
     }
@@ -77,14 +70,13 @@ const Contact = () => {
   }
 
   return (
-    <div style={{
+    <div className="contact-page" style={{
       position: 'relative',
       minHeight: '100vh',
       width: '100%',
       overflow: 'hidden',
     }}>
-      
-      {/* 🖼️ FULL PAGE BACKGROUND IMAGE */}
+      {/* FULL PAGE BACKGROUND */}
       <div style={{
         position: 'fixed',
         top: 0,
@@ -99,7 +91,7 @@ const Contact = () => {
         backgroundRepeat: 'no-repeat',
       }} />
 
-      {/* 🌑 DARK OVERLAY */}
+      {/* DARK OVERLAY */}
       <div style={{
         position: 'fixed',
         top: 0,
@@ -110,23 +102,22 @@ const Contact = () => {
         backgroundColor: 'rgba(0, 0, 0, 0.75)',
       }} />
 
-      {/* ✨ Sparkles */}
+      {/* SPARKLES */}
       <div style={{ position: 'relative', zIndex: 2, width: '100%', height: '100%' }}>
         <Sparkles />
       </div>
 
-      {/* ===== CONTENT ===== */}
+      {/* CONTENT */}
       <div style={{
         position: 'relative',
         zIndex: 3,
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        padding: '40px 60px 0',
+        padding: '40px 20px 0',
         width: '100%',
         boxSizing: 'border-box',
       }}>
-        
         <div style={{
           flex: 1,
           display: 'flex',
@@ -134,17 +125,7 @@ const Contact = () => {
           justifyContent: 'center',
           paddingBottom: '40px',
         }}>
-          <div className="contact-card" style={{
-            maxWidth: '600px',
-            width: '100%',
-            backgroundColor: 'rgba(255,255,255,0.08)',
-            backdropFilter: 'blur(16px)',
-            borderRadius: '24px',
-            padding: '48px',
-            border: '1px solid rgba(93, 214, 44, 0.3)',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 40px rgba(93, 214, 44, 0.15)',
-          }}>
-            
+          <div className="contact-card">
             <div style={{ textAlign: 'center', marginBottom: '32px' }}>
               <h1 className="contact-title" style={{
                 fontSize: '36px',
@@ -181,27 +162,6 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   className="contact-input"
-                  style={{
-                    width: '100%',
-                    padding: '14px 16px',
-                    borderRadius: '12px',
-                    border: '1px solid rgba(255,255,255,0.15)',
-                    backgroundColor: 'rgba(255,255,255,0.06)',
-                    fontSize: '16px',
-                    color: 'white',
-                    outline: 'none',
-                    transition: 'all 0.3s ease',
-                    boxSizing: 'border-box',
-                    fontFamily: "'Inter', 'Segoe UI', sans-serif"
-                  }}
-                  onFocus={(e) => {
-                    e.currentTarget.style.borderColor = '#5DD62C';
-                    e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
-                    e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
-                  }}
                   placeholder="John Doe"
                   disabled={submitting}
                 />
@@ -224,27 +184,6 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   className="contact-input"
-                  style={{
-                    width: '100%',
-                    padding: '14px 16px',
-                    borderRadius: '12px',
-                    border: '1px solid rgba(255,255,255,0.15)',
-                    backgroundColor: 'rgba(255,255,255,0.06)',
-                    fontSize: '16px',
-                    color: 'white',
-                    outline: 'none',
-                    transition: 'all 0.3s ease',
-                    boxSizing: 'border-box',
-                    fontFamily: "'Inter', 'Segoe UI', sans-serif"
-                  }}
-                  onFocus={(e) => {
-                    e.currentTarget.style.borderColor = '#5DD62C';
-                    e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
-                    e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
-                  }}
                   placeholder="john@example.com"
                   disabled={submitting}
                 />
@@ -267,28 +206,7 @@ const Contact = () => {
                   required
                   rows="5"
                   className="contact-input"
-                  style={{
-                    width: '100%',
-                    padding: '14px 16px',
-                    borderRadius: '12px',
-                    border: '1px solid rgba(255,255,255,0.15)',
-                    backgroundColor: 'rgba(255,255,255,0.06)',
-                    fontSize: '16px',
-                    color: 'white',
-                    outline: 'none',
-                    transition: 'all 0.3s ease',
-                    boxSizing: 'border-box',
-                    resize: 'vertical',
-                    fontFamily: "'Inter', 'Segoe UI', sans-serif"
-                  }}
-                  onFocus={(e) => {
-                    e.currentTarget.style.borderColor = '#5DD62C';
-                    e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
-                    e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
-                  }}
+                  style={{ resize: 'vertical', minHeight: '100px' }}
                   placeholder="Tell me about your project..."
                   disabled={submitting}
                 />
@@ -297,7 +215,6 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="admin-btn"
                 style={{
                   width: '100%',
                   padding: '16px',
@@ -356,7 +273,7 @@ const Contact = () => {
               )}
             </form>
 
-            {/* Social Links Below Form */}
+            {/* Social Links */}
             <div style={{
               marginTop: '32px',
               paddingTop: '24px',
@@ -372,7 +289,7 @@ const Contact = () => {
               }}>
                 Connect with me
               </p>
-              <div className="footer-links" style={{
+              <div style={{
                 display: 'flex',
                 justifyContent: 'center',
                 gap: '28px',
@@ -383,7 +300,6 @@ const Contact = () => {
                     href={profile.socialLinks.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="footer-link"
                     style={{
                       color: '#9CA3AF',
                       textDecoration: 'none',
@@ -409,7 +325,6 @@ const Contact = () => {
                     href={profile.socialLinks.twitter}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="footer-link"
                     style={{
                       color: '#9CA3AF',
                       textDecoration: 'none',
@@ -435,7 +350,6 @@ const Contact = () => {
                     href={profile.socialLinks.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="footer-link"
                     style={{
                       color: '#9CA3AF',
                       textDecoration: 'none',
@@ -461,7 +375,6 @@ const Contact = () => {
                     href={profile.socialLinks.discord}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="footer-link"
                     style={{
                       color: '#9CA3AF',
                       textDecoration: 'none',
@@ -487,8 +400,8 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* ===== FOOTER ===== */}
-        <footer className="footer" style={{
+        {/* Footer */}
+        <footer style={{
           maxWidth: '1400px',
           margin: '0 auto',
           textAlign: 'center',
@@ -497,7 +410,7 @@ const Contact = () => {
           width: '100%',
           marginTop: 'auto'
         }}>
-          <p className="footer-text" style={{ color: '#6B7280', fontSize: '14px' }}>
+          <p style={{ color: '#6B7280', fontSize: '14px' }}>
             © {new Date().getFullYear()} Alex Mwendwa. Built with ❤️
           </p>
         </footer>

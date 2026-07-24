@@ -816,3 +816,334 @@ body {
     font-size: 13px !important;
   }
 }
+/* ============================================================ */
+/*               GLOBAL SHARED STYLES (Appended)                */
+/* ============================================================ */
+
+/* ---------- CONTACT PAGE ---------- */
+.contact-page .contact-card {
+  max-width: 600px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  border-radius: 24px;
+  padding: 48px;
+  border: 1px solid rgba(93, 214, 44, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 40px rgba(93, 214, 44, 0.15);
+  transition: all 0.3s ease;
+}
+
+.contact-page .contact-input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 16px;
+  color: white;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+.contact-page .contact-input:focus {
+  border-color: #5dd62c;
+  background: rgba(255, 255, 255, 0.1);
+}
+.contact-page .contact-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.contact-page .contact-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+  .contact-page .contact-card {
+    max-width: 100% !important;
+    padding: 28px 20px !important;
+    border-radius: 16px !important;
+    margin: 0 12px !important;
+  }
+  .contact-page .contact-title {
+    font-size: 28px !important;
+  }
+  .contact-page .contact-input {
+    font-size: 15px !important;
+    padding: 12px 14px !important;
+  }
+  .contact-page button {
+    font-size: 16px !important;
+    padding: 14px !important;
+  }
+}
+@media (max-width: 480px) {
+  .contact-page .contact-card {
+    padding: 20px 16px !important;
+  }
+  .contact-page .contact-title {
+    font-size: 24px !important;
+  }
+}
+
+/* ---------- HOME PAGE ---------- */
+.home-page .hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  width: 100%;
+  flex: 1;
+}
+.home-page .hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+.home-page .hero-image {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.home-page .bio-card {
+  max-width: 700px;
+  width: 100%;
+  margin: 20px auto 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* Animations */
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.home-page .fade-slide-up {
+  animation: fadeSlideUp 1s ease-out forwards;
+}
+.home-page .delay-1 {
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+.home-page .delay-2 {
+  animation-delay: 0.5s;
+  opacity: 0;
+}
+.home-page .delay-3 {
+  animation-delay: 0.8s;
+  opacity: 0;
+}
+
+@keyframes glowOrange {
+  0%,
+  100% {
+    text-shadow: 0 0 15px rgba(255, 107, 53, 0.3), 0 0 30px rgba(255, 107, 53, 0.1);
+  }
+  50% {
+    text-shadow: 0 0 40px rgba(255, 107, 53, 0.8), 0 0 80px rgba(255, 107, 53, 0.4),
+      0 0 120px rgba(255, 107, 53, 0.2);
+  }
+}
+.home-page .glow-name {
+  animation: fadeSlideUp 1s ease-out forwards, glowOrange 2s ease-in-out infinite 1.2s;
+}
+
+/* Skills Grid */
+.home-page .skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.home-page .skill-item {
+  background: rgba(15, 15, 15, 0.5);
+  border-radius: 16px;
+  padding: 22px;
+  text-align: center;
+  border: 1px solid rgba(93, 214, 44, 0.15);
+  transition: all 0.3s ease;
+  cursor: default;
+}
+.home-page .skill-item:hover {
+  transform: scale(1.05);
+  border-color: #5dd62c;
+}
+.home-page .skill-icon {
+  font-size: 36px;
+  margin-bottom: 6px;
+}
+.home-page .skill-name {
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* Home Page Responsive */
+@media (max-width: 768px) {
+  .home-page .hero-grid {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    gap: 30px !important;
+  }
+  .home-page .hero-text {
+    text-align: center !important;
+  }
+  .home-page .hero-image {
+    max-width: 280px !important;
+    margin: 0 auto !important;
+  }
+  .home-page .bio-card {
+    margin: 20px auto 0 !important;
+  }
+  .home-page .skills-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+  }
+  .home-page .skill-item {
+    padding: 16px 10px !important;
+  }
+  .home-page .skill-icon {
+    font-size: 28px !important;
+  }
+  .home-page .skill-name {
+    font-size: 14px !important;
+  }
+}
+@media (max-width: 480px) {
+  .home-page .skills-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+  }
+  .home-page .skill-item {
+    padding: 12px 8px !important;
+  }
+  .home-page .skill-icon {
+    font-size: 24px !important;
+  }
+  .home-page .skill-name {
+    font-size: 12px !important;
+  }
+}
+
+/* ---------- VISION PAGE ---------- */
+.vision-page .vision-grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  width: 100%;
+}
+.vision-page .vision-section-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+.vision-page .vision-card {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 16px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.3s ease;
+}
+.vision-page .status-badge {
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2px 12px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.vision-page .verify-btn {
+  font-size: 13px;
+  color: #ffd700;
+  text-decoration: none;
+  padding: 6px 16px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.vision-page .verify-btn:hover {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: #ffd700;
+}
+.vision-page .project-avatar {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.vision-page .vision-title {
+  font-size: 48px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* Vision Page Responsive */
+@media (max-width: 768px) {
+  .vision-page .vision-grid-container {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .vision-page .vision-section-title {
+    font-size: 20px !important;
+  }
+  .vision-page .vision-card {
+    padding: 14px !important;
+  }
+  .vision-page .vision-card h3 {
+    font-size: 16px !important;
+  }
+  .vision-page .vision-card p {
+    font-size: 13px !important;
+  }
+  .vision-page .verify-btn {
+    font-size: 12px !important;
+    padding: 4px 10px !important;
+    white-space: nowrap !important;
+  }
+  .vision-page .status-badge {
+    font-size: 11px !important;
+    padding: 2px 10px !important;
+  }
+  .vision-page .vision-title {
+    font-size: 32px !important;
+  }
+  .vision-page .project-avatar {
+    width: 48px !important;
+    height: 48px !important;
+  }
+}
+@media (max-width: 480px) {
+  .vision-page .vision-card {
+    padding: 10px !important;
+  }
+  .vision-page .vision-card h3 {
+    font-size: 14px !important;
+  }
+  .vision-page .vision-card p {
+    font-size: 12px !important;
+  }
+  .vision-page .project-avatar {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
