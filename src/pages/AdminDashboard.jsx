@@ -75,18 +75,18 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
   const [newCurrentProject, setNewCurrentProject] = useState({
     title: '',
     description: '',
+    imageUrl: '',   // Image URL now comes after description
     status: 'In Progress',
     repoUrl: '',
-    imageUrl: '',
   });
 
   const [editingCurrentProject, setEditingCurrentProject] = useState(null);
   const [editCurrentProjectData, setEditCurrentProjectData] = useState({
     title: '',
     description: '',
+    imageUrl: '',   // Image URL now comes after description
     status: 'In Progress',
     repoUrl: '',
-    imageUrl: '',
   });
 
   // --- Certificates State ---
@@ -327,7 +327,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     setFormLoading(true);
     try {
       await createCurrentProject(newCurrentProject);
-      setNewCurrentProject({ title: '', description: '', status: 'In Progress', repoUrl: '', imageUrl: '' });
+      setNewCurrentProject({ title: '', description: '', imageUrl: '', status: 'In Progress', repoUrl: '' });
       await fetchData();
       alert('✅ Current project added successfully!');
     } catch (err) {
@@ -347,9 +347,9 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     setEditCurrentProjectData({
       title: project.title || '',
       description: project.description || '',
+      imageUrl: project.imageUrl || '',
       status: project.status || 'In Progress',
       repoUrl: project.repoUrl || '',
-      imageUrl: project.imageUrl || '',
     });
   };
 
@@ -363,9 +363,9 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
       setEditCurrentProjectData({
         title: '',
         description: '',
+        imageUrl: '',
         status: 'In Progress',
         repoUrl: '',
-        imageUrl: '',
       });
       await fetchData();
       alert('✅ Current project updated successfully!');
@@ -482,7 +482,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
 
   // ===== RENDER =====
   return (
-    <div className="admin-dashboard page-container" style={{
+    <div className="admin-dashboard" style={{
       position: 'relative',
       minHeight: '100vh',
       width: '100%',
@@ -520,7 +520,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
       </div>
 
       {/* CONTENT */}
-      <div className="page-content" style={{
+      <div style={{
         position: 'relative',
         zIndex: 3,
         padding: '40px 60px 0',
@@ -791,7 +791,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
               />
               <input
                 type="url"
-                placeholder="Image URL (Screenshot)"
+                placeholder="Image URL"
                 value={newProject.imageUrl}
                 onChange={(e) => setNewProject({ ...newProject, imageUrl: e.target.value })}
                 style={inputStyle}
@@ -1113,7 +1113,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
               🚀 Current Projects
             </h2>
 
-            {/* Add Current Project */}
+            {/* ADD CURRENT PROJECT – Image URL after Description */}
             <form onSubmit={handleAddCurrentProject} style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
@@ -1136,6 +1136,13 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                 style={{ ...inputStyle, gridColumn: '1 / -1' }}
                 required
               />
+              <input
+                type="url"
+                placeholder="Image URL"
+                value={newCurrentProject.imageUrl}
+                onChange={(e) => setNewCurrentProject({ ...newCurrentProject, imageUrl: e.target.value })}
+                style={{ ...inputStyle, gridColumn: '1 / -1' }}
+              />
               <select
                 value={newCurrentProject.status}
                 onChange={(e) => setNewCurrentProject({ ...newCurrentProject, status: e.target.value })}
@@ -1148,17 +1155,10 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
               </select>
               <input
                 type="url"
-                placeholder="GitHub Repo URL (optional)"
+                placeholder="Repo URL"
                 value={newCurrentProject.repoUrl}
                 onChange={(e) => setNewCurrentProject({ ...newCurrentProject, repoUrl: e.target.value })}
                 style={inputStyle}
-              />
-              <input
-                type="url"
-                placeholder="Image URL (optional)"
-                value={newCurrentProject.imageUrl}
-                onChange={(e) => setNewCurrentProject({ ...newCurrentProject, imageUrl: e.target.value })}
-                style={{ ...inputStyle, gridColumn: '1 / -1' }}
               />
               <button
                 type="submit"
@@ -1201,6 +1201,23 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                     <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px' }}>
                       {p.status} • ⭐ {p.starCount || 0}
                     </p>
+                    {p.imageUrl && (
+                      <div style={{ marginTop: '4px' }}>
+                        <img
+                          src={`${p.imageUrl}?t=${Date.now()}`}
+                          alt={p.title}
+                          style={{
+                            maxWidth: '50px',
+                            maxHeight: '50px',
+                            borderRadius: '8px',
+                            objectFit: 'cover',
+                          }}
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                          }}
+                        />
+                      </div>
+                    )}
                   </div>
                   <div style={{ display: 'flex', gap: '8px' }}>
                     <button
@@ -1236,7 +1253,7 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
               ))}
             </div>
 
-            {/* Edit Current Project Form */}
+            {/* EDIT CURRENT PROJECT – Image URL after Description */}
             {editingCurrentProject && (
               <div style={{
                 marginTop: '24px',
@@ -1267,6 +1284,13 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                     style={{ ...inputStyle, gridColumn: '1 / -1' }}
                     required
                   />
+                  <input
+                    type="url"
+                    placeholder="Image URL"
+                    value={editCurrentProjectData.imageUrl}
+                    onChange={(e) => setEditCurrentProjectData({ ...editCurrentProjectData, imageUrl: e.target.value })}
+                    style={{ ...inputStyle, gridColumn: '1 / -1' }}
+                  />
                   <select
                     value={editCurrentProjectData.status}
                     onChange={(e) => setEditCurrentProjectData({ ...editCurrentProjectData, status: e.target.value })}
@@ -1279,17 +1303,10 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                   </select>
                   <input
                     type="url"
-                    placeholder="GitHub Repo URL (optional)"
+                    placeholder="Repo URL"
                     value={editCurrentProjectData.repoUrl}
                     onChange={(e) => setEditCurrentProjectData({ ...editCurrentProjectData, repoUrl: e.target.value })}
                     style={inputStyle}
-                  />
-                  <input
-                    type="url"
-                    placeholder="Image / Avatar URL (optional)"
-                    value={editCurrentProjectData.imageUrl}
-                    onChange={(e) => setEditCurrentProjectData({ ...editCurrentProjectData, imageUrl: e.target.value })}
-                    style={{ ...inputStyle, gridColumn: '1 / -1' }}
                   />
                   <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '12px' }}>
                     <button
@@ -1389,14 +1406,14 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
               </select>
               <input
                 type="url"
-                placeholder="Image URL (optional)"
+                placeholder="Image URL"
                 value={newCertificate.imageUrl}
                 onChange={(e) => setNewCertificate({ ...newCertificate, imageUrl: e.target.value })}
                 style={{ ...inputStyle, gridColumn: '1 / -1' }}
               />
               <input
                 type="url"
-                placeholder="Verify URL (optional)"
+                placeholder="Verify URL"
                 value={newCertificate.verifyUrl}
                 onChange={(e) => setNewCertificate({ ...newCertificate, verifyUrl: e.target.value })}
                 style={{ ...inputStyle, gridColumn: '1 / -1' }}
@@ -1441,6 +1458,23 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                     <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px' }}>
                       {c.issuer} • {new Date(c.date).toLocaleDateString()}
                     </p>
+                    {c.imageUrl && (
+                      <div style={{ marginTop: '4px' }}>
+                        <img
+                          src={`${c.imageUrl}?t=${Date.now()}`}
+                          alt={c.title}
+                          style={{
+                            maxWidth: '40px',
+                            maxHeight: '40px',
+                            borderRadius: '6px',
+                            objectFit: 'cover',
+                          }}
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                          }}
+                        />
+                      </div>
+                    )}
                   </div>
                   <div style={{ display: 'flex', gap: '8px' }}>
                     <button
@@ -1526,14 +1560,14 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
                   </select>
                   <input
                     type="url"
-                    placeholder="Image URL (optional)"
+                    placeholder="Image URL"
                     value={editCertificateData.imageUrl}
                     onChange={(e) => setEditCertificateData({ ...editCertificateData, imageUrl: e.target.value })}
                     style={{ ...inputStyle, gridColumn: '1 / -1' }}
                   />
                   <input
                     type="url"
-                    placeholder="Verify URL (optional)"
+                    placeholder="Verify URL"
                     value={editCertificateData.verifyUrl}
                     onChange={(e) => setEditCertificateData({ ...editCertificateData, verifyUrl: e.target.value })}
                     style={{ ...inputStyle, gridColumn: '1 / -1' }}
@@ -1575,21 +1609,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
               </div>
             )}
           </div>
-
-          {/* FOOTER */}
-          <footer style={{
-            maxWidth: '1400px',
-            margin: '0 auto',
-            textAlign: 'center',
-            borderTop: '1px solid rgba(255,255,255,0.05)',
-            padding: '24px 0',
-            width: '100%',
-            marginTop: 'auto',
-          }}>
-            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '14px' }}>
-              © {new Date().getFullYear()} Alex Mwendwa. Built with ❤️
-            </p>
-          </footer>
         </div>
       </div>
     </div>
