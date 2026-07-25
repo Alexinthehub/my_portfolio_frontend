@@ -165,30 +165,41 @@ const Vision = () => {
                         display: 'flex',
                         alignItems: 'flex-start',
                         justifyContent: 'space-between',
-                        gap: '12px',
+                        gap: '16px',
                       }}>
                         {/* LEFT: Avatar + Text */}
-                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', flex: 1, minWidth: 0 }}>
+                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '18px', flex: 1, minWidth: 0 }}>
+                          {/* ✅ Image - NOW 80x80 on desktop */}
                           {project.imageUrl ? (
                             <img
                               src={`${project.imageUrl}?t=${Date.now()}`}
                               alt={project.title}
                               className="project-avatar"
+                              style={{
+                                width: '80px',
+                                height: '80px',
+                                objectFit: 'cover',
+                                borderRadius: '14px',
+                                border: '2px solid rgba(255,255,255,0.1)',
+                                flexShrink: 0,
+                                marginTop: '2px',
+                              }}
                               onError={(e) => {
                                 e.target.style.display = 'none';
                                 const parent = e.target.parentNode;
                                 const fallback = document.createElement('div');
                                 fallback.style.cssText = `
-                                  width: 56px;
-                                  height: 56px;
+                                  width: 80px;
+                                  height: 80px;
                                   background: rgba(93,214,44,0.15);
-                                  border-radius: 12px;
+                                  border-radius: 14px;
                                   display: flex;
                                   align-items: center;
                                   justify-content: center;
-                                  font-size: 24px;
+                                  font-size: 36px;
                                   flex-shrink: 0;
                                   margin-top: 2px;
+                                  border: 2px solid rgba(255,255,255,0.05);
                                 `;
                                 fallback.innerText = '🚀';
                                 parent.replaceChild(fallback, e.target);
@@ -196,16 +207,17 @@ const Vision = () => {
                             />
                           ) : (
                             <div style={{
-                              width: '56px',
-                              height: '56px',
+                              width: '80px',
+                              height: '80px',
                               backgroundColor: 'rgba(93,214,44,0.12)',
-                              borderRadius: '12px',
+                              borderRadius: '14px',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              fontSize: '24px',
+                              fontSize: '36px',
                               flexShrink: 0,
                               marginTop: '2px',
+                              border: '2px solid rgba(255,255,255,0.05)',
                             }}>
                               🚀
                             </div>
@@ -213,10 +225,10 @@ const Vision = () => {
 
                           <div style={{ flex: 1, minWidth: 0 }}>
                             <h3 style={{
-                              fontSize: '17px',
+                              fontSize: '18px',
                               fontWeight: '600',
                               color: 'white',
-                              marginBottom: '2px',
+                              marginBottom: '4px',
                               fontFamily: "'Inter', 'Segoe UI', sans-serif",
                               lineHeight: 1.3,
                             }}>
@@ -225,17 +237,23 @@ const Vision = () => {
                             <p style={{
                               fontSize: '14px',
                               color: '#9CA3AF',
-                              marginBottom: '6px',
+                              marginBottom: '8px',
                               fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                              lineHeight: 1.4,
+                              lineHeight: 1.5,
                             }}>
                               {project.description}
                             </p>
                             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
                               <span className="status-badge" style={{
+                                fontSize: '12px',
+                                fontWeight: '500',
                                 color: project.status === 'Completed' ? '#5DD62C' :
                                        project.status === 'Beta' ? '#FBBF24' :
                                        project.status === 'Planning' ? '#60A5FA' : '#F472B6',
+                                backgroundColor: 'rgba(255,255,255,0.06)',
+                                padding: '3px 14px',
+                                borderRadius: '9999px',
+                                border: '1px solid rgba(255,255,255,0.06)',
                               }}>
                                 {project.status}
                               </span>
@@ -278,17 +296,17 @@ const Vision = () => {
                               style={{
                                 background: 'none',
                                 border: 'none',
-                                fontSize: '20px',
+                                fontSize: '22px',
                                 cursor: starring === project._id ? 'not-allowed' : 'pointer',
                                 opacity: starring === project._id ? 0.5 : 1,
                                 transition: 'transform 0.2s ease',
                                 display: 'flex',
                                 flexDirection: 'row',
                                 alignItems: 'center',
-                                gap: '4px',
+                                gap: '6px',
                                 color: '#FFFFFF',
-                                padding: '4px 6px',
-                                borderRadius: '8px',
+                                padding: '6px 10px',
+                                borderRadius: '10px',
                               }}
                               onMouseEnter={(e) => {
                                 if (!starring) {
@@ -309,8 +327,8 @@ const Vision = () => {
                                 }
                               }}
                             >
-                              <span style={{ fontSize: '20px' }}>⭐</span>
-                              <span style={{ fontSize: '16px', fontWeight: '600' }}>{project.starCount || 0}</span>
+                              <span style={{ fontSize: '22px' }}>⭐</span>
+                              <span style={{ fontSize: '18px', fontWeight: '600' }}>{project.starCount || 0}</span>
                             </button>
                             <span className="tooltip-text" style={{
                               visibility: 'hidden',

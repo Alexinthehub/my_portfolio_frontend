@@ -386,13 +386,37 @@ body {
   border-color: #ffd700;
 }
 .vision-page .project-avatar {
-  width: 56px;
-  height: 56px;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  flex-shrink: 0;
-  margin-top: 2px;
+  width: 80px !important;
+  height: 80px !important;
+  border-radius: 14px !important;
+  object-fit: cover !important;
+  flex-shrink: 0 !important;
+  border: 2px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Tablet: 64x64 */
+@media (max-width: 1024px) {
+  .vision-page .project-avatar {
+    width: 64px !important;
+    height: 64px !important;
+  }
+}
+
+/* Mobile: 56x56 */
+@media (max-width: 768px) {
+  .vision-page .project-avatar {
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .vision-page .project-avatar {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 10px !important;
+  }
 }
 .vision-page .vision-title {
   font-size: 48px;
