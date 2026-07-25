@@ -478,7 +478,7 @@ body {
 }
 
 /* ================================================================ */
-/* ===== ADMIN STYLES ===== */
+/* ===== ADMIN STYLES (Base) ===== */
 /* ================================================================ */
 
 @media (max-width: 768px) {
@@ -599,300 +599,55 @@ body {
 footer:not(.footer-sticky) {
   display: none !important;
 }
+
 /* ================================================================ */
-/* ===== ADMIN DASHBOARD – FULL WIDTH ON MOBILE ===== */
+/* ===== ADMIN DASHBOARD – FULL WIDTH MOBILE OVERRIDE (FINAL) ===== */
 /* ================================================================ */
 
-/* Main container – remove side padding on small screens */
+/* These rules MUST be at the very bottom to win over inline styles */
+
 @media (max-width: 768px) {
-  .admin-dashboard {
-    padding: 12px 8px !important;
-  }
-
-  /* Each card – full width, no side margins */
-  .admin-dashboard .admin-card {
-    max-width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding: 16px !important;
-    border-radius: 12px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  /* Card headings – smaller */
-  .admin-dashboard .admin-card h2 {
-    font-size: 16px !important;
-  }
-
-  /* Form grid – single column */
-  .admin-dashboard .admin-form {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-  }
-
-  /* Form inputs – full width, smaller padding */
-  .admin-dashboard .admin-form input,
-  .admin-dashboard .admin-form select,
-  .admin-dashboard .admin-form textarea {
-    font-size: 14px !important;
-    padding: 10px 12px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  /* Buttons – full width */
-  .admin-dashboard .admin-form button {
-    font-size: 14px !important;
-    padding: 12px !important;
-    width: 100% !important;
-  }
-
-  /* Dashboard header – stack on mobile */
-  .admin-dashboard-header {
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    gap: 10px !important;
-    margin-bottom: 16px !important;
-    justify-content: space-between !important;
-  }
-
-  .admin-dashboard-header h1 {
-    font-size: 22px !important;
-  }
-
-  .admin-dashboard-header button {
-    font-size: 14px !important;
-    padding: 8px 16px !important;
-  }
-
-  /* Manage projects list – single column */
-  .admin-dashboard .admin-messages-item {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 8px !important;
-  }
-
-  /* Current Projects list – single column */
-  .admin-dashboard .admin-card > div[style*="grid-template-columns"] {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Override any inline max-width on form containers */
-  .admin-dashboard .admin-card form {
-    max-width: 100% !important;
-  }
-}
-
-/* Extra small phones */
-@media (max-width: 480px) {
-  .admin-dashboard {
-    padding: 8px 4px !important;
-  }
-
-  .admin-dashboard .admin-card {
-    padding: 12px !important;
-  }
-
-  .admin-dashboard .admin-card h2 {
-    font-size: 14px !important;
-  }
-
-  .admin-dashboard .admin-form input,
-  .admin-dashboard .admin-form select,
-  .admin-dashboard .admin-form textarea {
-    font-size: 13px !important;
-    padding: 8px 10px !important;
-  }
-
-  .admin-dashboard .admin-form button {
-    font-size: 13px !important;
-    padding: 10px !important;
-  }
-}
-/* ================================================================ */
-/* ===== ADMIN DASHBOARD 
-/* ================================================================ */
-
-/* Target the main container */
-.admin-dashboard {
-  padding: 40px 60px 0 !important;
-}
-
-/* Target every card inside admin dashboard */
-.admin-dashboard .admin-card {
-  max-width: 1400px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-}
-
-/* ===== MOBILE: Override inline styles ===== */
-@media (max-width: 768px) {
-  /* Remove the side padding from the main container */
-  .admin-dashboard {
-    padding: 12px 8px !important;
-    width: 100% !important;
-  }
-
-  /* Force every card to be FULL WIDTH */
-  .admin-dashboard .admin-card {
-    max-width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding: 16px !important;
-    border-radius: 12px !important;
-    width: 100% !important;
-  }
-
-  /* Override any element with inline max-width: 1400px */
-  .admin-dashboard [style*="max-width: 1400px"] {
-    max-width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  /* Also target the card's inner containers */
-  .admin-dashboard .admin-card > div {
-    max-width: 100% !important;
-  }
-
-  .admin-dashboard .admin-card form {
-    max-width: 100% !important;
-  }
-
-  /* Fix the header */
-  .admin-dashboard-header {
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    gap: 10px !important;
-    margin-bottom: 16px !important;
-    justify-content: space-between !important;
-    max-width: 100% !important;
-  }
-
-  .admin-dashboard-header h1 {
-    font-size: 22px !important;
-  }
-
-  .admin-dashboard-header button {
-    font-size: 14px !important;
-    padding: 8px 16px !important;
-  }
-
-  /* Forms – single column, full width */
-  .admin-form {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
-  }
-
-  .admin-form input,
-  .admin-form select,
-  .admin-form textarea {
-    font-size: 14px !important;
-    padding: 10px 12px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  .admin-form button {
-    font-size: 14px !important;
-    padding: 12px !important;
-    width: 100% !important;
-  }
-
-  /* Project list – single column */
-  .admin-messages-item {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 8px !important;
-  }
-
-  /* Current Projects grid – single column */
-  .admin-dashboard .admin-card > div[style*="grid-template-columns"] {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Manage Projects grid – single column */
-  .admin-dashboard .admin-card > div > div[style*="grid-template-columns"] {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-/* ===== EXTRA SMALL PHONES ===== */
-@media (max-width: 480px) {
-  .admin-dashboard {
-    padding: 8px 4px !important;
-  }
-
-  .admin-dashboard .admin-card {
-    padding: 12px !important;
-  }
-
-  .admin-dashboard .admin-card h2 {
-    font-size: 14px !important;
-  }
-
-  .admin-form input,
-  .admin-form select,
-  .admin-form textarea {
-    font-size: 13px !important;
-    padding: 8px 10px !important;
-  }
-
-  .admin-form button {
-    font-size: 13px !important;
-    padding: 10px !important;
-  }
-}
-/* ================================================================ */
-/* ===== ADMIN DASHBOARD – FULL WIDTH MOBILE OVERRIDE ===== */
-/* ================================================================ */
-
-/* On mobile: override everything */
-@media (max-width: 768px) {
-  /* 1. Main container – remove side padding */
+  /* ---- Reset main container padding ---- */
   .admin-dashboard {
     padding: 8px 4px !important;
     width: 100% !important;
     max-width: 100% !important;
   }
 
-  /* 2. Every card – force full width, remove margins */
-  .admin-dashboard .admin-card {
+  /* ---- Force every card to be full width ---- */
+  .admin-dashboard .admin-card,
+  .admin-dashboard [style*="max-width: 1400px"],
+  .admin-dashboard [style*="max-width: 1400px"] * {
     max-width: 100% !important;
     width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
-    padding: 12px !important;
-    border-radius: 12px !important;
     box-sizing: border-box !important;
   }
 
-  /* 3. Override any inline style containing max-width: 1400px */
-  .admin-dashboard [style*="max-width: 1400px"] {
-    max-width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  /* 4. Also target any div with margin-left: auto / margin-right: auto */
+  /* ---- Remove auto margins from any element ---- */
   .admin-dashboard [style*="margin-left: auto"],
   .admin-dashboard [style*="margin-right: auto"] {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
 
-  /* 5. Make all form elements full width */
+  /* ---- Shrink card padding and font sizes ---- */
+  .admin-dashboard .admin-card {
+    padding: 12px !important;
+    border-radius: 12px !important;
+    margin-bottom: 12px !important;
+  }
+  .admin-dashboard .admin-card h2 {
+    font-size: 16px !important;
+  }
+
+  /* ---- Forms: single column, full width inputs ---- */
   .admin-dashboard .admin-form {
     display: grid !important;
     grid-template-columns: 1fr !important;
-    gap: 8px !important;
+    gap: 10px !important;
   }
-
   .admin-dashboard .admin-form input,
   .admin-dashboard .admin-form select,
   .admin-dashboard .admin-form textarea {
@@ -901,53 +656,80 @@ footer:not(.footer-sticky) {
     padding: 10px 12px !important;
     box-sizing: border-box !important;
   }
-
   .admin-dashboard .admin-form button {
     width: 100% !important;
     font-size: 14px !important;
     padding: 12px !important;
   }
 
-  /* 6. Force single column for project lists */
-  .admin-dashboard .admin-card > div[style*="grid-template-columns"] {
+  /* ---- Force single column for project grids ---- */
+  .admin-dashboard [style*="grid-template-columns: repeat(auto-fill"],
+  .admin-dashboard [style*="grid-template-columns: repeat(auto-fill)"] {
     grid-template-columns: 1fr !important;
   }
 
-  /* 7. Current Projects list items – stack */
-  .admin-dashboard .admin-card .admin-messages-item {
+  /* ---- Stack message items ---- */
+  .admin-dashboard .admin-messages-item {
     flex-direction: column !important;
     align-items: stretch !important;
     gap: 8px !important;
   }
 
-  /* 8. Header: make it flex wrap, full width */
+  /* ---- Header: flex row with wrap ---- */
   .admin-dashboard-header {
     flex-direction: row !important;
     flex-wrap: wrap !important;
     justify-content: space-between !important;
-    gap: 8px !important;
+    align-items: center !important;
+    gap: 10px !important;
     margin-bottom: 12px !important;
     width: 100% !important;
   }
-
   .admin-dashboard-header h1 {
     font-size: 20px !important;
   }
-
   .admin-dashboard-header button {
     font-size: 14px !important;
     padding: 6px 14px !important;
   }
 
-  /* 9. Any inner div with padding that restricts width */
+  /* ---- Remove extra padding from any inner div ---- */
   .admin-dashboard .admin-card > div {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
-
-  /* 10. Form groups inside cards – full width */
   .admin-dashboard .admin-card form {
-    width: 100% !important;
     max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* ---- Override any inline style that sets padding left/right ---- */
+  .admin-dashboard [style*="padding-left"],
+  .admin-dashboard [style*="padding-right"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+/* ---- Even smaller screens ---- */
+@media (max-width: 480px) {
+  .admin-dashboard {
+    padding: 4px 2px !important;
+  }
+  .admin-dashboard .admin-card {
+    padding: 10px !important;
+  }
+  .admin-dashboard .admin-card h2 {
+    font-size: 14px !important;
+  }
+  .admin-dashboard .admin-form input,
+  .admin-dashboard .admin-form select,
+  .admin-dashboard .admin-form textarea {
+    font-size: 13px !important;
+    padding: 8px 10px !important;
+  }
+  .admin-dashboard .admin-form button {
+    font-size: 13px !important;
+    padding: 10px !important;
   }
 }
