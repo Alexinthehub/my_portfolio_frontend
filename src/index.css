@@ -537,30 +537,41 @@ body {
 
 /* Make every page's main container fill the viewport */
 .page-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Fallback */
-  min-height: 100dvh; /* Dynamic viewport height for mobile */
-  width: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  width: 100% !important;
 }
 
-/* The content area should grow to push footer down */
 .page-content {
-  flex: 1 0 auto;
-  width: 100%;
+  flex: 1 0 auto !important;
+  width: 100% !important;
 }
 
-/* Footer stays at bottom */
-.page-footer {
-  flex-shrink: 0;
-  width: 100%;
-  margin-top: auto;
-}
-
-/* Ensure footer on all pages uses this */
-footer.footer-sticky {
+/* Footer - always at bottom */
+.footer-sticky {
+  flex-shrink: 0 !important;
   margin-top: auto !important;
   position: relative !important;
   bottom: 0 !important;
   width: 100% !important;
+  z-index: 10 !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(8px) !important;
+  border-top: 1px solid rgba(93, 214, 44, 0.08) !important;
+  padding: 16px 60px !important;
+  text-align: center !important;
+}
+
+/* Mobile footer padding */
+@media (max-width: 768px) {
+  .footer-sticky {
+    padding: 12px 20px !important;
+  }
+}
+
+/* Hide any other footer that might appear */
+footer:not(.footer-sticky) {
+  display: none !important;
 }

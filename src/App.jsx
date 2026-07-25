@@ -12,7 +12,6 @@ import AdminDashboard from './pages/AdminDashboard';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Check token on mount
   useEffect(() => {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (token) {
@@ -23,7 +22,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public routes with Layout */}
+        {/* Public routes with Layout (Navbar + Footer) */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="projects" element={<Projects />} />
@@ -40,7 +39,7 @@ function App() {
           path="/admin/dashboard"
           element={
             isAuthenticated ? (
-              <AdminDashboard />
+              <AdminDashboard setIsAuthenticated={setIsAuthenticated} />
             ) : (
               <Navigate to="/admin/login" replace />
             )
