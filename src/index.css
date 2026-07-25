@@ -307,12 +307,16 @@ body {
 /* ================================================================ */
 /* ===== VISION PAGE ===== */
 /* ================================================================ */
+
+/* Desktop layout */
 .vision-page .vision-grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
   width: 100%;
 }
+
+/* Left & right columns */
 .vision-page .vision-section-title {
   font-size: 24px;
   font-weight: 600;
@@ -323,6 +327,7 @@ body {
   gap: 10px;
   font-family: 'Inter', 'Segoe UI', sans-serif;
 }
+
 .vision-page .vision-card {
   background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(8px);
@@ -330,7 +335,15 @@ body {
   padding: 16px 20px;
   border: 1px solid rgba(255, 255, 255, 0.06);
   transition: all 0.3s ease;
+  overflow: hidden;
+  word-wrap: break-word;
 }
+
+.vision-page .vision-card:hover {
+  border-color: rgba(255,255,255,0.15);
+}
+
+/* Status badge */
 .vision-page .status-badge {
   font-size: 12px;
   font-weight: 500;
@@ -338,7 +351,10 @@ body {
   padding: 2px 12px;
   border-radius: 9999px;
   border: 1px solid rgba(255, 255, 255, 0.06);
+  display: inline-block;
 }
+
+/* Verify button */
 .vision-page .verify-btn {
   font-size: 13px;
   color: #ffd700;
@@ -354,6 +370,8 @@ body {
   background: rgba(255, 215, 0, 0.15);
   border-color: #ffd700;
 }
+
+/* Current project avatar – desktop */
 .vision-page .project-avatar {
   width: 80px !important;
   height: 80px !important;
@@ -362,26 +380,8 @@ body {
   flex-shrink: 0 !important;
   border: 2px solid rgba(255, 255, 255, 0.1) !important;
 }
-@media (max-width: 1024px) {
-  .vision-page .project-avatar {
-    width: 64px !important;
-    height: 64px !important;
-  }
-}
-@media (max-width: 768px) {
-  .vision-page .project-avatar {
-    width: 56px !important;
-    height: 56px !important;
-    border-radius: 12px !important;
-  }
-}
-@media (max-width: 480px) {
-  .vision-page .project-avatar {
-    width: 48px !important;
-    height: 48px !important;
-    border-radius: 10px !important;
-  }
-}
+
+/* Title */
 .vision-page .vision-title {
   font-size: 48px;
   font-weight: 700;
@@ -389,40 +389,74 @@ body {
   margin-bottom: 12px;
   font-family: 'Inter', 'Segoe UI', sans-serif;
 }
+
+/* ===== RESPONSIVE: Tablets ===== */
+@media (max-width: 1024px) {
+  .vision-page .project-avatar {
+    width: 64px !important;
+    height: 64px !important;
+  }
+}
+
+/* ===== RESPONSIVE: Mobile ===== */
 @media (max-width: 768px) {
+  /* Stack columns */
   .vision-page .vision-grid-container {
     grid-template-columns: 1fr !important;
     gap: 20px !important;
   }
+
   .vision-page .vision-section-title {
     font-size: 20px !important;
   }
+
   .vision-page .vision-card {
     padding: 14px !important;
   }
+
   .vision-page .vision-card h3 {
     font-size: 16px !important;
   }
+
   .vision-page .vision-card p {
     font-size: 13px !important;
+    word-break: break-word;
   }
+
   .vision-page .verify-btn {
     font-size: 12px !important;
     padding: 4px 10px !important;
     white-space: nowrap !important;
   }
+
   .vision-page .status-badge {
     font-size: 11px !important;
     padding: 2px 10px !important;
   }
+
   .vision-page .vision-title {
     font-size: 32px !important;
   }
+
+  /* BIGGER AVATAR ON MOBILE */
   .vision-page .project-avatar {
-    width: 48px !important;
-    height: 48px !important;
+    width: 64px !important;
+    height: 64px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Fix overflow: ensure card content stays inside */
+  .vision-page .vision-card {
+    overflow: hidden;
+    word-wrap: break-word;
+  }
+
+  .vision-page .vision-card > div {
+    flex-wrap: wrap;
   }
 }
+
+/* ===== RESPONSIVE: Small phones ===== */
 @media (max-width: 480px) {
   .vision-page .vision-card {
     padding: 10px !important;
@@ -433,12 +467,13 @@ body {
   .vision-page .vision-card p {
     font-size: 12px !important;
   }
+  /* Even bigger avatar on small phones: 56px */
   .vision-page .project-avatar {
-    width: 40px !important;
-    height: 40px !important;
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 10px !important;
   }
 }
-
 /* ================================================================ */
 /* ===== ADMIN LOGIN ===== */
 /* ================================================================ */
