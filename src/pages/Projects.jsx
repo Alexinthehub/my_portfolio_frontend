@@ -85,7 +85,7 @@ const Projects = () => {
             color: '#9CA3AF',
             fontFamily: "'Inter', 'Segoe UI', sans-serif",
           }}>
-            Here are the projects I have built...
+            Here are the projects I have built.
           </p>
         </div>
 
