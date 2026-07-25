@@ -600,56 +600,114 @@ footer:not(.footer-sticky) {
   display: none !important;
 }
 /* ================================================================ */
-/* ===== ADMIN DASHBOARD – WIDER ON MOBILE ===== */
+/* ===== ADMIN DASHBOARD – FULL WIDTH ON MOBILE ===== */
 /* ================================================================ */
 
-/* Remove max-width constraints on admin cards for mobile */
+/* Main container – remove side padding on small screens */
 @media (max-width: 768px) {
   .admin-dashboard {
     padding: 12px 8px !important;
   }
-  
-  .admin-card {
+
+  /* Each card – full width, no side margins */
+  .admin-dashboard .admin-card {
     max-width: 100% !important;
-    padding: 14px !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
+    padding: 16px !important;
     border-radius: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
-  
-  .admin-card h2 {
+
+  /* Card headings – smaller */
+  .admin-dashboard .admin-card h2 {
     font-size: 16px !important;
   }
-  
-  .admin-form {
+
+  /* Form grid – single column */
+  .admin-dashboard .admin-form {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
     gap: 10px !important;
   }
-  
-  .admin-form input,
-  .admin-form select,
-  .admin-form textarea {
+
+  /* Form inputs – full width, smaller padding */
+  .admin-dashboard .admin-form input,
+  .admin-dashboard .admin-form select,
+  .admin-dashboard .admin-form textarea {
     font-size: 14px !important;
     padding: 10px 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
-  
-  .admin-form button {
+
+  /* Buttons – full width */
+  .admin-dashboard .admin-form button {
     font-size: 14px !important;
     padding: 12px !important;
+    width: 100% !important;
   }
-  
+
+  /* Dashboard header – stack on mobile */
   .admin-dashboard-header {
     flex-direction: row !important;
     flex-wrap: wrap !important;
     gap: 10px !important;
     margin-bottom: 16px !important;
+    justify-content: space-between !important;
   }
-  
+
   .admin-dashboard-header h1 {
     font-size: 22px !important;
   }
-  
+
   .admin-dashboard-header button {
     font-size: 14px !important;
     padding: 8px 16px !important;
+  }
+
+  /* Manage projects list – single column */
+  .admin-dashboard .admin-messages-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+
+  /* Current Projects list – single column */
+  .admin-dashboard .admin-card > div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Override any inline max-width on form containers */
+  .admin-dashboard .admin-card form {
+    max-width: 100% !important;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+  .admin-dashboard {
+    padding: 8px 4px !important;
+  }
+
+  .admin-dashboard .admin-card {
+    padding: 12px !important;
+  }
+
+  .admin-dashboard .admin-card h2 {
+    font-size: 14px !important;
+  }
+
+  .admin-dashboard .admin-form input,
+  .admin-dashboard .admin-form select,
+  .admin-dashboard .admin-form textarea {
+    font-size: 13px !important;
+    padding: 8px 10px !important;
+  }
+
+  .admin-dashboard .admin-form button {
+    font-size: 13px !important;
+    padding: 10px !important;
   }
 }
