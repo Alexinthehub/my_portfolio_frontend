@@ -60,7 +60,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     repoUrl: '',
   });
 
-  // ✏️ Edit Project State
   const [editingProject, setEditingProject] = useState(null);
   const [editProjectData, setEditProjectData] = useState({
     title: '',
@@ -81,7 +80,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     imageUrl: '',
   });
 
-  // ✏️ Edit Current Project State
   const [editingCurrentProject, setEditingCurrentProject] = useState(null);
   const [editCurrentProjectData, setEditCurrentProjectData] = useState({
     title: '',
@@ -102,7 +100,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     verifyUrl: '',
   });
 
-  // ✏️ Edit Certificate State
   const [editingCertificate, setEditingCertificate] = useState(null);
   const [editCertificateData, setEditCertificateData] = useState({
     title: '',
@@ -123,32 +120,20 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  // ======================================================================
-  //  SAFE LOGOUT FUNCTION (with guard for setIsAuthenticated)
-  // ======================================================================
+  // --- Logout ---
   const handleLogout = () => {
     setIsLoggingOut(true);
-
-    // Clear all tokens
     localStorage.removeItem('token');
     localStorage.removeItem('rememberMe');
     sessionStorage.removeItem('token');
-
-    // Update authentication state (only if the prop is a function)
     if (typeof setIsAuthenticated === 'function') {
       setIsAuthenticated(false);
-    } else {
-      console.warn('setIsAuthenticated is not a function. Please check App.jsx');
     }
-
-    // Try React Router navigation
     try {
       navigate('/');
     } catch (err) {
       console.error('Navigate failed:', err);
     }
-
-    // Fallback hard redirect
     setTimeout(() => {
       window.location.href = '/';
     }, 100);
@@ -157,7 +142,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
   // --- Fetch All Data ---
   const fetchData = async () => {
     if (isLoggingOut) return;
-
     try {
       const [profileRes, messagesRes, projectsRes, currentProjectsRes, certificatesRes] = await Promise.all([
         getProfile(),
@@ -193,7 +177,6 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
     } catch (err) {
       console.error('Error fetching data:', err);
       if (err.response?.status === 401) {
-        // Token expired – logout
         handleLogout();
       } else {
         alert('⚠️ Failed to load some data. Please refresh the page.');
@@ -213,33 +196,32 @@ const AdminDashboard = ({ setIsAuthenticated }) => {
   }, []);
 
   // --- Profile Update ---
-const handleProfileUpdate = async (e) => {
-  e.preventDefault();
-  if (isLoggingOut) return;
-  setFormLoading(true);
-  try {
-    const skillsArray = profileForm.skills.split(',').map((s) => s.trim()).filter(Boolean);
-    const languagesArray = profileForm.languages.split(',').map((l) => l.trim()).filter(Boolean);
-    const payload = {
-      ...profileForm,
-      skills: skillsArray,
-      languages: languagesArray,
-    };
-    await updateProfile(payload);
-    alert('✅ Profile updated successfully!');
-    await fetchData(); 
-  } catch (err) {
-    console.error(err);
-    if (err.response?.status === 401) {
-      handleLogout();
-    } else {
-      alert('❌ Failed to update profile.');
+  const handleProfileUpdate = async (e) => {
+    e.preventDefault();
+    if (isLoggingOut) return;
+    setFormLoading(true);
+    try {
+      const skillsArray = profileForm.skills.split(',').map((s) => s.trim()).filter(Boolean);
+      const languagesArray = profileForm.languages.split(',').map((l) => l.trim()).filter(Boolean);
+      const payload = {
+        ...profileForm,
+        skills: skillsArray,
+        languages: languagesArray,
+      };
+      await updateProfile(payload);
+      alert('✅ Profile updated successfully!');
+      await fetchData();
+    } catch (err) {
+      console.error(err);
+      if (err.response?.status === 401) {
+        handleLogout();
+      } else {
+        alert('❌ Failed to update profile.');
+      }
+    } finally {
+      setFormLoading(false);
     }
-  } finally {
-    setFormLoading(false);
-  }
-};
-
+  };
 
   // --- Project CRUD ---
   const handleAddProject = async (e) => {
@@ -250,7 +232,7 @@ const handleProfileUpdate = async (e) => {
       const techArray = newProject.techStack.split(',').map((item) => item.trim());
       await createProject({ ...newProject, techStack: techArray });
       setNewProject({ title: '', description: '', techStack: '', imageUrl: '', liveUrl: '', repoUrl: '' });
-      fetchData();
+      await fetchData();
       alert('✅ Project added successfully!');
     } catch (err) {
       console.error(err);
@@ -264,7 +246,6 @@ const handleProfileUpdate = async (e) => {
     }
   };
 
-  // ✏️ Edit Project Functions
   const handleEditProject = (project) => {
     setEditingProject(project._id);
     setEditProjectData({
@@ -293,7 +274,7 @@ const handleProfileUpdate = async (e) => {
         liveUrl: '',
         repoUrl: '',
       });
-      fetchData();
+      await fetchData();
       alert('✅ Project updated successfully!');
     } catch (err) {
       console.error(err);
@@ -311,7 +292,7 @@ const handleProfileUpdate = async (e) => {
     if (window.confirm('Delete this project?')) {
       try {
         await deleteProject(id);
-        fetchData();
+        await fetchData();
       } catch (err) {
         console.error(err);
         if (err.response?.status === 401) {
@@ -327,7 +308,7 @@ const handleProfileUpdate = async (e) => {
     if (window.confirm('Delete this message?')) {
       try {
         await deleteMessage(id);
-        fetchData();
+        await fetchData();
       } catch (err) {
         console.error(err);
         if (err.response?.status === 401) {
@@ -347,7 +328,7 @@ const handleProfileUpdate = async (e) => {
     try {
       await createCurrentProject(newCurrentProject);
       setNewCurrentProject({ title: '', description: '', status: 'In Progress', repoUrl: '', imageUrl: '' });
-      fetchData();
+      await fetchData();
       alert('✅ Current project added successfully!');
     } catch (err) {
       console.error(err);
@@ -386,7 +367,7 @@ const handleProfileUpdate = async (e) => {
         repoUrl: '',
         imageUrl: '',
       });
-      fetchData();
+      await fetchData();
       alert('✅ Current project updated successfully!');
     } catch (err) {
       console.error(err);
@@ -404,7 +385,7 @@ const handleProfileUpdate = async (e) => {
     if (window.confirm('Delete this current project?')) {
       try {
         await deleteCurrentProject(id);
-        fetchData();
+        await fetchData();
       } catch (err) {
         console.error(err);
         if (err.response?.status === 401) {
@@ -424,7 +405,7 @@ const handleProfileUpdate = async (e) => {
     try {
       await createCertificate(newCertificate);
       setNewCertificate({ title: '', issuer: '', date: '', category: 'Professional', imageUrl: '', verifyUrl: '' });
-      fetchData();
+      await fetchData();
       alert('✅ Certificate added successfully!');
     } catch (err) {
       console.error(err);
@@ -465,7 +446,7 @@ const handleProfileUpdate = async (e) => {
         imageUrl: '',
         verifyUrl: '',
       });
-      fetchData();
+      await fetchData();
       alert('✅ Certificate updated successfully!');
     } catch (err) {
       console.error(err);
@@ -483,7 +464,7 @@ const handleProfileUpdate = async (e) => {
     if (window.confirm('Delete this certificate?')) {
       try {
         await deleteCertificate(id);
-        fetchData();
+        await fetchData();
       } catch (err) {
         console.error(err);
         if (err.response?.status === 401) {
@@ -499,14 +480,15 @@ const handleProfileUpdate = async (e) => {
     return <LoadingSpinner />;
   }
 
+  // ===== RENDER =====
   return (
-    <div style={{
+    <div className="admin-dashboard page-container" style={{
       position: 'relative',
       minHeight: '100vh',
       width: '100%',
       overflow: 'hidden',
     }}>
-      {/* 🖼️ FULL PAGE BACKGROUND IMAGE */}
+      {/* BACKGROUND */}
       <div style={{
         position: 'fixed',
         top: 0,
@@ -521,7 +503,7 @@ const handleProfileUpdate = async (e) => {
         backgroundRepeat: 'no-repeat',
       }} />
 
-      {/* 🌑 DARK OVERLAY */}
+      {/* OVERLAY */}
       <div style={{
         position: 'fixed',
         top: 0,
@@ -532,13 +514,13 @@ const handleProfileUpdate = async (e) => {
         backgroundColor: 'rgba(0, 0, 0, 0.75)',
       }} />
 
-      {/* ✨ Sparkles */}
+      {/* SPARKLES */}
       <div style={{ position: 'relative', zIndex: 2, width: '100%', height: '100%' }}>
         <Sparkles />
       </div>
 
-      {/* ===== CONTENT ===== */}
-      <div className="admin-dashboard" style={{
+      {/* CONTENT */}
+      <div className="page-content" style={{
         position: 'relative',
         zIndex: 3,
         padding: '40px 60px 0',
@@ -548,7 +530,7 @@ const handleProfileUpdate = async (e) => {
         flexDirection: 'column',
       }}>
         <div style={{ flex: 1 }}>
-          {/* ===== HEADER ===== */}
+          {/* HEADER */}
           <div className="admin-dashboard-header" style={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -588,9 +570,7 @@ const handleProfileUpdate = async (e) => {
             </button>
           </div>
 
-          {/* ============================================================ */}
-          {/* ✏️ EDIT PROFILE */}
-          {/* ============================================================ */}
+          {/* ===== EDIT PROFILE ===== */}
           <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
             backdropFilter: 'blur(12px)',
@@ -763,9 +743,7 @@ const handleProfileUpdate = async (e) => {
             </form>
           </div>
 
-          {/* ============================================================ */}
-          {/* 📦 ADD PROJECT */}
-          {/* ============================================================ */}
+          {/* ===== ADD PROJECT ===== */}
           <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
             backdropFilter: 'blur(12px)',
@@ -864,9 +842,7 @@ const handleProfileUpdate = async (e) => {
             </form>
           </div>
 
-          {/* ============================================================ */}
-          {/* 📂 MANAGE PROJECTS (with Edit) */}
-          {/* ============================================================ */}
+          {/* ===== MANAGE PROJECTS ===== */}
           <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
             backdropFilter: 'blur(12px)',
@@ -956,7 +932,7 @@ const handleProfileUpdate = async (e) => {
               ))}
             </div>
 
-            {/* ✏️ Edit Project Form (Inline) */}
+            {/* Edit Project Form */}
             {editingProject && (
               <div style={{
                 marginTop: '24px',
@@ -965,10 +941,8 @@ const handleProfileUpdate = async (e) => {
                 borderRadius: '16px',
                 border: '1px solid rgba(59, 130, 246, 0.3)',
               }}>
-                <h3 style={{ color: 'white', fontSize: '18px', marginBottom: '16px' }}>
-                  ✏️ Edit Project
-                </h3>
-                <form className="admin-form" onSubmit={handleUpdateProject} style={{
+                <h3 style={{ color: 'white', fontSize: '18px', marginBottom: '16px' }}>✏️ Edit Project</h3>
+                <form onSubmit={handleUpdateProject} style={{
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr',
                   gap: '16px',
@@ -1029,53 +1003,23 @@ const handleProfileUpdate = async (e) => {
                         padding: '12px 24px',
                         borderRadius: '12px',
                         border: 'none',
-                        fontSize: '15px',
                         cursor: formLoading ? 'not-allowed' : 'pointer',
-                        transition: 'all 0.3s ease',
-                        opacity: formLoading ? 0.7 : 1,
-                      }}
-                      onMouseEnter={(e) => {
-                        if (!formLoading) {
-                          e.currentTarget.style.backgroundColor = '#2563EB';
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (!formLoading) {
-                          e.currentTarget.style.backgroundColor = '#3B82F6';
-                        }
+                        fontSize: '15px',
                       }}
                     >
                       {formLoading ? 'Updating...' : 'Update Project'}
                     </button>
                     <button
                       type="button"
-                      onClick={() => {
-                        setEditingProject(null);
-                        setEditProjectData({
-                          title: '',
-                          description: '',
-                          techStack: '',
-                          imageUrl: '',
-                          liveUrl: '',
-                          repoUrl: '',
-                        });
-                      }}
+                      onClick={() => setEditingProject(null)}
                       style={{
                         backgroundColor: 'rgba(255,255,255,0.1)',
                         color: 'white',
-                        fontWeight: '600',
                         padding: '12px 24px',
                         borderRadius: '12px',
                         border: '1px solid rgba(255,255,255,0.2)',
                         cursor: 'pointer',
                         fontSize: '15px',
-                        transition: 'all 0.3s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
                       }}
                     >
                       Cancel
@@ -1086,9 +1030,7 @@ const handleProfileUpdate = async (e) => {
             )}
           </div>
 
-          {/* ============================================================ */}
-          {/* ✉️ CONTACT MESSAGES */}
-          {/* ============================================================ */}
+          {/* ===== CONTACT MESSAGES ===== */}
           <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
             backdropFilter: 'blur(12px)',
@@ -1112,20 +1054,16 @@ const handleProfileUpdate = async (e) => {
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {messages.map((m) => (
-                  <div
-                    key={m._id}
-                    className="admin-messages-item"
-                    style={{
-                      backgroundColor: 'rgba(255,255,255,0.05)',
-                      borderRadius: '12px',
-                      padding: '16px',
-                      border: '1px solid rgba(255,255,255,0.05)',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'flex-start',
-                      gap: '16px',
-                    }}
-                  >
+                  <div key={m._id} style={{
+                    backgroundColor: 'rgba(255,255,255,0.05)',
+                    borderRadius: '12px',
+                    padding: '16px',
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                    gap: '16px',
+                  }}>
                     <div style={{ flex: 1 }}>
                       <p style={{ color: 'white', fontWeight: '600' }}>
                         {m.name} <span style={{ color: 'rgba(255,255,255,0.5)', fontWeight: '400' }}>({m.email})</span>
@@ -1147,14 +1085,6 @@ const handleProfileUpdate = async (e) => {
                         borderRadius: '8px',
                         cursor: 'pointer',
                         fontSize: '13px',
-                        flexShrink: 0,
-                        transition: 'all 0.3s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.4)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
                       }}
                     >
                       Delete
@@ -1165,9 +1095,7 @@ const handleProfileUpdate = async (e) => {
             )}
           </div>
 
-          {/* ============================================================ */}
-          {/* 🚀 CURRENT PROJECTS (with Edit) */}
-          {/* ============================================================ */}
+          {/* ===== CURRENT PROJECTS ===== */}
           <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
             backdropFilter: 'blur(12px)',
@@ -1185,7 +1113,8 @@ const handleProfileUpdate = async (e) => {
               🚀 Current Projects
             </h2>
 
-            <form className="admin-form" onSubmit={handleAddCurrentProject} style={{
+            {/* Add Current Project */}
+            <form onSubmit={handleAddCurrentProject} style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
               gap: '16px',
@@ -1226,7 +1155,7 @@ const handleProfileUpdate = async (e) => {
               />
               <input
                 type="url"
-                placeholder="Image / Avatar URL (optional)"
+                placeholder="Image URL (optional)"
                 value={newCurrentProject.imageUrl}
                 onChange={(e) => setNewCurrentProject({ ...newCurrentProject, imageUrl: e.target.value })}
                 style={{ ...inputStyle, gridColumn: '1 / -1' }}
@@ -1244,127 +1173,70 @@ const handleProfileUpdate = async (e) => {
                   border: 'none',
                   fontSize: '15px',
                   cursor: formLoading ? 'not-allowed' : 'pointer',
-                  transition: 'all 0.3s ease',
                   opacity: formLoading ? 0.7 : 1,
-                }}
-                onMouseEnter={(e) => {
-                  if (!formLoading) {
-                    e.currentTarget.style.backgroundColor = '#4CAF50';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!formLoading) {
-                    e.currentTarget.style.backgroundColor = '#5DD62C';
-                  }
                 }}
               >
                 {formLoading ? 'Adding...' : 'Add Current Project'}
               </button>
             </form>
 
+            {/* Current Projects List */}
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
               gap: '12px',
             }}>
-              {currentProjects.length === 0 ? (
-                <p style={{ color: 'rgba(255,255,255,0.5)', textAlign: 'center', padding: '20px 0', gridColumn: '1 / -1' }}>
-                  No current projects. Add one above!
-                </p>
-              ) : (
-                currentProjects.map((p) => (
-                  <div
-                    key={p._id}
-                    className="admin-messages-item"
-                    style={{
-                      backgroundColor: 'rgba(255,255,255,0.06)',
-                      borderRadius: '12px',
-                      padding: '16px',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      border: '1px solid rgba(255,255,255,0.05)',
-                    }}
-                  >
-                    <div>
-                      <h3 style={{ color: 'white', fontWeight: '600', fontSize: '15px' }}>{p.title}</h3>
-                      <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px' }}>
-                        {p.status} • ⭐ {p.starCount || 0}
-                      </p>
-                      {p.imageUrl && (
-                        <div style={{ marginTop: '4px' }}>
-                          <img src={p.imageUrl} alt={p.title} style={{ maxWidth: '60px', maxHeight: '60px', borderRadius: '8px', objectFit: 'cover' }} />
-                        </div>
-                      )}
-                      {p.repoUrl && p.status !== 'Completed' && (
-                        <a
-                          href={p.repoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            fontSize: '12px',
-                            color: '#5DD62C',
-                            textDecoration: 'none',
-                            display: 'inline-block',
-                            marginTop: '4px',
-                          }}
-                          onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
-                          onMouseLeave={(e) => e.currentTarget.style.color = '#5DD62C'}
-                        >
-                          🐙 Track Progress
-                        </a>
-                      )}
-                    </div>
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                      <button
-                        onClick={() => handleEditCurrentProject(p)}
-                        style={{
-                          backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                          color: '#93C5FD',
-                          border: '1px solid rgba(59, 130, 246, 0.2)',
-                          padding: '6px 14px',
-                          borderRadius: '8px',
-                          cursor: 'pointer',
-                          fontSize: '13px',
-                          transition: 'all 0.3s ease',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(59, 130, 246, 0.4)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(59, 130, 246, 0.2)';
-                        }}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDeleteCurrentProject(p._id)}
-                        style={{
-                          backgroundColor: 'rgba(239, 68, 68, 0.2)',
-                          color: '#FCA5A5',
-                          border: '1px solid rgba(239, 68, 68, 0.2)',
-                          padding: '6px 14px',
-                          borderRadius: '8px',
-                          cursor: 'pointer',
-                          fontSize: '13px',
-                          transition: 'all 0.3s ease',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.4)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </div>
+              {currentProjects.map((p) => (
+                <div key={p._id} style={{
+                  backgroundColor: 'rgba(255,255,255,0.06)',
+                  borderRadius: '12px',
+                  padding: '16px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  border: '1px solid rgba(255,255,255,0.05)',
+                }}>
+                  <div>
+                    <h3 style={{ color: 'white', fontWeight: '600', fontSize: '15px' }}>{p.title}</h3>
+                    <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px' }}>
+                      {p.status} • ⭐ {p.starCount || 0}
+                    </p>
                   </div>
-                ))
-              )}
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <button
+                      onClick={() => handleEditCurrentProject(p)}
+                      style={{
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        color: '#93C5FD',
+                        border: '1px solid rgba(59, 130, 246, 0.2)',
+                        padding: '6px 14px',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDeleteCurrentProject(p._id)}
+                      style={{
+                        backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                        color: '#FCA5A5',
+                        border: '1px solid rgba(239, 68, 68, 0.2)',
+                        padding: '6px 14px',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
 
-            {/* ✏️ Edit Current Project Form */}
+            {/* Edit Current Project Form */}
             {editingCurrentProject && (
               <div style={{
                 marginTop: '24px',
@@ -1373,10 +1245,8 @@ const handleProfileUpdate = async (e) => {
                 borderRadius: '16px',
                 border: '1px solid rgba(59, 130, 246, 0.3)',
               }}>
-                <h3 style={{ color: 'white', fontSize: '18px', marginBottom: '16px' }}>
-                  ✏️ Edit Current Project
-                </h3>
-                <form className="admin-form" onSubmit={handleUpdateCurrentProject} style={{
+                <h3 style={{ color: 'white', fontSize: '18px', marginBottom: '16px' }}>✏️ Edit Current Project</h3>
+                <form onSubmit={handleUpdateCurrentProject} style={{
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr',
                   gap: '16px',
@@ -1432,52 +1302,23 @@ const handleProfileUpdate = async (e) => {
                         padding: '12px 24px',
                         borderRadius: '12px',
                         border: 'none',
-                        fontSize: '15px',
                         cursor: formLoading ? 'not-allowed' : 'pointer',
-                        transition: 'all 0.3s ease',
-                        opacity: formLoading ? 0.7 : 1,
-                      }}
-                      onMouseEnter={(e) => {
-                        if (!formLoading) {
-                          e.currentTarget.style.backgroundColor = '#2563EB';
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (!formLoading) {
-                          e.currentTarget.style.backgroundColor = '#3B82F6';
-                        }
+                        fontSize: '15px',
                       }}
                     >
                       {formLoading ? 'Updating...' : 'Update Current Project'}
                     </button>
                     <button
                       type="button"
-                      onClick={() => {
-                        setEditingCurrentProject(null);
-                        setEditCurrentProjectData({
-                          title: '',
-                          description: '',
-                          status: 'In Progress',
-                          repoUrl: '',
-                          imageUrl: '',
-                        });
-                      }}
+                      onClick={() => setEditingCurrentProject(null)}
                       style={{
                         backgroundColor: 'rgba(255,255,255,0.1)',
                         color: 'white',
-                        fontWeight: '600',
                         padding: '12px 24px',
                         borderRadius: '12px',
                         border: '1px solid rgba(255,255,255,0.2)',
                         cursor: 'pointer',
                         fontSize: '15px',
-                        transition: 'all 0.3s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
                       }}
                     >
                       Cancel
@@ -1488,9 +1329,7 @@ const handleProfileUpdate = async (e) => {
             )}
           </div>
 
-          {/* ============================================================ */}
-          {/* 🏆 CERTIFICATES (with Edit) */}
-          {/* ============================================================ */}
+          {/* ===== CERTIFICATES ===== */}
           <div className="admin-card" style={{
             backgroundColor: 'rgba(255,255,255,0.08)',
             backdropFilter: 'blur(12px)',
@@ -1508,7 +1347,7 @@ const handleProfileUpdate = async (e) => {
               🏆 Certificates
             </h2>
 
-            <form className="admin-form" onSubmit={handleAddCertificate} style={{
+            <form onSubmit={handleAddCertificate} style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
               gap: '16px',
@@ -1575,18 +1414,7 @@ const handleProfileUpdate = async (e) => {
                   border: 'none',
                   fontSize: '15px',
                   cursor: formLoading ? 'not-allowed' : 'pointer',
-                  transition: 'all 0.3s ease',
                   opacity: formLoading ? 0.7 : 1,
-                }}
-                onMouseEnter={(e) => {
-                  if (!formLoading) {
-                    e.currentTarget.style.backgroundColor = '#4CAF50';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!formLoading) {
-                    e.currentTarget.style.backgroundColor = '#5DD62C';
-                  }
                 }}
               >
                 {formLoading ? 'Adding...' : 'Add Certificate'}
@@ -1598,99 +1426,56 @@ const handleProfileUpdate = async (e) => {
               gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
               gap: '12px',
             }}>
-              {certificates.length === 0 ? (
-                <p style={{ color: 'rgba(255,255,255,0.5)', textAlign: 'center', padding: '20px 0', gridColumn: '1 / -1' }}>
-                  No certificates. Add one above!
-                </p>
-              ) : (
-                certificates.map((c) => (
-                  <div
-                    key={c._id}
-                    className="admin-messages-item"
-                    style={{
-                      backgroundColor: 'rgba(255,255,255,0.06)',
-                      borderRadius: '12px',
-                      padding: '16px',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      border: '1px solid rgba(255,255,255,0.05)',
-                    }}
-                  >
-                    <div>
-                      <h3 style={{ color: 'white', fontWeight: '600', fontSize: '15px' }}>{c.title}</h3>
-                      <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px' }}>
-                        {c.issuer} • {new Date(c.date).toLocaleDateString()}
-                      </p>
-                      {c.verifyUrl && (
-                        <a
-                          href={c.verifyUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            fontSize: '12px',
-                            color: '#5DD62C',
-                            textDecoration: 'none',
-                            display: 'inline-block',
-                            marginTop: '4px',
-                          }}
-                          onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
-                          onMouseLeave={(e) => e.currentTarget.style.color = '#5DD62C'}
-                        >
-                          🔍 Verify
-                        </a>
-                      )}
-                    </div>
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                      <button
-                        onClick={() => handleEditCertificate(c)}
-                        style={{
-                          backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                          color: '#93C5FD',
-                          border: '1px solid rgba(59, 130, 246, 0.2)',
-                          padding: '6px 14px',
-                          borderRadius: '8px',
-                          cursor: 'pointer',
-                          fontSize: '13px',
-                          transition: 'all 0.3s ease',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(59, 130, 246, 0.4)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(59, 130, 246, 0.2)';
-                        }}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDeleteCertificate(c._id)}
-                        style={{
-                          backgroundColor: 'rgba(239, 68, 68, 0.2)',
-                          color: '#FCA5A5',
-                          border: '1px solid rgba(239, 68, 68, 0.2)',
-                          padding: '6px 14px',
-                          borderRadius: '8px',
-                          cursor: 'pointer',
-                          fontSize: '13px',
-                          transition: 'all 0.3s ease',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.4)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </div>
+              {certificates.map((c) => (
+                <div key={c._id} style={{
+                  backgroundColor: 'rgba(255,255,255,0.06)',
+                  borderRadius: '12px',
+                  padding: '16px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  border: '1px solid rgba(255,255,255,0.05)',
+                }}>
+                  <div>
+                    <h3 style={{ color: 'white', fontWeight: '600', fontSize: '15px' }}>{c.title}</h3>
+                    <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px' }}>
+                      {c.issuer} • {new Date(c.date).toLocaleDateString()}
+                    </p>
                   </div>
-                ))
-              )}
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <button
+                      onClick={() => handleEditCertificate(c)}
+                      style={{
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        color: '#93C5FD',
+                        border: '1px solid rgba(59, 130, 246, 0.2)',
+                        padding: '6px 14px',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDeleteCertificate(c._id)}
+                      style={{
+                        backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                        color: '#FCA5A5',
+                        border: '1px solid rgba(239, 68, 68, 0.2)',
+                        padding: '6px 14px',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
 
-            {/* ✏️ Edit Certificate Form */}
             {editingCertificate && (
               <div style={{
                 marginTop: '24px',
@@ -1699,10 +1484,8 @@ const handleProfileUpdate = async (e) => {
                 borderRadius: '16px',
                 border: '1px solid rgba(59, 130, 246, 0.3)',
               }}>
-                <h3 style={{ color: 'white', fontSize: '18px', marginBottom: '16px' }}>
-                  ✏️ Edit Certificate
-                </h3>
-                <form className="admin-form" onSubmit={handleUpdateCertificate} style={{
+                <h3 style={{ color: 'white', fontSize: '18px', marginBottom: '16px' }}>✏️ Edit Certificate</h3>
+                <form onSubmit={handleUpdateCertificate} style={{
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr',
                   gap: '16px',
@@ -1766,53 +1549,23 @@ const handleProfileUpdate = async (e) => {
                         padding: '12px 24px',
                         borderRadius: '12px',
                         border: 'none',
-                        fontSize: '15px',
                         cursor: formLoading ? 'not-allowed' : 'pointer',
-                        transition: 'all 0.3s ease',
-                        opacity: formLoading ? 0.7 : 1,
-                      }}
-                      onMouseEnter={(e) => {
-                        if (!formLoading) {
-                          e.currentTarget.style.backgroundColor = '#2563EB';
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (!formLoading) {
-                          e.currentTarget.style.backgroundColor = '#3B82F6';
-                        }
+                        fontSize: '15px',
                       }}
                     >
                       {formLoading ? 'Updating...' : 'Update Certificate'}
                     </button>
                     <button
                       type="button"
-                      onClick={() => {
-                        setEditingCertificate(null);
-                        setEditCertificateData({
-                          title: '',
-                          issuer: '',
-                          date: '',
-                          category: 'Professional',
-                          imageUrl: '',
-                          verifyUrl: '',
-                        });
-                      }}
+                      onClick={() => setEditingCertificate(null)}
                       style={{
                         backgroundColor: 'rgba(255,255,255,0.1)',
                         color: 'white',
-                        fontWeight: '600',
                         padding: '12px 24px',
                         borderRadius: '12px',
                         border: '1px solid rgba(255,255,255,0.2)',
                         cursor: 'pointer',
                         fontSize: '15px',
-                        transition: 'all 0.3s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
                       }}
                     >
                       Cancel
@@ -1823,7 +1576,7 @@ const handleProfileUpdate = async (e) => {
             )}
           </div>
 
-          {/* ===== FOOTER ===== */}
+          {/* FOOTER */}
           <footer style={{
             maxWidth: '1400px',
             margin: '0 auto',

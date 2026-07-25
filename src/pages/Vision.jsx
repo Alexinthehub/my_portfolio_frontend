@@ -119,7 +119,7 @@ const Vision = () => {
               fontSize: '18px',
               color: '#9CA3AF',
             }}>
-              What I'm currently working on and what I've achieved
+              What I'm currently working on and what I've achieved.
             </p>
           </div>
 
@@ -171,7 +171,7 @@ const Vision = () => {
                         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', flex: 1, minWidth: 0 }}>
                           {project.imageUrl ? (
                             <img
-                              src={project.imageUrl ? `${project.imageUrl}?t=${Date.now()}` : ''}
+                              src={`${project.imageUrl}?t=${Date.now()}`}
                               alt={project.title}
                               className="project-avatar"
                               onError={(e) => {
@@ -388,7 +388,7 @@ const Vision = () => {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: 1, minWidth: 0 }}>
                           {cert.imageUrl ? (
                             <img
-                              src={cert.imageUrl}
+                              src={`${cert.imageUrl}?t=${Date.now()}`}
                               alt={cert.title}
                               style={{
                                 width: '56px',
@@ -397,6 +397,24 @@ const Vision = () => {
                                 borderRadius: '12px',
                                 border: '1px solid rgba(255,255,255,0.1)',
                                 flexShrink: 0,
+                              }}
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                                const parent = e.target.parentNode;
+                                const fallback = document.createElement('div');
+                                fallback.style.cssText = `
+                                  width: 56px;
+                                  height: 56px;
+                                  background: rgba(255,215,0,0.12);
+                                  border-radius: 12px;
+                                  display: flex;
+                                  align-items: center;
+                                  justify-content: center;
+                                  font-size: 24px;
+                                  flex-shrink: 0;
+                                `;
+                                fallback.innerText = '🎓';
+                                parent.replaceChild(fallback, e.target);
                               }}
                             />
                           ) : (

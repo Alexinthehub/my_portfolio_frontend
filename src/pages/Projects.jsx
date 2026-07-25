@@ -69,7 +69,7 @@ const Projects = () => {
         display: 'flex',
         flexDirection: 'column',
       }}>
-        {/* === HEADER: Centered Title + Subtitle === */}
+        {/* HEADER: Centered Title + Subtitle */}
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <h1 style={{
             fontSize: '48px',
@@ -89,7 +89,7 @@ const Projects = () => {
           </p>
         </div>
 
-        {/* === GLASS CONTAINER FOR CARDS === */}
+        {/* GLASS CONTAINER */}
         <div style={{
           backgroundColor: 'rgba(255,255,255,0.05)',
           backdropFilter: 'blur(12px)',
@@ -139,8 +139,8 @@ const Projects = () => {
                     e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
                   }}
                 >
-                  {/* Project Image / Avatar */}
-                  {project.imageUrl && (
+                  {/* Project Image */}
+                  {project.imageUrl ? (
                     <div style={{
                       width: '100%',
                       height: '160px',
@@ -150,7 +150,7 @@ const Projects = () => {
                       backgroundColor: 'rgba(0,0,0,0.3)',
                     }}>
                       <img
-                        src={project.imageUrl}
+                        src={`${project.imageUrl}?t=${Date.now()}`}
                         alt={project.title}
                         style={{
                           width: '100%',
@@ -165,9 +165,38 @@ const Projects = () => {
                           e.currentTarget.style.transform = 'scale(1)';
                         }}
                         onError={(e) => {
-                          e.currentTarget.style.display = 'none';
+                          e.target.style.display = 'none';
+                          const parent = e.target.parentNode;
+                          const fallback = document.createElement('div');
+                          fallback.style.cssText = `
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            background: rgba(93,214,44,0.05);
+                            color: #5DD62C;
+                            font-size: 48px;
+                          `;
+                          fallback.innerText = '🖼️';
+                          parent.appendChild(fallback);
                         }}
                       />
+                    </div>
+                  ) : (
+                    <div style={{
+                      width: '100%',
+                      height: '160px',
+                      borderRadius: '12px',
+                      marginBottom: '14px',
+                      backgroundColor: 'rgba(93,214,44,0.05)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '48px',
+                      color: '#5DD62C',
+                    }}>
+                      🖼️
                     </div>
                   )}
 
