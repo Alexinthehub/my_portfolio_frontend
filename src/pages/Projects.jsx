@@ -69,124 +69,188 @@ const Projects = () => {
         display: 'flex',
         flexDirection: 'column',
       }}>
-        <h1 style={{
-          fontSize: '48px',
-          fontWeight: '700',
-          color: 'white',
-          marginBottom: '32px',
-          fontFamily: "'Inter', 'Segoe UI', sans-serif",
-        }}>
-          My Projects
-        </h1>
+        {/* === HEADER: Centered Title + Subtitle === */}
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <h1 style={{
+            fontSize: '48px',
+            fontWeight: '700',
+            color: 'white',
+            marginBottom: '8px',
+            fontFamily: "'Inter', 'Segoe UI', sans-serif",
+          }}>
+            My Projects
+          </h1>
+          <p style={{
+            fontSize: '18px',
+            color: '#9CA3AF',
+            fontFamily: "'Inter', 'Segoe UI', sans-serif",
+          }}>
+            Here are the projects I have built...
+          </p>
+        </div>
 
-        <div className="projects-grid" style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-          gap: '24px',
+        {/* === GLASS CONTAINER FOR CARDS === */}
+        <div style={{
+          backgroundColor: 'rgba(255,255,255,0.05)',
+          backdropFilter: 'blur(12px)',
+          borderRadius: '24px',
+          padding: '32px',
+          border: '1px solid rgba(255,255,255,0.06)',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
           flex: 1,
         }}>
           {projects.length === 0 ? (
-            <p style={{ color: '#9CA3AF' }}>No projects yet. Check back soon!</p>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              minHeight: '200px',
+            }}>
+              <p style={{ color: '#9CA3AF', fontSize: '18px' }}>
+                No projects yet. Check back soon!
+              </p>
+            </div>
           ) : (
-            projects.map((project) => (
-              <div
-                key={project._id}
-                className="project-card"
-                style={{
-                  backgroundColor: 'rgba(255,255,255,0.06)',
-                  backdropFilter: 'blur(8px)',
-                  borderRadius: '16px',
-                  padding: '20px',
-                  border: '1px solid rgba(255,255,255,0.06)',
-                  transition: 'all 0.3s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(93,214,44,0.3)';
-                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
-                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
-                }}
-              >
-                <h3 className="project-title" style={{
-                  fontSize: '20px',
-                  fontWeight: '600',
-                  color: 'white',
-                  marginBottom: '8px',
-                  fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                }}>
-                  {project.title}
-                </h3>
-                <p className="project-description" style={{
-                  color: '#9CA3AF',
-                  marginBottom: '12px',
-                  fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                }}>
-                  {project.description}
-                </p>
-                <div style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '8px',
-                  marginBottom: '12px',
-                }}>
-                  {project.techStack?.map((tech, idx) => (
-                    <span
-                      key={idx}
-                      style={{
-                        backgroundColor: 'rgba(93,214,44,0.1)',
-                        color: '#5DD62C',
-                        padding: '2px 12px',
-                        borderRadius: '9999px',
-                        fontSize: '12px',
-                        border: '1px solid rgba(93,214,44,0.15)',
-                      }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                <div style={{ display: 'flex', gap: '12px' }}>
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        color: '#5DD62C',
-                        textDecoration: 'none',
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        transition: 'color 0.3s ease',
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
-                      onMouseLeave={(e) => e.currentTarget.style.color = '#5DD62C'}
-                    >
-                      🔗 Live Demo
-                    </a>
+            <div className="projects-grid" style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gap: '24px',
+            }}>
+              {projects.map((project) => (
+                <div
+                  key={project._id}
+                  className="project-card"
+                  style={{
+                    backgroundColor: 'rgba(255,255,255,0.06)',
+                    backdropFilter: 'blur(8px)',
+                    borderRadius: '16px',
+                    padding: '20px',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                    transition: 'all 0.3s ease',
+                    display: 'flex',
+                    flexDirection: 'column',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(93,214,44,0.3)';
+                    e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                    e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
+                  }}
+                >
+                  {/* Project Image / Avatar */}
+                  {project.imageUrl && (
+                    <div style={{
+                      width: '100%',
+                      height: '160px',
+                      borderRadius: '12px',
+                      overflow: 'hidden',
+                      marginBottom: '14px',
+                      backgroundColor: 'rgba(0,0,0,0.3)',
+                    }}>
+                      <img
+                        src={project.imageUrl}
+                        alt={project.title}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.3s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = 'scale(1.05)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                        }}
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                        }}
+                      />
+                    </div>
                   )}
-                  {project.repoUrl && (
-                    <a
-                      href={project.repoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        color: '#9CA3AF',
-                        textDecoration: 'none',
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        transition: 'color 0.3s ease',
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
-                      onMouseLeave={(e) => e.currentTarget.style.color = '#9CA3AF'}
-                    >
-                      🐙 Code
-                    </a>
-                  )}
+
+                  <h3 className="project-title" style={{
+                    fontSize: '20px',
+                    fontWeight: '600',
+                    color: 'white',
+                    marginBottom: '8px',
+                    fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                  }}>
+                    {project.title}
+                  </h3>
+                  <p className="project-description" style={{
+                    color: '#9CA3AF',
+                    marginBottom: '12px',
+                    fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                    flex: 1,
+                  }}>
+                    {project.description}
+                  </p>
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '8px',
+                    marginBottom: '12px',
+                  }}>
+                    {project.techStack?.map((tech, idx) => (
+                      <span
+                        key={idx}
+                        style={{
+                          backgroundColor: 'rgba(93,214,44,0.1)',
+                          color: '#5DD62C',
+                          padding: '2px 12px',
+                          borderRadius: '9999px',
+                          fontSize: '12px',
+                          border: '1px solid rgba(93,214,44,0.15)',
+                        }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <div style={{ display: 'flex', gap: '12px', marginTop: 'auto' }}>
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          color: '#5DD62C',
+                          textDecoration: 'none',
+                          fontSize: '14px',
+                          fontWeight: '500',
+                          transition: 'color 0.3s ease',
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
+                        onMouseLeave={(e) => e.currentTarget.style.color = '#5DD62C'}
+                      >
+                        🔗 Live Demo
+                      </a>
+                    )}
+                    {project.repoUrl && (
+                      <a
+                        href={project.repoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          color: '#9CA3AF',
+                          textDecoration: 'none',
+                          fontSize: '14px',
+                          fontWeight: '500',
+                          transition: 'color 0.3s ease',
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
+                        onMouseLeave={(e) => e.currentTarget.style.color = '#9CA3AF'}
+                      >
+                        🐙 Code
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))
+              ))}
+            </div>
           )}
         </div>
       </div>
