@@ -37,32 +37,22 @@ body {
 }
 
 /* ===== KEYFRAMES ===== */
-
-/* Loading spinner */
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
-/* Pulsing glow orb */
 @keyframes pulseGlow {
   0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
   50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.9; }
 }
-
-/* Fade slide up animation */
 @keyframes fadeSlideUp {
   0% { opacity: 0; transform: translateY(30px); }
   100% { opacity: 1; transform: translateY(0); }
 }
-
-/* Orange glow for name */
 @keyframes glowOrange {
   0%, 100% { text-shadow: 0 0 15px rgba(255, 107, 53, 0.3); }
   50% { text-shadow: 0 0 40px rgba(255, 107, 53, 0.8), 0 0 80px rgba(255, 107, 53, 0.3); }
 }
-
-/* Typewriter cursor blink */
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
@@ -71,7 +61,6 @@ body {
 /* ================================================================ */
 /* ===== CONTACT PAGE ===== */
 /* ================================================================ */
-
 .contact-page .contact-card {
   max-width: 600px;
   width: 100%;
@@ -83,7 +72,6 @@ body {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 40px rgba(93, 214, 44, 0.15);
   transition: all 0.3s ease;
 }
-
 .contact-page .contact-input {
   width: 100%;
   padding: 14px 16px;
@@ -108,7 +96,6 @@ body {
 .contact-page .contact-input::placeholder {
   color: rgba(255, 255, 255, 0.4);
 }
-
 @media (max-width: 768px) {
   .contact-page .contact-card {
     max-width: 100% !important;
@@ -140,7 +127,6 @@ body {
 /* ================================================================ */
 /* ===== HOME PAGE ===== */
 /* ================================================================ */
-
 .home-page .hero-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -167,8 +153,6 @@ body {
   display: flex;
   justify-content: center;
 }
-
-/* Animations */
 .home-page .fade-slide-up {
   animation: fadeSlideUp 1s ease-out forwards;
 }
@@ -187,8 +171,6 @@ body {
 .home-page .glow-name {
   animation: fadeSlideUp 1s ease-out forwards, glowOrange 2s ease-in-out infinite 1.2s;
 }
-
-/* ---- Hero Title - Name in one line ---- */
 .home-page .hero-title-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -203,8 +185,6 @@ body {
   white-space: nowrap;
   color: #FF6B35;
 }
-
-/* ---- Skills Section ---- */
 .home-page .skills-wrapper {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
@@ -213,7 +193,6 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
-
 .home-page .skills-grid {
   display: flex;
   flex-wrap: wrap;
@@ -221,9 +200,8 @@ body {
   align-items: stretch;
   gap: 20px;
 }
-
 .home-page .skill-item {
-  flex: 0 0 calc(25% - 20px); /* 4 per row on desktop */
+  flex: 0 0 calc(25% - 20px);
   min-width: 100px;
   background: rgba(15, 15, 15, 0.5);
   border-radius: 16px;
@@ -254,15 +232,12 @@ body {
   font-family: 'Inter', 'Segoe UI', sans-serif;
   text-align: center;
 }
-
-/* ---- Home Page Responsive ---- */
 @media (max-width: 1024px) {
   .home-page .skill-item {
     flex: 0 0 calc(25% - 20px) !important;
     min-width: 90px !important;
   }
 }
-
 @media (max-width: 768px) {
   .home-page .hero-grid {
     grid-template-columns: 1fr !important;
@@ -279,7 +254,6 @@ body {
   .home-page .bio-card {
     margin: 20px auto 0 !important;
   }
-
   .home-page .hero-title-wrapper {
     font-size: clamp(28px, 5vw, 40px) !important;
     justify-content: center;
@@ -288,8 +262,6 @@ body {
   .home-page .hero-title-wrapper .name-part {
     font-size: clamp(28px, 5vw, 40px) !important;
   }
-
-  /* Skills: FORCE 3 per row */
   .home-page .skills-wrapper {
     padding: 20px !important;
   }
@@ -308,7 +280,6 @@ body {
     font-size: 14px !important;
   }
 }
-
 @media (max-width: 480px) {
   .home-page .hero-title-wrapper {
     font-size: clamp(22px, 4.5vw, 30px) !important;
@@ -317,7 +288,6 @@ body {
   .home-page .hero-title-wrapper .name-part {
     font-size: clamp(22px, 4.5vw, 30px) !important;
   }
-
   .home-page .skills-grid {
     gap: 8px !important;
   }
@@ -337,7 +307,6 @@ body {
 /* ================================================================ */
 /* ===== VISION PAGE ===== */
 /* ================================================================ */
-
 .vision-page .vision-grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -393,16 +362,12 @@ body {
   flex-shrink: 0 !important;
   border: 2px solid rgba(255, 255, 255, 0.1) !important;
 }
-
-/* Tablet: 64x64 */
 @media (max-width: 1024px) {
   .vision-page .project-avatar {
     width: 64px !important;
     height: 64px !important;
   }
 }
-
-/* Mobile: 56x56 */
 @media (max-width: 768px) {
   .vision-page .project-avatar {
     width: 56px !important;
@@ -410,7 +375,6 @@ body {
     border-radius: 12px !important;
   }
 }
-
 @media (max-width: 480px) {
   .vision-page .project-avatar {
     width: 48px !important;
@@ -425,7 +389,6 @@ body {
   margin-bottom: 12px;
   font-family: 'Inter', 'Segoe UI', sans-serif;
 }
-
 @media (max-width: 768px) {
   .vision-page .vision-grid-container {
     grid-template-columns: 1fr !important;
@@ -460,7 +423,6 @@ body {
     height: 48px !important;
   }
 }
-
 @media (max-width: 480px) {
   .vision-page .vision-card {
     padding: 10px !important;
@@ -478,9 +440,8 @@ body {
 }
 
 /* ================================================================ */
-/* ===== ADMIN STYLES (Base) ===== */
+/* ===== ADMIN LOGIN ===== */
 /* ================================================================ */
-
 @media (max-width: 768px) {
   .admin-login-card {
     max-width: 100% !important;
@@ -499,67 +460,11 @@ body {
     font-size: 16px !important;
     padding: 14px !important;
   }
-
-  .admin-dashboard {
-    padding: 16px 12px !important;
-  }
-  .admin-dashboard-header {
-    flex-direction: column !important;
-    gap: 12px !important;
-    align-items: stretch !important;
-  }
-  .admin-card {
-    padding: 16px !important;
-    margin-bottom: 16px !important;
-  }
-  .admin-card h2 {
-    font-size: 18px !important;
-  }
-  .admin-form {
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
-  }
-  .admin-form input,
-  .admin-form select,
-  .admin-form textarea {
-    font-size: 14px !important;
-    padding: 10px 12px !important;
-  }
-  .admin-form button {
-    font-size: 15px !important;
-    padding: 12px !important;
-  }
-  .admin-messages-item {
-    flex-direction: column !important;
-    gap: 8px !important;
-    align-items: flex-start !important;
-  }
 }
 
-/* ================================================================ */
-/* ===== RESPONSIVE OVERRIDES ===== */
-/* ================================================================ */
-
-/* Force grid layouts to be single column on mobile */
-@media (max-width: 768px) {
-  .hero-grid,
-  .projects-grid,
-  .vision-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-/* Override any inline white-space: nowrap on mobile */
-@media (max-width: 768px) {
-  [style*="white-space: nowrap"] {
-    white-space: normal !important;
-  }
-}
 /* ================================================================ */
 /* ===== FOOTER STICKY BOTTOM ===== */
 /* ================================================================ */
-
-/* Make every page's main container fill the viewport */
 .page-container {
   display: flex !important;
   flex-direction: column !important;
@@ -567,13 +472,10 @@ body {
   min-height: 100dvh !important;
   width: 100% !important;
 }
-
 .page-content {
   flex: 1 0 auto !important;
   width: 100% !important;
 }
-
-/* Footer - always at bottom */
 .footer-sticky {
   flex-shrink: 0 !important;
   margin-top: auto !important;
@@ -587,37 +489,46 @@ body {
   padding: 16px 60px !important;
   text-align: center !important;
 }
-
-/* Mobile footer padding */
 @media (max-width: 768px) {
   .footer-sticky {
     padding: 12px 20px !important;
   }
 }
-
-/* Hide any other footer that might appear */
 footer:not(.footer-sticky) {
   display: none !important;
 }
 
 /* ================================================================ */
-/* ===== ADMIN DASHBOARD – FULL WIDTH MOBILE OVERRIDE (FINAL) ===== */
+/* ===== ADMIN DASHBOARD – AGGRESSIVE MOBILE OVERRIDES ===== */
 /* ================================================================ */
 
-/* These rules MUST be at the very bottom to win over inline styles */
+/* 
+   These rules target ANY element inside .admin-dashboard 
+   that has inline styles containing certain properties.
+   They FORCE width, margin, padding to full width.
+*/
 
 @media (max-width: 768px) {
-  /* ---- Reset main container padding ---- */
+  /* ---- 1. Main container: strip all padding ---- */
   .admin-dashboard {
-    padding: 8px 4px !important;
+    padding: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
   }
 
-  /* ---- Force every card to be full width ---- */
+  /* ---- 2. Any element with inline max-width or margin-auto ---- */
+  .admin-dashboard [style*="max-width"],
+  .admin-dashboard [style*="margin-left: auto"],
+  .admin-dashboard [style*="margin-right: auto"] {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* ---- 3. Any child of admin-card ---- */
   .admin-dashboard .admin-card,
-  .admin-dashboard [style*="max-width: 1400px"],
-  .admin-dashboard [style*="max-width: 1400px"] * {
+  .admin-dashboard .admin-card * {
     max-width: 100% !important;
     width: 100% !important;
     margin-left: 0 !important;
@@ -625,14 +536,7 @@ footer:not(.footer-sticky) {
     box-sizing: border-box !important;
   }
 
-  /* ---- Remove auto margins from any element ---- */
-  .admin-dashboard [style*="margin-left: auto"],
-  .admin-dashboard [style*="margin-right: auto"] {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  /* ---- Shrink card padding and font sizes ---- */
+  /* ---- 4. Card padding & borders ---- */
   .admin-dashboard .admin-card {
     padding: 12px !important;
     border-radius: 12px !important;
@@ -642,7 +546,7 @@ footer:not(.footer-sticky) {
     font-size: 16px !important;
   }
 
-  /* ---- Forms: single column, full width inputs ---- */
+  /* ---- 5. Forms: single column, full width ---- */
   .admin-dashboard .admin-form {
     display: grid !important;
     grid-template-columns: 1fr !important;
@@ -662,20 +566,20 @@ footer:not(.footer-sticky) {
     padding: 12px !important;
   }
 
-  /* ---- Force single column for project grids ---- */
+  /* ---- 6. Grid lists: force single column ---- */
   .admin-dashboard [style*="grid-template-columns: repeat(auto-fill"],
   .admin-dashboard [style*="grid-template-columns: repeat(auto-fill)"] {
     grid-template-columns: 1fr !important;
   }
 
-  /* ---- Stack message items ---- */
+  /* ---- 7. Message items: stack ---- */
   .admin-dashboard .admin-messages-item {
     flex-direction: column !important;
     align-items: stretch !important;
     gap: 8px !important;
   }
 
-  /* ---- Header: flex row with wrap ---- */
+  /* ---- 8. Header: row with wrap, full width ---- */
   .admin-dashboard-header {
     flex-direction: row !important;
     flex-wrap: wrap !important;
@@ -684,6 +588,7 @@ footer:not(.footer-sticky) {
     gap: 10px !important;
     margin-bottom: 12px !important;
     width: 100% !important;
+    padding: 0 4px !important;
   }
   .admin-dashboard-header h1 {
     font-size: 20px !important;
@@ -693,29 +598,31 @@ footer:not(.footer-sticky) {
     padding: 6px 14px !important;
   }
 
-  /* ---- Remove extra padding from any inner div ---- */
-  .admin-dashboard .admin-card > div {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-  .admin-dashboard .admin-card form {
-    max-width: 100% !important;
-    width: 100% !important;
-  }
-
-  /* ---- Override any inline style that sets padding left/right ---- */
+  /* ---- 9. Override any leftover inline padding ---- */
   .admin-dashboard [style*="padding-left"],
   .admin-dashboard [style*="padding-right"] {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
+  .admin-dashboard [style*="padding:"] {
+    padding: 12px !important;
+  }
+
+  /* ---- 10. Force all inner containers to be full width ---- */
+  .admin-dashboard > div,
+  .admin-dashboard > div > div,
+  .admin-dashboard .admin-card > div,
+  .admin-dashboard .admin-card form {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
 }
 
-/* ---- Even smaller screens ---- */
+/* Extra small screens */
 @media (max-width: 480px) {
-  .admin-dashboard {
-    padding: 4px 2px !important;
-  }
   .admin-dashboard .admin-card {
     padding: 10px !important;
   }
@@ -731,5 +638,12 @@ footer:not(.footer-sticky) {
   .admin-dashboard .admin-form button {
     font-size: 13px !important;
     padding: 10px !important;
+  }
+  .admin-dashboard-header h1 {
+    font-size: 18px !important;
+  }
+  .admin-dashboard-header button {
+    font-size: 13px !important;
+    padding: 4px 12px !important;
   }
 }
