@@ -711,3 +711,140 @@ footer:not(.footer-sticky) {
     padding: 10px !important;
   }
 }
+/* ================================================================ */
+/* ===== ADMIN DASHBOARD 
+/* ================================================================ */
+
+/* Target the main container */
+.admin-dashboard {
+  padding: 40px 60px 0 !important;
+}
+
+/* Target every card inside admin dashboard */
+.admin-dashboard .admin-card {
+  max-width: 1400px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* ===== MOBILE: Override inline styles ===== */
+@media (max-width: 768px) {
+  /* Remove the side padding from the main container */
+  .admin-dashboard {
+    padding: 12px 8px !important;
+    width: 100% !important;
+  }
+
+  /* Force every card to be FULL WIDTH */
+  .admin-dashboard .admin-card {
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 16px !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+  }
+
+  /* Override any element with inline max-width: 1400px */
+  .admin-dashboard [style*="max-width: 1400px"] {
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Also target the card's inner containers */
+  .admin-dashboard .admin-card > div {
+    max-width: 100% !important;
+  }
+
+  .admin-dashboard .admin-card form {
+    max-width: 100% !important;
+  }
+
+  /* Fix the header */
+  .admin-dashboard-header {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    margin-bottom: 16px !important;
+    justify-content: space-between !important;
+    max-width: 100% !important;
+  }
+
+  .admin-dashboard-header h1 {
+    font-size: 22px !important;
+  }
+
+  .admin-dashboard-header button {
+    font-size: 14px !important;
+    padding: 8px 16px !important;
+  }
+
+  /* Forms – single column, full width */
+  .admin-form {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .admin-form input,
+  .admin-form select,
+  .admin-form textarea {
+    font-size: 14px !important;
+    padding: 10px 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .admin-form button {
+    font-size: 14px !important;
+    padding: 12px !important;
+    width: 100% !important;
+  }
+
+  /* Project list – single column */
+  .admin-messages-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+
+  /* Current Projects grid – single column */
+  .admin-dashboard .admin-card > div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Manage Projects grid – single column */
+  .admin-dashboard .admin-card > div > div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ===== EXTRA SMALL PHONES ===== */
+@media (max-width: 480px) {
+  .admin-dashboard {
+    padding: 8px 4px !important;
+  }
+
+  .admin-dashboard .admin-card {
+    padding: 12px !important;
+  }
+
+  .admin-dashboard .admin-card h2 {
+    font-size: 14px !important;
+  }
+
+  .admin-form input,
+  .admin-form select,
+  .admin-form textarea {
+    font-size: 13px !important;
+    padding: 8px 10px !important;
+  }
+
+  .admin-form button {
+    font-size: 13px !important;
+    padding: 10px !important;
+  }
+}
