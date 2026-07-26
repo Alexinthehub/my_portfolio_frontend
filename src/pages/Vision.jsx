@@ -152,6 +152,17 @@ const Vision = () => {
                     <div
                       key={project._id}
                       className="vision-card"
+                      style={{
+                        backgroundColor: 'rgba(255,255,255,0.06)',
+                        backdropFilter: 'blur(8px)',
+                        borderRadius: '16px',
+                        padding: '16px',
+                        border: '1px solid rgba(255,255,255,0.06)',
+                        transition: 'all 0.3s ease',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        overflow: 'hidden',
+                      }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.borderColor = 'rgba(93,214,44,0.3)';
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
@@ -161,134 +172,143 @@ const Vision = () => {
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
                       }}
                     >
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        justifyContent: 'space-between',
-                        gap: '16px',
-                      }}>
-                        {/* LEFT: Avatar + Text */}
-                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '18px', flex: 1, minWidth: 0 }}>
-                          {/* ✅ Image - NOW 80x80 on desktop */}
-                          {project.imageUrl ? (
-                            <img
-                              src={`${project.imageUrl}?t=${Date.now()}`}
-                              alt={project.title}
-                              className="project-avatar"
-                              style={{
-                                width: '80px',
-                                height: '80px',
-                                objectFit: 'cover',
-                                borderRadius: '14px',
-                                border: '2px solid rgba(255,255,255,0.1)',
-                                flexShrink: 0,
-                                marginTop: '2px',
-                              }}
-                              onError={(e) => {
-                                e.target.style.display = 'none';
-                                const parent = e.target.parentNode;
-                                const fallback = document.createElement('div');
-                                fallback.style.cssText = `
-                                  width: 80px;
-                                  height: 80px;
-                                  background: rgba(93,214,44,0.15);
-                                  border-radius: 14px;
-                                  display: flex;
-                                  align-items: center;
-                                  justify-content: center;
-                                  font-size: 36px;
-                                  flex-shrink: 0;
-                                  margin-top: 2px;
-                                  border: 2px solid rgba(255,255,255,0.05);
-                                `;
-                                fallback.innerText = '🚀';
-                                parent.replaceChild(fallback, e.target);
-                              }}
-                            />
-                          ) : (
-                            <div style={{
-                              width: '80px',
-                              height: '80px',
-                              backgroundColor: 'rgba(93,214,44,0.12)',
-                              borderRadius: '14px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              fontSize: '36px',
-                              flexShrink: 0,
-                              marginTop: '2px',
-                              border: '2px solid rgba(255,255,255,0.05)',
-                            }}>
-                              🚀
-                            </div>
-                          )}
-
-                          <div style={{ flex: 1, minWidth: 0 }}>
-                            <h3 style={{
-                              fontSize: '18px',
-                              fontWeight: '600',
-                              color: 'white',
-                              marginBottom: '4px',
-                              fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                              lineHeight: 1.3,
-                            }}>
-                              {project.title}
-                            </h3>
-                            <p style={{
-                              fontSize: '14px',
-                              color: '#9CA3AF',
-                              marginBottom: '8px',
-                              fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                              lineHeight: 1.5,
-                            }}>
-                              {project.description}
-                            </p>
-                            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
-                              <span className="status-badge" style={{
-                                fontSize: '12px',
-                                fontWeight: '500',
-                                color: project.status === 'Completed' ? '#5DD62C' :
-                                       project.status === 'Beta' ? '#FBBF24' :
-                                       project.status === 'Planning' ? '#60A5FA' : '#F472B6',
-                                backgroundColor: 'rgba(255,255,255,0.06)',
-                                padding: '3px 14px',
-                                borderRadius: '9999px',
-                                border: '1px solid rgba(255,255,255,0.06)',
-                              }}>
-                                {project.status}
-                              </span>
-                              {project.repoUrl && project.status !== 'Completed' && (
-                                <a
-                                  href={project.repoUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  style={{
-                                    fontSize: '12px',
-                                    color: '#5DD62C',
-                                    textDecoration: 'none',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '4px',
-                                    transition: 'color 0.3s ease',
-                                  }}
-                                  onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
-                                  onMouseLeave={(e) => e.currentTarget.style.color = '#5DD62C'}
-                                >
-                                  🔍 View Details
-                                </a>
-                              )}
-                            </div>
-                          </div>
+                      {/* --- IMAGE ON TOP (full width) --- */}
+                      {project.imageUrl ? (
+                        <div style={{
+                          width: '100%',
+                          height: '160px',
+                          borderRadius: '12px',
+                          overflow: 'hidden',
+                          marginBottom: '12px',
+                          backgroundColor: 'rgba(0,0,0,0.3)',
+                          flexShrink: 0,
+                        }}>
+                          <img
+                            src={`${project.imageUrl}?t=${Date.now()}`}
+                            alt={project.title}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                              transition: 'transform 0.3s ease',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform = 'scale(1.05)';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = 'scale(1)';
+                            }}
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              // fallback div
+                              const parent = e.target.parentNode;
+                              const fallback = document.createElement('div');
+                              fallback.style.cssText = `
+                                width: 100%;
+                                height: 100%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                background: rgba(93,214,44,0.05);
+                                color: #5DD62C;
+                                font-size: 48px;
+                              `;
+                              fallback.innerText = '🚀';
+                              parent.appendChild(fallback);
+                            }}
+                          />
                         </div>
+                      ) : (
+                        <div style={{
+                          width: '100%',
+                          height: '160px',
+                          borderRadius: '12px',
+                          marginBottom: '12px',
+                          backgroundColor: 'rgba(93,214,44,0.05)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '48px',
+                          color: '#5DD62C',
+                          flexShrink: 0,
+                        }}>
+                          🚀
+                        </div>
+                      )}
 
-                        {/* RIGHT: STAR */}
+                      {/* --- CONTENT --- */}
+                      <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                        <h3 style={{
+                          fontSize: '18px',
+                          fontWeight: '600',
+                          color: 'white',
+                          marginBottom: '4px',
+                          fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                          lineHeight: 1.3,
+                        }}>
+                          {project.title}
+                        </h3>
+
+                        <p style={{
+                          fontSize: '14px',
+                          color: '#9CA3AF',
+                          marginBottom: '12px',
+                          fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                          lineHeight: 1.5,
+                          flex: 1,
+                        }}>
+                          {project.description}
+                        </p>
+
+                        {/* --- BOTTOM ROW: status + view details + star --- */}
                         <div style={{
                           display: 'flex',
-                          flexDirection: 'column',
+                          flexWrap: 'wrap',
                           alignItems: 'center',
-                          flexShrink: 0,
-                          marginTop: '4px',
+                          justifyContent: 'space-between',
+                          gap: '10px',
+                          marginTop: 'auto',
+                          borderTop: '1px solid rgba(255,255,255,0.05)',
+                          paddingTop: '10px',
                         }}>
+                          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px' }}>
+                            <span className="status-badge" style={{
+                              fontSize: '12px',
+                              fontWeight: '500',
+                              color: project.status === 'Completed' ? '#5DD62C' :
+                                     project.status === 'Beta' ? '#FBBF24' :
+                                     project.status === 'Planning' ? '#60A5FA' : '#F472B6',
+                              backgroundColor: 'rgba(255,255,255,0.06)',
+                              padding: '3px 14px',
+                              borderRadius: '9999px',
+                              border: '1px solid rgba(255,255,255,0.06)',
+                              display: 'inline-block',
+                            }}>
+                              {project.status}
+                            </span>
+                            {project.repoUrl && project.status !== 'Completed' && (
+                              <a
+                                href={project.repoUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                  fontSize: '12px',
+                                  color: '#5DD62C',
+                                  textDecoration: 'none',
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '4px',
+                                  transition: 'color 0.3s ease',
+                                }}
+                                onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
+                                onMouseLeave={(e) => e.currentTarget.style.color = '#5DD62C'}
+                              >
+                                🔍 View Details
+                              </a>
+                            )}
+                          </div>
+
+                          {/* Star button */}
                           <div style={{ position: 'relative', display: 'inline-block' }}>
                             <button
                               onClick={() => handleStar(project._id)}
@@ -296,17 +316,16 @@ const Vision = () => {
                               style={{
                                 background: 'none',
                                 border: 'none',
-                                fontSize: '22px',
+                                fontSize: '18px',
                                 cursor: starring === project._id ? 'not-allowed' : 'pointer',
                                 opacity: starring === project._id ? 0.5 : 1,
                                 transition: 'transform 0.2s ease',
                                 display: 'flex',
-                                flexDirection: 'row',
                                 alignItems: 'center',
-                                gap: '6px',
+                                gap: '4px',
                                 color: '#FFFFFF',
-                                padding: '6px 10px',
-                                borderRadius: '10px',
+                                padding: '4px 8px',
+                                borderRadius: '8px',
                               }}
                               onMouseEnter={(e) => {
                                 if (!starring) {
@@ -327,8 +346,8 @@ const Vision = () => {
                                 }
                               }}
                             >
-                              <span style={{ fontSize: '22px' }}>⭐</span>
-                              <span style={{ fontSize: '18px', fontWeight: '600' }}>{project.starCount || 0}</span>
+                              <span style={{ fontSize: '18px' }}>⭐</span>
+                              <span style={{ fontSize: '16px', fontWeight: '600' }}>{project.starCount || 0}</span>
                             </button>
                             <span className="tooltip-text" style={{
                               visibility: 'hidden',
