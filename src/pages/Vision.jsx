@@ -18,8 +18,21 @@ const Vision = () => {
           getCertificates(),
         ]);
         setCurrentProjects(projectsRes.data.data);
-        setCertificates(certsRes.data.data);
-        console.log('Certificate data:', certsRes.data.data);
+        
+        // 🔥 FILTER CERTIFICATES – ONLY KEEP ALLOWED FIELDS
+        const cleanCertificates = certsRes.data.data.map(cert => ({
+          _id: cert._id,
+          title: cert.title || 'Untitled',
+          issuer: cert.issuer || '',
+          date: cert.date || null,
+          category: cert.category || '',
+          imageUrl: cert.imageUrl || null,
+          verifyUrl: cert.verifyUrl || null,
+          // ❌ IGNORE: description, notes, anything else
+        }));
+        setCertificates(cleanCertificates);
+        
+        console.log('Certificate data (clean):', cleanCertificates);
       } catch (err) {
         console.error('Error fetching vision data:', err);
       } finally {
@@ -368,7 +381,7 @@ const Vision = () => {
               )}
             </div>
 
-            {/* RIGHT: CERTIFICATES – CLEAN AS TEST */}
+            {/* RIGHT: CERTIFICATES – FILTERED TO ONLY ALLOWED FIELDS */}
             <div style={{
               backgroundColor: 'rgba(255, 215, 0, 0.06)',
               borderRadius: '20px',
@@ -416,7 +429,6 @@ const Vision = () => {
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
                       }}
                     >
-                      {/* Certificate content – exactly like the minimal test */}
                       <div style={{
                         display: 'flex',
                         alignItems: 'center',
@@ -480,7 +492,8 @@ const Vision = () => {
                               whiteSpace: 'normal',
                               marginBottom: '4px',
                             }}>
-                              {cert.issuer} • {new Date(cert.date).toLocaleDateString()}
+                              {cert.issuer}
+                              {cert.date && ` • ${new Date(cert.date).toLocaleDateString()}`}
                             </p>
                             <span style={{
                               fontSize: '12px',
