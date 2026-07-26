@@ -101,7 +101,7 @@ const Vision = () => {
       }}>
         <div style={{
           width: '100%',
-          maxWidth: '1400px',
+          maxWidth: '1400px', // keep for desktop, but CSS will override on mobile
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
@@ -131,6 +131,8 @@ const Vision = () => {
               borderRadius: '20px',
               padding: '24px',
               border: '1px solid rgba(93, 214, 44, 0.15)',
+              width: '100%',
+              boxSizing: 'border-box',
             }}>
               <h2 className="vision-section-title">
                 🚀 Current Projects
@@ -147,7 +149,7 @@ const Vision = () => {
                   <p style={{ color: '#6B7280' }}>No current projects yet. Check back soon!</p>
                 </div>
               ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
                   {currentProjects.map((project) => (
                     <div
                       key={project._id}
@@ -161,8 +163,10 @@ const Vision = () => {
                         transition: 'all 0.3s ease',
                         display: 'flex',
                         flexDirection: 'column',
-                        overflow: 'visible', // important for tooltip
+                        overflow: 'visible',
                         position: 'relative',
+                        width: '100%',
+                        boxSizing: 'border-box',
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.borderColor = 'rgba(93,214,44,0.3)';
@@ -237,7 +241,7 @@ const Vision = () => {
                       )}
 
                       {/* --- CONTENT --- */}
-                      <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', flex: 1, width: '100%' }}>
                         <h3 style={{
                           fontSize: '18px',
                           fontWeight: '600',
@@ -245,6 +249,7 @@ const Vision = () => {
                           marginBottom: '4px',
                           fontFamily: "'Inter', 'Segoe UI', sans-serif",
                           lineHeight: 1.3,
+                          wordBreak: 'break-word',
                         }}>
                           {project.title}
                         </h3>
@@ -256,6 +261,7 @@ const Vision = () => {
                           fontFamily: "'Inter', 'Segoe UI', sans-serif",
                           lineHeight: 1.5,
                           flex: 1,
+                          wordBreak: 'break-word',
                         }}>
                           {project.description}
                         </p>
@@ -270,6 +276,7 @@ const Vision = () => {
                           marginTop: 'auto',
                           borderTop: '1px solid rgba(255,255,255,0.05)',
                           paddingTop: '10px',
+                          width: '100%',
                         }}>
                           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px' }}>
                             <span className="status-badge" style={{
@@ -340,7 +347,7 @@ const Vision = () => {
                               <span style={{ fontSize: '16px', fontWeight: '600' }}>{project.starCount || 0}</span>
                             </button>
 
-                            {/* Tooltip - shown via CSS on hover */}
+                            {/* Tooltip */}
                             <span className="tooltip-text">
                               Leave a ⭐ to support!
                             </span>
@@ -359,6 +366,8 @@ const Vision = () => {
               borderRadius: '20px',
               padding: '24px',
               border: '1px solid rgba(255, 215, 0, 0.15)',
+              width: '100%',
+              boxSizing: 'border-box',
             }}>
               <h2 className="vision-section-title">
                 🏆 Certificates
@@ -375,7 +384,7 @@ const Vision = () => {
                   <p style={{ color: '#6B7280' }}>No certificates yet. Check back soon!</p>
                 </div>
               ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
                   {certificates.map((cert) => (
                     <div
                       key={cert._id}
@@ -388,12 +397,18 @@ const Vision = () => {
                         e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
                       }}
+                      style={{
+                        width: '100%',
+                        boxSizing: 'border-box',
+                      }}
                     >
                       <div style={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         gap: '12px',
+                        width: '100%',
+                        flexWrap: 'wrap',
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: 1, minWidth: 0 }}>
                           {cert.imageUrl ? (
@@ -442,15 +457,13 @@ const Vision = () => {
                               🎓
                             </div>
                           )}
-                          <div style={{ minWidth: 0 }}>
+                          <div style={{ minWidth: 0, flex: 1 }}>
                             <h3 style={{
                               fontSize: '16px',
                               fontWeight: '600',
                               color: 'white',
                               fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                              whiteSpace: 'nowrap',
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
+                              wordBreak: 'break-word',
                             }}>
                               {cert.title}
                             </h3>
@@ -458,6 +471,7 @@ const Vision = () => {
                               fontSize: '13px',
                               color: '#9CA3AF',
                               fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                              wordBreak: 'break-word',
                             }}>
                               {cert.issuer} • {new Date(cert.date).toLocaleDateString()}
                             </p>
@@ -467,6 +481,7 @@ const Vision = () => {
                               backgroundColor: 'rgba(255,255,255,0.04)',
                               padding: '2px 10px',
                               borderRadius: '9999px',
+                              display: 'inline-block',
                             }}>
                               {cert.category}
                             </span>
@@ -479,6 +494,10 @@ const Vision = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="verify-btn"
+                            style={{
+                              whiteSpace: 'nowrap',
+                              flexShrink: 0,
+                            }}
                           >
                             🔍 Verify
                           </a>
