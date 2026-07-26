@@ -19,7 +19,8 @@ const Vision = () => {
         ]);
         setCurrentProjects(projectsRes.data.data);
         setCertificates(certsRes.data.data);
-        console.log('Certificates data:', certsRes.data.data); // debug – check what fields exist
+        // Debug: see what fields each certificate has
+        console.log('Certificate fields:', certsRes.data.data.map(c => Object.keys(c)));
       } catch (err) {
         console.error('Error fetching vision data:', err);
       } finally {
@@ -178,7 +179,7 @@ const Vision = () => {
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
                       }}
                     >
-                      {/* --- IMAGE ON TOP --- */}
+                      {/* IMAGE */}
                       {project.imageUrl ? (
                         <div style={{
                           width: '100%',
@@ -237,7 +238,6 @@ const Vision = () => {
                         </div>
                       )}
 
-                      {/* --- CONTENT --- */}
                       <div style={{ display: 'flex', flexDirection: 'column', flex: 1, width: '100%' }}>
                         <h3 style={{
                           fontSize: '18px',
@@ -263,10 +263,10 @@ const Vision = () => {
                           {project.description}
                         </p>
 
-                        {/* --- BOTTOM ROW: status + view details + star (ALWAYS SAME LINE) --- */}
+                        {/* BOTTOM ROW */}
                         <div className="vision-bottom-row" style={{
                           display: 'flex',
-                          flexWrap: 'nowrap',           // never wrap
+                          flexWrap: 'nowrap',
                           alignItems: 'center',
                           justifyContent: 'space-between',
                           gap: '6px',
@@ -322,7 +322,6 @@ const Vision = () => {
                             )}
                           </div>
 
-                          {/* STAR BUTTON – forced to stay inline */}
                           <div className="star-wrapper" style={{
                             position: 'relative',
                             display: 'inline-flex',
@@ -390,7 +389,7 @@ const Vision = () => {
               )}
             </div>
 
-            {/* RIGHT: CERTIFICATES (only title, issuer, date, category) */}
+            {/* ===== CERTIFICATES – CLEAN ===== */}
             <div style={{
               backgroundColor: 'rgba(255, 215, 0, 0.06)',
               borderRadius: '20px',
@@ -415,151 +414,163 @@ const Vision = () => {
                 </div>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
-                  {certificates.map((cert) => (
-                    <div
-                      key={cert._id}
-                      className="vision-card"
-                      style={{
-                        width: '100%',
-                        boxSizing: 'border-box',
-                        padding: '12px',
-                        backgroundColor: 'rgba(255,255,255,0.06)',
-                        backdropFilter: 'blur(8px)',
-                        borderRadius: '12px',
-                        border: '1px solid rgba(255,255,255,0.06)',
-                        transition: 'all 0.3s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
-                      }}
-                    >
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: '12px',
-                        width: '100%',
-                        flexWrap: 'wrap',
-                      }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: 1, minWidth: 0 }}>
-                          {cert.imageUrl ? (
-                            <img
-                              src={`${cert.imageUrl}?t=${Date.now()}`}
-                              alt={cert.title}
-                              style={{
+                  {certificates.map((cert) => {
+                    // ✅ ONLY use these fields – ignore everything else
+                    const displayData = {
+                      title: cert.title || 'Untitled',
+                      issuer: cert.issuer || 'Unknown Issuer',
+                      date: cert.date ? new Date(cert.date).toLocaleDateString() : 'Unknown Date',
+                      category: cert.category || 'General',
+                      imageUrl: cert.imageUrl || null,
+                      verifyUrl: cert.verifyUrl || null,
+                    };
+
+                    return (
+                      <div
+                        key={cert._id}
+                        className="vision-card"
+                        style={{
+                          width: '100%',
+                          boxSizing: 'border-box',
+                          padding: '12px',
+                          backgroundColor: 'rgba(255,255,255,0.06)',
+                          backdropFilter: 'blur(8px)',
+                          borderRadius: '12px',
+                          border: '1px solid rgba(255,255,255,0.06)',
+                          transition: 'all 0.3s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
+                          e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                          e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
+                        }}
+                      >
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: '12px',
+                          width: '100%',
+                          flexWrap: 'wrap',
+                        }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: 1, minWidth: 0 }}>
+                            {displayData.imageUrl ? (
+                              <img
+                                src={`${displayData.imageUrl}?t=${Date.now()}`}
+                                alt={displayData.title}
+                                style={{
+                                  width: '56px',
+                                  height: '56px',
+                                  objectFit: 'cover',
+                                  borderRadius: '12px',
+                                  border: '1px solid rgba(255,255,255,0.1)',
+                                  flexShrink: 0,
+                                }}
+                                onError={(e) => {
+                                  e.target.style.display = 'none';
+                                  const parent = e.target.parentNode;
+                                  const fallback = document.createElement('div');
+                                  fallback.style.cssText = `
+                                    width: 56px;
+                                    height: 56px;
+                                    background: rgba(255,215,0,0.12);
+                                    border-radius: 12px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    font-size: 24px;
+                                    flex-shrink: 0;
+                                  `;
+                                  fallback.innerText = '🎓';
+                                  parent.replaceChild(fallback, e.target);
+                                }}
+                              />
+                            ) : (
+                              <div style={{
                                 width: '56px',
                                 height: '56px',
-                                objectFit: 'cover',
+                                backgroundColor: 'rgba(255,215,0,0.12)',
                                 borderRadius: '12px',
-                                border: '1px solid rgba(255,255,255,0.1)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '24px',
                                 flexShrink: 0,
-                              }}
-                              onError={(e) => {
-                                e.target.style.display = 'none';
-                                const parent = e.target.parentNode;
-                                const fallback = document.createElement('div');
-                                fallback.style.cssText = `
-                                  width: 56px;
-                                  height: 56px;
-                                  background: rgba(255,215,0,0.12);
-                                  border-radius: 12px;
-                                  display: flex;
-                                  align-items: center;
-                                  justify-content: center;
-                                  font-size: 24px;
-                                  flex-shrink: 0;
-                                `;
-                                fallback.innerText = '🎓';
-                                parent.replaceChild(fallback, e.target);
-                              }}
-                            />
-                          ) : (
-                            <div style={{
-                              width: '56px',
-                              height: '56px',
-                              backgroundColor: 'rgba(255,215,0,0.12)',
-                              borderRadius: '12px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              fontSize: '24px',
-                              flexShrink: 0,
-                            }}>
-                              🎓
+                              }}>
+                                🎓
+                              </div>
+                            )}
+                            <div style={{ minWidth: 0, flex: 1 }}>
+                              <h3 className="cert-title" style={{
+                                fontSize: '16px',
+                                fontWeight: '600',
+                                color: 'white',
+                                fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                                wordBreak: 'normal',
+                                overflowWrap: 'normal',
+                                whiteSpace: 'normal',
+                              }}>
+                                {displayData.title}
+                              </h3>
+                              <p className="cert-issuer" style={{
+                                fontSize: '13px',
+                                color: '#9CA3AF',
+                                fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                                wordBreak: 'normal',
+                                overflowWrap: 'normal',
+                                whiteSpace: 'normal',
+                              }}>
+                                {displayData.issuer} • {displayData.date}
+                              </p>
+                              <span style={{
+                                fontSize: '11px',
+                                color: '#6B7280',
+                                backgroundColor: 'rgba(255,255,255,0.04)',
+                                padding: '2px 10px',
+                                borderRadius: '9999px',
+                                display: 'inline-block',
+                              }}>
+                                {displayData.category}
+                              </span>
                             </div>
-                          )}
-                          <div style={{ minWidth: 0, flex: 1 }}>
-                            <h3 style={{
-                              fontSize: '16px',
-                              fontWeight: '600',
-                              color: 'white',
-                              fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                              overflowWrap: 'normal',
-                              wordBreak: 'normal',
-                              whiteSpace: 'normal',
-                            }}>
-                              {cert.title}
-                            </h3>
-                            <p style={{
-                              fontSize: '13px',
-                              color: '#9CA3AF',
-                              fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                              overflowWrap: 'normal',
-                              wordBreak: 'normal',
-                              whiteSpace: 'normal',
-                            }}>
-                              {cert.issuer} • {new Date(cert.date).toLocaleDateString()}
-                            </p>
-                            <span style={{
-                              fontSize: '11px',
-                              color: '#6B7280',
-                              backgroundColor: 'rgba(255,255,255,0.04)',
-                              padding: '2px 10px',
-                              borderRadius: '9999px',
-                              display: 'inline-block',
-                            }}>
-                              {cert.category}
-                            </span>
                           </div>
-                        </div>
 
-                        {cert.verifyUrl && (
-                          <a
-                            href={cert.verifyUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="verify-btn"
-                            style={{
-                              whiteSpace: 'nowrap',
-                              flexShrink: 0,
-                              fontSize: '12px',
-                              color: '#ffd700',
-                              textDecoration: 'none',
-                              padding: '4px 12px',
-                              border: '1px solid rgba(255,215,0,0.3)',
-                              borderRadius: '8px',
-                              transition: 'all 0.3s ease',
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = 'rgba(255,215,0,0.15)';
-                              e.currentTarget.style.borderColor = '#ffd700';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = 'transparent';
-                              e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
-                            }}
-                          >
-                            🔍 Verify
-                          </a>
-                        )}
+                          {displayData.verifyUrl && (
+                            <a
+                              href={displayData.verifyUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="verify-btn"
+                              style={{
+                                whiteSpace: 'nowrap',
+                                flexShrink: 0,
+                                fontSize: '12px',
+                                color: '#ffd700',
+                                textDecoration: 'none',
+                                padding: '4px 12px',
+                                border: '1px solid rgba(255,215,0,0.3)',
+                                borderRadius: '8px',
+                                transition: 'all 0.3s ease',
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundColor = 'rgba(255,215,0,0.15)';
+                                e.currentTarget.style.borderColor = '#ffd700';
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor = 'transparent';
+                                e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
+                              }}
+                            >
+                              🔍 Verify
+                            </a>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>
