@@ -18,21 +18,29 @@ const Vision = () => {
           getCertificates(),
         ]);
         setCurrentProjects(projectsRes.data.data);
-        
-        // 🔥 FILTER CERTIFICATES – ONLY KEEP ALLOWED FIELDS
-        const cleanCertificates = certsRes.data.data.map(cert => ({
-          _id: cert._id,
-          title: cert.title || 'Untitled',
-          issuer: cert.issuer || '',
-          date: cert.date || null,
-          category: cert.category || '',
-          imageUrl: cert.imageUrl || null,
-          verifyUrl: cert.verifyUrl || null,
-          // ❌ IGNORE: description, notes, anything else
-        }));
-        setCertificates(cleanCertificates);
-        
-        console.log('Certificate data (clean):', cleanCertificates);
+
+        // 🚨 AGGRESSIVE FILTERING – REMOVE ANY CERTIFICATE WITHOUT A VALID TITLE
+        const rawCerts = certsRes.data.data;
+        console.log('RAW CERTIFICATES:', rawCerts);
+
+        const cleanCerts = rawCerts
+          .filter(cert => {
+            // Only keep certificates that have a title AND it's not a placeholder
+            const title = cert.title || '';
+            return title.trim().length > 0 && !title.toLowerCase().includes('awarded');
+          })
+          .map(cert => ({
+            _id: cert._id,
+            title: cert.title || 'Untitled',
+            issuer: cert.issuer || '',
+            date: cert.date || null,
+            category: cert.category || '',
+            imageUrl: cert.imageUrl || null,
+            verifyUrl: cert.verifyUrl || null,
+          }));
+
+        console.log('CLEAN CERTIFICATES:', cleanCerts);
+        setCertificates(cleanCerts);
       } catch (err) {
         console.error('Error fetching vision data:', err);
       } finally {
@@ -381,7 +389,7 @@ const Vision = () => {
               )}
             </div>
 
-            {/* RIGHT: CERTIFICATES – FILTERED TO ONLY ALLOWED FIELDS */}
+            {/* RIGHT: CERTIFICATES – ONLY CLEAN ONES */}
             <div style={{
               backgroundColor: 'rgba(255, 215, 0, 0.06)',
               borderRadius: '20px',
