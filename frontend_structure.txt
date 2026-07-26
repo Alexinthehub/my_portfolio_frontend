@@ -1,0 +1,64 @@
+.
+├── public
+│   ├── images
+│   │   ├── admin-dashboard-bg.jpg
+│   │   ├── admin-login-bg.jpg
+│   │   ├── contact-bg.jpg
+│   │   ├── home-bg.jpg
+│   │   ├── projects-bg.jpg
+│   │   └── vision-bg.jpg
+│   ├── favicon.svg
+│   └── icons.svg
+├── screenshots
+│   ├── Contact.jpeg
+│   ├── Homepage.jpeg
+│   ├── Homepage1.jpeg
+│   ├── Projects.jpeg
+│   └── Vision page.jpeg
+├── src
+│   ├── assets
+│   │   ├── hero.png
+│   │   ├── react.svg
+│   │   └── vite.svg
+│   ├── components
+│   │   ├── Footer.jsx
+│   │   ├── Layout.jsx
+│   │   ├── LoadingSpinner.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── ProjectCard.jsx
+│   │   ├── Sparkles.jsx
+│   │   └── Typewriter.jsx
+│   ├── context
+│   │   └── ThemeContext.jsx
+│   ├── hooks
+│   │   └── useScrollAnimation.js
+│   ├── pages
+│   │   ├── Admin.jsx
+│   │   ├── AdminDashboard.jsx
+│   │   ├── AdminLogin.jsx
+│   │   ├── Contact.jsx
+│   │   ├── Home.jsx
+│   │   ├── Projects.jsx
+│   │   ├── Test.jsx
+│   │   └── Vision.jsx
+│   ├── services
+│   │   └── api.js
+│   ├── styles
+│   │   └── themes.js
+│   ├── utils
+│   │   └── skillIcons.js
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+├── README.md
+├── backend_structure.txt
+├── frontend_structure.txt
+├── index.html
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── tailwind.config.js
+├── vercel.json
+└── vite.config.js
+
+13 directories, 49 files
