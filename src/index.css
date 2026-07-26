@@ -991,3 +991,73 @@ footer:not(.footer-sticky) {
     font-size: 12px !important;
   }
 }
+/* ================================================================ */
+/* ===== VISION – FORCE STAR ON SAME LINE (ABSOLUTE) ===== */
+/* ================================================================ */
+
+@media (max-width: 768px) {
+  .vision-page .vision-bottom-row {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 4px !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+
+  .vision-page .vision-bottom-row > div:first-child {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 4px !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  .vision-page .vision-bottom-row .star-wrapper {
+    display: inline-flex !important;
+    flex-shrink: 0 !important;
+    align-items: center !important;
+    margin-left: auto !important;
+    position: relative !important;
+  }
+
+  .vision-page .vision-bottom-row .status-badge {
+    font-size: 10px !important;
+    padding: 2px 8px !important;
+    white-space: nowrap !important;
+  }
+
+  .vision-page .vision-bottom-row a {
+    font-size: 10px !important;
+    white-space: nowrap !important;
+  }
+
+  .vision-page .vision-bottom-row .star-wrapper button {
+    font-size: 14px !important;
+    padding: 2px 4px !important;
+  }
+
+  .vision-page .vision-bottom-row .star-wrapper button span {
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .vision-page .vision-bottom-row {
+    gap: 2px !important;
+  }
+  .vision-page .vision-bottom-row .status-badge {
+    font-size: 9px !important;
+    padding: 1px 6px !important;
+  }
+  .vision-page .vision-bottom-row a {
+    font-size: 9px !important;
+  }
+  .vision-page .vision-bottom-row .star-wrapper button {
+    font-size: 12px !important;
+  }
+  .vision-page .vision-bottom-row .star-wrapper button span {
+    font-size: 10px !important;
+  }
+}

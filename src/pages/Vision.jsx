@@ -19,6 +19,7 @@ const Vision = () => {
         ]);
         setCurrentProjects(projectsRes.data.data);
         setCertificates(certsRes.data.data);
+        console.log('Certificates data:', certsRes.data.data); // debug – check what fields exist
       } catch (err) {
         console.error('Error fetching vision data:', err);
       } finally {
@@ -177,7 +178,7 @@ const Vision = () => {
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
                       }}
                     >
-                      {/* --- IMAGE ON TOP (full width) --- */}
+                      {/* --- IMAGE ON TOP --- */}
                       {project.imageUrl ? (
                         <div style={{
                           width: '100%',
@@ -197,12 +198,8 @@ const Vision = () => {
                               objectFit: 'cover',
                               transition: 'transform 0.3s ease',
                             }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.transform = 'scale(1.05)';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.transform = 'scale(1)';
-                            }}
+                            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                             onError={(e) => {
                               e.target.style.display = 'none';
                               const parent = e.target.parentNode;
@@ -266,13 +263,13 @@ const Vision = () => {
                           {project.description}
                         </p>
 
-                        {/* --- BOTTOM ROW: status + view details + star (SAME LINE) --- */}
+                        {/* --- BOTTOM ROW: status + view details + star (ALWAYS SAME LINE) --- */}
                         <div className="vision-bottom-row" style={{
                           display: 'flex',
-                          flexWrap: 'nowrap',
+                          flexWrap: 'nowrap',           // never wrap
                           alignItems: 'center',
                           justifyContent: 'space-between',
-                          gap: '8px',
+                          gap: '6px',
                           marginTop: 'auto',
                           borderTop: '1px solid rgba(255,255,255,0.05)',
                           paddingTop: '10px',
@@ -283,7 +280,7 @@ const Vision = () => {
                             display: 'flex',
                             flexWrap: 'wrap',
                             alignItems: 'center',
-                            gap: '8px',
+                            gap: '6px',
                             flex: '1 1 auto',
                             minWidth: '0',
                           }}>
@@ -294,7 +291,7 @@ const Vision = () => {
                                      project.status === 'Beta' ? '#FBBF24' :
                                      project.status === 'Planning' ? '#60A5FA' : '#F472B6',
                               backgroundColor: 'rgba(255,255,255,0.06)',
-                              padding: '3px 14px',
+                              padding: '3px 12px',
                               borderRadius: '9999px',
                               border: '1px solid rgba(255,255,255,0.06)',
                               display: 'inline-block',
@@ -313,7 +310,7 @@ const Vision = () => {
                                   textDecoration: 'none',
                                   display: 'inline-flex',
                                   alignItems: 'center',
-                                  gap: '4px',
+                                  gap: '3px',
                                   transition: 'color 0.3s ease',
                                   whiteSpace: 'nowrap',
                                 }}
@@ -325,12 +322,13 @@ const Vision = () => {
                             )}
                           </div>
 
-                          {/* ===== STAR BUTTON – same line ===== */}
+                          {/* STAR BUTTON – forced to stay inline */}
                           <div className="star-wrapper" style={{
                             position: 'relative',
                             display: 'inline-flex',
                             flexShrink: 0,
                             alignItems: 'center',
+                            marginLeft: 'auto',
                           }}>
                             <button
                               onClick={() => handleStar(project._id)}
@@ -338,32 +336,49 @@ const Vision = () => {
                               style={{
                                 background: 'none',
                                 border: 'none',
-                                fontSize: '18px',
+                                fontSize: '16px',
                                 cursor: starring === project._id ? 'not-allowed' : 'pointer',
                                 opacity: starring === project._id ? 0.5 : 1,
                                 transition: 'transform 0.2s ease',
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: '4px',
+                                gap: '3px',
                                 color: '#FFFFFF',
-                                padding: '4px 8px',
+                                padding: '2px 6px',
                                 borderRadius: '8px',
+                                whiteSpace: 'nowrap',
                               }}
                               onMouseEnter={(e) => {
-                                if (!starring) {
-                                  e.currentTarget.style.transform = 'scale(1.1)';
-                                }
+                                if (!starring) e.currentTarget.style.transform = 'scale(1.1)';
                               }}
                               onMouseLeave={(e) => {
                                 e.currentTarget.style.transform = 'scale(1)';
                               }}
                             >
-                              <span style={{ fontSize: '18px' }}>⭐</span>
-                              <span style={{ fontSize: '16px', fontWeight: '600' }}>{project.starCount || 0}</span>
+                              <span style={{ fontSize: '16px' }}>⭐</span>
+                              <span style={{ fontSize: '14px', fontWeight: '600' }}>{project.starCount || 0}</span>
                             </button>
-
-                            {/* Tooltip */}
-                            <span className="tooltip-text">
+                            <span className="tooltip-text" style={{
+                              visibility: 'hidden',
+                              opacity: 0,
+                              width: '120px',
+                              backgroundColor: 'rgba(15,15,15,0.95)',
+                              color: '#D1D5DB',
+                              textAlign: 'center',
+                              borderRadius: '8px',
+                              padding: '4px 10px',
+                              position: 'absolute',
+                              zIndex: 10,
+                              bottom: 'calc(100% + 8px)',
+                              left: '50%',
+                              transform: 'translateX(-50%)',
+                              transition: 'opacity 0.3s ease, visibility 0.3s ease',
+                              fontSize: '11px',
+                              fontFamily: "'Inter', sans-serif",
+                              border: '1px solid rgba(93,214,44,0.15)',
+                              whiteSpace: 'nowrap',
+                              pointerEvents: 'none',
+                            }}>
                               Leave a ⭐ to support!
                             </span>
                           </div>
@@ -375,7 +390,7 @@ const Vision = () => {
               )}
             </div>
 
-            {/* RIGHT: CERTIFICATES (CLEAN – no extra text) */}
+            {/* RIGHT: CERTIFICATES (only title, issuer, date, category) */}
             <div style={{
               backgroundColor: 'rgba(255, 215, 0, 0.06)',
               borderRadius: '20px',
@@ -404,6 +419,16 @@ const Vision = () => {
                     <div
                       key={cert._id}
                       className="vision-card"
+                      style={{
+                        width: '100%',
+                        boxSizing: 'border-box',
+                        padding: '12px',
+                        backgroundColor: 'rgba(255,255,255,0.06)',
+                        backdropFilter: 'blur(8px)',
+                        borderRadius: '12px',
+                        border: '1px solid rgba(255,255,255,0.06)',
+                        transition: 'all 0.3s ease',
+                      }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
@@ -412,13 +437,8 @@ const Vision = () => {
                         e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
                       }}
-                      style={{
-                        width: '100%',
-                        boxSizing: 'border-box',
-                        padding: '12px',
-                      }}
                     >
-                      <div className="cert-row" style={{
+                      <div style={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
@@ -474,8 +494,7 @@ const Vision = () => {
                             </div>
                           )}
                           <div style={{ minWidth: 0, flex: 1 }}>
-                            {/* ONLY show title, issuer, date, category – NO extra text */}
-                            <h3 className="cert-title" style={{
+                            <h3 style={{
                               fontSize: '16px',
                               fontWeight: '600',
                               color: 'white',
@@ -486,7 +505,7 @@ const Vision = () => {
                             }}>
                               {cert.title}
                             </h3>
-                            <p className="cert-issuer" style={{
+                            <p style={{
                               fontSize: '13px',
                               color: '#9CA3AF',
                               fontFamily: "'Inter', 'Segoe UI', sans-serif",
