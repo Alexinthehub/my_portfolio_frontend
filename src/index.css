@@ -305,10 +305,10 @@ body {
 }
 
 /* ================================================================ */
-/* ===== VISION PAGE (CLEAN & ORGANIZED) ===== */
+/* ===== VISION PAGE ===== */
 /* ================================================================ */
 
-/* ---- Desktop ---- */
+/* ---- Desktop: 2 columns ---- */
 .vision-page .vision-grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -425,7 +425,7 @@ body {
   width: 100% !important;
 }
 
-/* ---- RESPONSIVE: Tablets ---- */
+/* ===== RESPONSIVE: Tablets ===== */
 @media (max-width: 1024px) {
   .vision-page .project-avatar {
     width: 64px !important;
@@ -433,11 +433,14 @@ body {
   }
 }
 
-/* ---- RESPONSIVE: Mobile ---- */
+/* ===== RESPONSIVE: Mobile (Single Column) ===== */
 @media (max-width: 768px) {
+  /* ---- Grid: single column, Current Projects on top, Certificates below ---- */
   .vision-page .vision-grid-container {
+    display: grid !important;
     grid-template-columns: 1fr !important;
     gap: 20px !important;
+    width: 100% !important;
   }
 
   .vision-page .vision-grid-container > div {
