@@ -19,8 +19,6 @@ const Vision = () => {
         ]);
         setCurrentProjects(projectsRes.data.data);
         setCertificates(certsRes.data.data);
-        // DEBUG: see what fields exist
-        console.log('Certificate sample:', certsRes.data.data[0]);
       } catch (err) {
         console.error('Error fetching vision data:', err);
       } finally {
@@ -51,7 +49,7 @@ const Vision = () => {
   }
 
   return (
-    <div style={{
+    <div className="vision-page page-container" style={{
       position: 'relative',
       minHeight: '100vh',
       width: '100%',
@@ -89,7 +87,7 @@ const Vision = () => {
       </div>
 
       {/* CONTENT */}
-      <div style={{
+      <div className="page-content" style={{
         position: 'relative',
         zIndex: 3,
         minHeight: '100vh',
@@ -114,13 +112,7 @@ const Vision = () => {
             textAlign: 'center',
             paddingBottom: '20px',
           }}>
-            <h1 style={{
-              fontSize: '48px',
-              fontWeight: '700',
-              color: 'white',
-              marginBottom: '12px',
-              fontFamily: "'Inter', 'Segoe UI', sans-serif",
-            }}>
+            <h1 className="vision-title">
               🔭 My Vision
             </h1>
             <p style={{
@@ -132,12 +124,7 @@ const Vision = () => {
           </div>
 
           {/* TWO COLUMNS */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '32px',
-            width: '100%',
-          }}>
+          <div className="vision-grid-container">
             {/* LEFT: Current Projects */}
             <div style={{
               backgroundColor: 'rgba(93, 214, 44, 0.06)',
@@ -147,16 +134,7 @@ const Vision = () => {
               width: '100%',
               boxSizing: 'border-box',
             }}>
-              <h2 style={{
-                fontSize: '24px',
-                fontWeight: '600',
-                color: 'white',
-                marginBottom: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                fontFamily: "'Inter', 'Segoe UI', sans-serif",
-              }}>
+              <h2 className="vision-section-title">
                 🚀 Current Projects
               </h2>
 
@@ -175,6 +153,7 @@ const Vision = () => {
                   {currentProjects.map((project) => (
                     <div
                       key={project._id}
+                      className="vision-card"
                       style={{
                         backgroundColor: 'rgba(255,255,255,0.06)',
                         backdropFilter: 'blur(8px)',
@@ -282,8 +261,8 @@ const Vision = () => {
                           {project.description}
                         </p>
 
-                        {/* BOTTOM ROW – FORCE NOWRAP */}
-                        <div style={{
+                        {/* BOTTOM ROW */}
+                        <div className="vision-bottom-row" style={{
                           display: 'flex',
                           flexWrap: 'nowrap',
                           alignItems: 'center',
@@ -303,7 +282,7 @@ const Vision = () => {
                             flex: '1 1 auto',
                             minWidth: '0',
                           }}>
-                            <span style={{
+                            <span className="status-badge" style={{
                               fontSize: '12px',
                               fontWeight: '500',
                               color: project.status === 'Completed' ? '#5DD62C' :
@@ -341,7 +320,7 @@ const Vision = () => {
                             )}
                           </div>
 
-                          <div style={{
+                          <div className="star-wrapper" style={{
                             position: 'relative',
                             display: 'inline-flex',
                             flexShrink: 0,
@@ -376,27 +355,7 @@ const Vision = () => {
                               <span style={{ fontSize: '16px' }}>⭐</span>
                               <span style={{ fontSize: '14px', fontWeight: '600' }}>{project.starCount || 0}</span>
                             </button>
-                            <span style={{
-                              visibility: 'hidden',
-                              opacity: 0,
-                              width: '120px',
-                              backgroundColor: 'rgba(15,15,15,0.95)',
-                              color: '#D1D5DB',
-                              textAlign: 'center',
-                              borderRadius: '8px',
-                              padding: '4px 10px',
-                              position: 'absolute',
-                              zIndex: 10,
-                              bottom: 'calc(100% + 8px)',
-                              left: '50%',
-                              transform: 'translateX(-50%)',
-                              transition: 'opacity 0.3s ease, visibility 0.3s ease',
-                              fontSize: '11px',
-                              fontFamily: "'Inter', sans-serif",
-                              border: '1px solid rgba(93,214,44,0.15)',
-                              whiteSpace: 'nowrap',
-                              pointerEvents: 'none',
-                            }}>
+                            <span className="tooltip-text">
                               Leave a ⭐ to support!
                             </span>
                           </div>
@@ -408,7 +367,7 @@ const Vision = () => {
               )}
             </div>
 
-            {/* RIGHT: CERTIFICATES – ONLY SHOW ESSENTIAL FIELDS */}
+            {/* RIGHT: CERTIFICATES – ONLY CORE FIELDS */}
             <div style={{
               backgroundColor: 'rgba(255, 215, 0, 0.06)',
               borderRadius: '20px',
@@ -417,16 +376,7 @@ const Vision = () => {
               width: '100%',
               boxSizing: 'border-box',
             }}>
-              <h2 style={{
-                fontSize: '24px',
-                fontWeight: '600',
-                color: 'white',
-                marginBottom: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                fontFamily: "'Inter', 'Segoe UI', sans-serif",
-              }}>
+              <h2 className="vision-section-title">
                 🏆 Certificates
               </h2>
 
@@ -443,12 +393,12 @@ const Vision = () => {
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
                   {certificates.map((cert) => {
-                    // ⚠️ ONLY USE THESE FIELDS – IGNORE ANY OTHER
+                    // ✅ ONLY these fields – ignore everything else
                     const safeData = {
-                      title: cert.title || '',
-                      issuer: cert.issuer || '',
-                      date: cert.date ? new Date(cert.date).toLocaleDateString() : '',
-                      category: cert.category || '',
+                      title: cert.title || 'Untitled',
+                      issuer: cert.issuer || 'Unknown',
+                      date: cert.date ? new Date(cert.date).toLocaleDateString() : 'Unknown',
+                      category: cert.category || 'General',
                       imageUrl: cert.imageUrl || null,
                       verifyUrl: cert.verifyUrl || null,
                     };
@@ -456,6 +406,7 @@ const Vision = () => {
                     return (
                       <div
                         key={cert._id}
+                        className="vision-card"
                         style={{
                           width: '100%',
                           boxSizing: 'border-box',
@@ -531,7 +482,7 @@ const Vision = () => {
                               </div>
                             )}
                             <div style={{ minWidth: 0, flex: 1 }}>
-                              <h3 style={{
+                              <h3 className="cert-title" style={{
                                 fontSize: '16px',
                                 fontWeight: '600',
                                 color: 'white',
@@ -542,7 +493,7 @@ const Vision = () => {
                               }}>
                                 {safeData.title}
                               </h3>
-                              <p style={{
+                              <p className="cert-issuer" style={{
                                 fontSize: '13px',
                                 color: '#9CA3AF',
                                 fontFamily: "'Inter', 'Segoe UI', sans-serif",
@@ -570,6 +521,7 @@ const Vision = () => {
                               href={safeData.verifyUrl}
                               target="_blank"
                               rel="noopener noreferrer"
+                              className="verify-btn"
                               style={{
                                 whiteSpace: 'nowrap',
                                 flexShrink: 0,
