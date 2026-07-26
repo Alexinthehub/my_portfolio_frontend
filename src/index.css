@@ -755,3 +755,65 @@ footer:not(.footer-sticky) {
     top: 110% !important;
   }
 }
+/* ================================================================ */
+/* ===== VISION PAGE – TOOLTIP FIX ===== */
+/* ================================================================ */
+
+/* Make sure cards don't clip tooltips */
+.vision-card {
+  overflow: visible !important;
+}
+
+/* Desktop: tooltip appears above the star */
+.vision-card .tooltip-text {
+  bottom: calc(100% + 8px) !important;
+  top: auto !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  max-width: 200px !important;
+  width: auto !important;
+  padding: 6px 14px !important;
+  font-size: 12px !important;
+  background-color: rgba(15, 15, 15, 0.95) !important;
+  color: #D1D5DB !important;
+  border: 1px solid rgba(93, 214, 44, 0.2) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Show tooltip on hover */
+.vision-card .star-wrapper:hover .tooltip-text {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Mobile: tooltip appears below the star */
+@media (max-width: 768px) {
+  .vision-card .tooltip-text {
+    bottom: auto !important;
+    top: calc(100% + 8px) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    max-width: 150px !important;
+    font-size: 11px !important;
+    padding: 4px 12px !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .vision-card .tooltip-text {
+    max-width: 120px !important;
+    font-size: 10px !important;
+    padding: 3px 10px !important;
+    top: calc(100% + 6px) !important;
+  }
+}

@@ -161,7 +161,8 @@ const Vision = () => {
                         transition: 'all 0.3s ease',
                         display: 'flex',
                         flexDirection: 'column',
-                        overflow: 'hidden',
+                        overflow: 'visible', // important for tooltip
+                        position: 'relative',
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.borderColor = 'rgba(93,214,44,0.3)';
@@ -200,7 +201,6 @@ const Vision = () => {
                             }}
                             onError={(e) => {
                               e.target.style.display = 'none';
-                              // fallback div
                               const parent = e.target.parentNode;
                               const fallback = document.createElement('div');
                               fallback.style.cssText = `
@@ -261,16 +261,16 @@ const Vision = () => {
                         </p>
 
                         {/* --- BOTTOM ROW: status + view details + star --- */}
-<div className="vision-bottom-row" style={{
-  display: 'flex',
-  flexWrap: 'wrap',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  gap: '10px',
-  marginTop: 'auto',
-  borderTop: '1px solid rgba(255,255,255,0.05)',
-  paddingTop: '10px',
-}}>
+                        <div className="vision-bottom-row" style={{
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: '10px',
+                          marginTop: 'auto',
+                          borderTop: '1px solid rgba(255,255,255,0.05)',
+                          paddingTop: '10px',
+                        }}>
                           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px' }}>
                             <span className="status-badge" style={{
                               fontSize: '12px',
@@ -308,74 +308,43 @@ const Vision = () => {
                             )}
                           </div>
 
-                          {/* Star button */}
-{/* ===== STAR BUTTON WITH BETTER TOOLTIP ===== */}
-<div className="star-wrapper" style={{ position: 'relative', display: 'inline-block' }}>
-  <button
-    onClick={() => handleStar(project._id)}
-    disabled={starring === project._id}
-    style={{
-      background: 'none',
-      border: 'none',
-      fontSize: '18px',
-      cursor: starring === project._id ? 'not-allowed' : 'pointer',
-      opacity: starring === project._id ? 0.5 : 1,
-      transition: 'transform 0.2s ease',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '4px',
-      color: '#FFFFFF',
-      padding: '4px 8px',
-      borderRadius: '8px',
-    }}
-    onMouseEnter={(e) => {
-      if (!starring) {
-        e.currentTarget.style.transform = 'scale(1.1)';
-        const tooltip = e.currentTarget.parentElement.querySelector('.tooltip-text');
-        if (tooltip) {
-          tooltip.style.visibility = 'visible';
-          tooltip.style.opacity = '1';
-        }
-      }
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.transform = 'scale(1)';
-      const tooltip = e.currentTarget.parentElement.querySelector('.tooltip-text');
-      if (tooltip) {
-        tooltip.style.visibility = 'hidden';
-        tooltip.style.opacity = '0';
-      }
-    }}
-  >
-    <span style={{ fontSize: '18px' }}>⭐</span>
-    <span style={{ fontSize: '16px', fontWeight: '600' }}>{project.starCount || 0}</span>
-  </button>
-  
-  {/* ===== TOOLTIP ===== */}
-  <span className="tooltip-text" style={{
-    visibility: 'hidden',
-    opacity: 0,
-    width: '140px',
-    backgroundColor: 'rgba(15,15,15,0.95)',
-    color: '#D1D5DB',
-    textAlign: 'center',
-    borderRadius: '8px',
-    padding: '6px 12px',
-    position: 'absolute',
-    zIndex: 10,
-    bottom: '115%',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    transition: 'opacity 0.3s ease, visibility 0.3s ease',
-    fontSize: '12px',
-    fontFamily: "'Inter', sans-serif",
-    border: '1px solid rgba(93,214,44,0.15)',
-    whiteSpace: 'nowrap',
-    pointerEvents: 'none',
-  }}>
-    Leave a ⭐ to support!
-  </span>
-</div>
+                          {/* ===== STAR BUTTON WITH TOOLTIP ===== */}
+                          <div className="star-wrapper" style={{ position: 'relative', display: 'inline-block' }}>
+                            <button
+                              onClick={() => handleStar(project._id)}
+                              disabled={starring === project._id}
+                              style={{
+                                background: 'none',
+                                border: 'none',
+                                fontSize: '18px',
+                                cursor: starring === project._id ? 'not-allowed' : 'pointer',
+                                opacity: starring === project._id ? 0.5 : 1,
+                                transition: 'transform 0.2s ease',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                                color: '#FFFFFF',
+                                padding: '4px 8px',
+                                borderRadius: '8px',
+                              }}
+                              onMouseEnter={(e) => {
+                                if (!starring) {
+                                  e.currentTarget.style.transform = 'scale(1.1)';
+                                }
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = 'scale(1)';
+                              }}
+                            >
+                              <span style={{ fontSize: '18px' }}>⭐</span>
+                              <span style={{ fontSize: '16px', fontWeight: '600' }}>{project.starCount || 0}</span>
+                            </button>
+
+                            {/* Tooltip - shown via CSS on hover */}
+                            <span className="tooltip-text">
+                              Leave a ⭐ to support!
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -522,8 +491,6 @@ const Vision = () => {
             </div>
           </div>
         </div>
-
-        {/* ✅ NO FOOTER HERE – Layout.jsx provides it */}
       </div>
     </div>
   );
