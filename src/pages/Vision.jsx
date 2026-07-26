@@ -266,10 +266,10 @@ const Vision = () => {
                           {project.description}
                         </p>
 
-                        {/* --- BOTTOM ROW: status + view details + star --- */}
+                        {/* --- BOTTOM ROW: status + view details + star (SAME LINE) --- */}
                         <div className="vision-bottom-row" style={{
                           display: 'flex',
-                          flexWrap: 'wrap',
+                          flexWrap: 'nowrap',
                           alignItems: 'center',
                           justifyContent: 'space-between',
                           gap: '8px',
@@ -277,8 +277,16 @@ const Vision = () => {
                           borderTop: '1px solid rgba(255,255,255,0.05)',
                           paddingTop: '10px',
                           width: '100%',
+                          minWidth: '0',
                         }}>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px' }}>
+                          <div style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            alignItems: 'center',
+                            gap: '8px',
+                            flex: '1 1 auto',
+                            minWidth: '0',
+                          }}>
                             <span className="status-badge" style={{
                               fontSize: '12px',
                               fontWeight: '500',
@@ -290,6 +298,7 @@ const Vision = () => {
                               borderRadius: '9999px',
                               border: '1px solid rgba(255,255,255,0.06)',
                               display: 'inline-block',
+                              whiteSpace: 'nowrap',
                             }}>
                               {project.status}
                             </span>
@@ -306,6 +315,7 @@ const Vision = () => {
                                   alignItems: 'center',
                                   gap: '4px',
                                   transition: 'color 0.3s ease',
+                                  whiteSpace: 'nowrap',
                                 }}
                                 onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
                                 onMouseLeave={(e) => e.currentTarget.style.color = '#5DD62C'}
@@ -315,8 +325,13 @@ const Vision = () => {
                             )}
                           </div>
 
-                          {/* ===== STAR BUTTON WITH TOOLTIP ===== */}
-                          <div className="star-wrapper" style={{ position: 'relative', display: 'inline-block' }}>
+                          {/* ===== STAR BUTTON – same line ===== */}
+                          <div className="star-wrapper" style={{
+                            position: 'relative',
+                            display: 'inline-flex',
+                            flexShrink: 0,
+                            alignItems: 'center',
+                          }}>
                             <button
                               onClick={() => handleStar(project._id)}
                               disabled={starring === project._id}
@@ -360,7 +375,7 @@ const Vision = () => {
               )}
             </div>
 
-            {/* RIGHT: CERTIFICATES */}
+            {/* RIGHT: CERTIFICATES (CLEAN – no extra text) */}
             <div style={{
               backgroundColor: 'rgba(255, 215, 0, 0.06)',
               borderRadius: '20px',
@@ -459,12 +474,13 @@ const Vision = () => {
                             </div>
                           )}
                           <div style={{ minWidth: 0, flex: 1 }}>
+                            {/* ONLY show title, issuer, date, category – NO extra text */}
                             <h3 className="cert-title" style={{
                               fontSize: '16px',
                               fontWeight: '600',
                               color: 'white',
                               fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                              overflowWrap: 'normal', // prevent breaking into letters
+                              overflowWrap: 'normal',
                               wordBreak: 'normal',
                               whiteSpace: 'normal',
                             }}>

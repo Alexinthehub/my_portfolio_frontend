@@ -937,3 +937,57 @@ footer:not(.footer-sticky) {
     height: 100px !important;
   }
 }
+/* ================================================================ */
+/* ===== VISION PAGE – STAR ON SAME LINE (FIX) ===== */
+/* ================================================================ */
+
+/* Force bottom row to stay in one line on mobile */
+@media (max-width: 768px) {
+  .vision-page .vision-bottom-row {
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+    overflow: visible !important;
+  }
+
+  .vision-page .vision-bottom-row > div:first-child {
+    flex: 1 1 auto !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+  }
+
+  .vision-page .vision-bottom-row .star-wrapper {
+    flex-shrink: 0 !important;
+    align-self: center !important;
+    display: inline-flex !important;
+  }
+
+  .vision-page .vision-bottom-row .status-badge {
+    font-size: 10px !important;
+    padding: 2px 8px !important;
+  }
+
+  .vision-page .vision-bottom-row a {
+    font-size: 10px !important;
+    white-space: nowrap !important;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+  .vision-page .vision-bottom-row {
+    gap: 4px !important;
+  }
+  .vision-page .vision-bottom-row .status-badge {
+    font-size: 9px !important;
+    padding: 2px 6px !important;
+  }
+  .vision-page .vision-bottom-row a {
+    font-size: 9px !important;
+  }
+  .vision-page .vision-bottom-row .star-wrapper button {
+    font-size: 14px !important;
+  }
+  .vision-page .vision-bottom-row .star-wrapper button span {
+    font-size: 12px !important;
+  }
+}
