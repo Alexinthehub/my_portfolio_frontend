@@ -797,3 +797,57 @@ footer:not(.footer-sticky) {
     padding: 4px 12px !important;
   }
 }
+/* Ensure certificate text stays on one line */
+.vision-card .cert-title,
+.vision-card .cert-issuer {
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  white-space: normal !important;
+  display: block !important;
+  width: 100% !important;
+}
+
+.vision-card .cert-title {
+  margin-bottom: 2px !important;
+}
+
+/* Make sure certificate cards don't overflow */
+.vision-card .cert-issuer {
+  font-size: 13px !important;
+  color: #9CA3AF !important;
+}
+
+/* Force star on same line on mobile */
+@media (max-width: 768px) {
+  .vision-page .vision-bottom-row {
+    flex-wrap: nowrap !important;
+    gap: 4px !important;
+  }
+  .vision-page .vision-bottom-row > div:first-child {
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+  }
+  .vision-page .vision-bottom-row .star-wrapper {
+    flex-shrink: 0 !important;
+    margin-left: auto !important;
+  }
+  .vision-page .vision-bottom-row .status-badge {
+    font-size: 10px !important;
+    padding: 2px 8px !important;
+  }
+  .vision-page .vision-bottom-row a {
+    font-size: 10px !important;
+  }
+  .vision-page .vision-bottom-row .star-wrapper button {
+    font-size: 14px !important;
+  }
+  .vision-page .vision-bottom-row .star-wrapper button span {
+    font-size: 12px !important;
+  }
+
+  /* Certificate: keep date on same line as issuer on mobile */
+  .vision-card .cert-issuer {
+    font-size: 12px !important;
+    display: inline-block !important;
+  }
+}

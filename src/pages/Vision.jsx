@@ -19,6 +19,7 @@ const Vision = () => {
         ]);
         setCurrentProjects(projectsRes.data.data);
         setCertificates(certsRes.data.data);
+        console.log('Certificate data:', certsRes.data.data);
       } catch (err) {
         console.error('Error fetching vision data:', err);
       } finally {
@@ -367,7 +368,7 @@ const Vision = () => {
               )}
             </div>
 
-            {/* RIGHT: CERTIFICATES – ONLY CORE FIELDS */}
+            {/* RIGHT: CERTIFICATES */}
             <div style={{
               backgroundColor: 'rgba(255, 215, 0, 0.06)',
               borderRadius: '20px',
@@ -393,15 +394,13 @@ const Vision = () => {
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
                   {certificates.map((cert) => {
-                    // ✅ ONLY these fields – ignore everything else
-                    const safeData = {
-                      title: cert.title || 'Untitled',
-                      issuer: cert.issuer || 'Unknown',
-                      date: cert.date ? new Date(cert.date).toLocaleDateString() : 'Unknown',
-                      category: cert.category || 'General',
-                      imageUrl: cert.imageUrl || null,
-                      verifyUrl: cert.verifyUrl || null,
-                    };
+                    // Safely get certificate data – only use these fields
+                    const title = cert.title || 'Untitled Certificate';
+                    const issuer = cert.issuer || '';
+                    const date = cert.date ? new Date(cert.date).toLocaleDateString() : '';
+                    const category = cert.category || '';
+                    const imageUrl = cert.imageUrl || null;
+                    const verifyUrl = cert.verifyUrl || null;
 
                     return (
                       <div
@@ -410,7 +409,7 @@ const Vision = () => {
                         style={{
                           width: '100%',
                           boxSizing: 'border-box',
-                          padding: '12px',
+                          padding: '12px 16px',
                           backgroundColor: 'rgba(255,255,255,0.06)',
                           backdropFilter: 'blur(8px)',
                           borderRadius: '12px',
@@ -435,10 +434,10 @@ const Vision = () => {
                           flexWrap: 'wrap',
                         }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: 1, minWidth: 0 }}>
-                            {safeData.imageUrl ? (
+                            {imageUrl ? (
                               <img
-                                src={`${safeData.imageUrl}?t=${Date.now()}`}
-                                alt={safeData.title}
+                                src={`${imageUrl}?t=${Date.now()}`}
+                                alt={title}
                                 style={{
                                   width: '56px',
                                   height: '56px',
@@ -490,8 +489,9 @@ const Vision = () => {
                                 wordBreak: 'keep-all',
                                 overflowWrap: 'normal',
                                 whiteSpace: 'normal',
+                                marginBottom: '2px',
                               }}>
-                                {safeData.title}
+                                {title}
                               </h3>
                               <p className="cert-issuer" style={{
                                 fontSize: '13px',
@@ -500,25 +500,28 @@ const Vision = () => {
                                 wordBreak: 'keep-all',
                                 overflowWrap: 'normal',
                                 whiteSpace: 'normal',
+                                marginBottom: '4px',
                               }}>
-                                {safeData.issuer} • {safeData.date}
+                                {issuer && date ? `${issuer} • ${date}` : issuer || date || ''}
                               </p>
-                              <span style={{
-                                fontSize: '11px',
-                                color: '#6B7280',
-                                backgroundColor: 'rgba(255,255,255,0.04)',
-                                padding: '2px 10px',
-                                borderRadius: '9999px',
-                                display: 'inline-block',
-                              }}>
-                                {safeData.category}
-                              </span>
+                              {category && (
+                                <span style={{
+                                  fontSize: '11px',
+                                  color: '#6B7280',
+                                  backgroundColor: 'rgba(255,255,255,0.04)',
+                                  padding: '2px 10px',
+                                  borderRadius: '9999px',
+                                  display: 'inline-block',
+                                }}>
+                                  {category}
+                                </span>
+                              )}
                             </div>
                           </div>
 
-                          {safeData.verifyUrl && (
+                          {verifyUrl && (
                             <a
-                              href={safeData.verifyUrl}
+                              href={verifyUrl}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="verify-btn"
