@@ -393,165 +393,156 @@ const Vision = () => {
                 </div>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
-                  {certificates.map((cert) => {
-                    // Safely get certificate data – only use these fields
-                    const title = cert.title || 'Untitled Certificate';
-                    const issuer = cert.issuer || '';
-                    const date = cert.date ? new Date(cert.date).toLocaleDateString() : '';
-                    const category = cert.category || '';
-                    const imageUrl = cert.imageUrl || null;
-                    const verifyUrl = cert.verifyUrl || null;
-
-                    return (
-                      <div
-                        key={cert._id}
-                        className="vision-card"
-                        style={{
-                          width: '100%',
-                          boxSizing: 'border-box',
-                          padding: '12px 16px',
-                          backgroundColor: 'rgba(255,255,255,0.06)',
-                          backdropFilter: 'blur(8px)',
-                          borderRadius: '12px',
-                          border: '1px solid rgba(255,255,255,0.06)',
-                          transition: 'all 0.3s ease',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
-                          e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
-                          e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
-                        }}
-                      >
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          gap: '12px',
-                          width: '100%',
-                          flexWrap: 'wrap',
-                        }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: 1, minWidth: 0 }}>
-                            {imageUrl ? (
-                              <img
-                                src={`${imageUrl}?t=${Date.now()}`}
-                                alt={title}
-                                style={{
-                                  width: '56px',
-                                  height: '56px',
-                                  objectFit: 'cover',
-                                  borderRadius: '12px',
-                                  border: '1px solid rgba(255,255,255,0.1)',
-                                  flexShrink: 0,
-                                }}
-                                onError={(e) => {
-                                  e.target.style.display = 'none';
-                                  const parent = e.target.parentNode;
-                                  const fallback = document.createElement('div');
-                                  fallback.style.cssText = `
-                                    width: 56px;
-                                    height: 56px;
-                                    background: rgba(255,215,0,0.12);
-                                    border-radius: 12px;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    font-size: 24px;
-                                    flex-shrink: 0;
-                                  `;
-                                  fallback.innerText = '🎓';
-                                  parent.replaceChild(fallback, e.target);
-                                }}
-                              />
-                            ) : (
-                              <div style={{
+                  {certificates.map((cert) => (
+                    <div
+                      key={cert._id}
+                      className="vision-card"
+                      style={{
+                        width: '100%',
+                        boxSizing: 'border-box',
+                        padding: '12px 16px',
+                        backgroundColor: 'rgba(255,255,255,0.06)',
+                        backdropFilter: 'blur(8px)',
+                        borderRadius: '12px',
+                        border: '1px solid rgba(255,255,255,0.06)',
+                        transition: 'all 0.3s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
+                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
+                      }}
+                    >
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: '12px',
+                        width: '100%',
+                        flexWrap: 'wrap',
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: 1, minWidth: 0 }}>
+                          {cert.imageUrl ? (
+                            <img
+                              src={`${cert.imageUrl}?t=${Date.now()}`}
+                              alt={cert.title}
+                              style={{
                                 width: '56px',
                                 height: '56px',
-                                backgroundColor: 'rgba(255,215,0,0.12)',
+                                objectFit: 'cover',
                                 borderRadius: '12px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontSize: '24px',
+                                border: '1px solid rgba(255,255,255,0.1)',
                                 flexShrink: 0,
-                              }}>
-                                🎓
-                              </div>
-                            )}
-                            <div style={{ minWidth: 0, flex: 1 }}>
-                              <h3 className="cert-title" style={{
-                                fontSize: '16px',
-                                fontWeight: '600',
-                                color: 'white',
-                                fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                                wordBreak: 'keep-all',
-                                overflowWrap: 'normal',
-                                whiteSpace: 'normal',
-                                marginBottom: '2px',
-                              }}>
-                                {title}
-                              </h3>
-                              <p className="cert-issuer" style={{
-                                fontSize: '13px',
-                                color: '#9CA3AF',
-                                fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                                wordBreak: 'keep-all',
-                                overflowWrap: 'normal',
-                                whiteSpace: 'normal',
-                                marginBottom: '4px',
-                              }}>
-                                {issuer && date ? `${issuer} • ${date}` : issuer || date || ''}
-                              </p>
-                              {category && (
-                                <span style={{
-                                  fontSize: '11px',
-                                  color: '#6B7280',
-                                  backgroundColor: 'rgba(255,255,255,0.04)',
-                                  padding: '2px 10px',
-                                  borderRadius: '9999px',
-                                  display: 'inline-block',
-                                }}>
-                                  {category}
-                                </span>
-                              )}
+                              }}
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                                const parent = e.target.parentNode;
+                                const fallback = document.createElement('div');
+                                fallback.style.cssText = `
+                                  width: 56px;
+                                  height: 56px;
+                                  background: rgba(255,215,0,0.12);
+                                  border-radius: 12px;
+                                  display: flex;
+                                  align-items: center;
+                                  justify-content: center;
+                                  font-size: 24px;
+                                  flex-shrink: 0;
+                                `;
+                                fallback.innerText = '🎓';
+                                parent.replaceChild(fallback, e.target);
+                              }}
+                            />
+                          ) : (
+                            <div style={{
+                              width: '56px',
+                              height: '56px',
+                              backgroundColor: 'rgba(255,215,0,0.12)',
+                              borderRadius: '12px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: '24px',
+                              flexShrink: 0,
+                            }}>
+                              🎓
                             </div>
-                          </div>
-
-                          {verifyUrl && (
-                            <a
-                              href={verifyUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="verify-btn"
-                              style={{
-                                whiteSpace: 'nowrap',
-                                flexShrink: 0,
-                                fontSize: '12px',
-                                color: '#ffd700',
-                                textDecoration: 'none',
-                                padding: '4px 12px',
-                                border: '1px solid rgba(255,215,0,0.3)',
-                                borderRadius: '8px',
-                                transition: 'all 0.3s ease',
-                              }}
-                              onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = 'rgba(255,215,0,0.15)';
-                                e.currentTarget.style.borderColor = '#ffd700';
-                              }}
-                              onMouseLeave={(e) => {
-                                e.currentTarget.style.backgroundColor = 'transparent';
-                                e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
-                              }}
-                            >
-                              🔍 Verify
-                            </a>
                           )}
+                          <div style={{ minWidth: 0, flex: 1 }}>
+                            <h3 className="cert-title" style={{
+                              fontSize: '16px',
+                              fontWeight: '600',
+                              color: 'white',
+                              fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                              wordBreak: 'keep-all',
+                              overflowWrap: 'normal',
+                              whiteSpace: 'normal',
+                              marginBottom: '2px',
+                            }}>
+                              {cert.title}
+                            </h3>
+                            <p className="cert-issuer" style={{
+                              fontSize: '13px',
+                              color: '#9CA3AF',
+                              fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                              wordBreak: 'keep-all',
+                              overflowWrap: 'normal',
+                              whiteSpace: 'normal',
+                              marginBottom: '4px',
+                            }}>
+                              {cert.issuer}
+                              {cert.date ? ` • ${new Date(cert.date).toLocaleDateString()}` : ''}
+                            </p>
+                            {cert.category && (
+                              <span style={{
+                                fontSize: '11px',
+                                color: '#6B7280',
+                                backgroundColor: 'rgba(255,255,255,0.04)',
+                                padding: '2px 10px',
+                                borderRadius: '9999px',
+                                display: 'inline-block',
+                              }}>
+                                {cert.category}
+                              </span>
+                            )}
+                          </div>
                         </div>
+
+                        {cert.verifyUrl && (
+                          <a
+                            href={cert.verifyUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="verify-btn"
+                            style={{
+                              whiteSpace: 'nowrap',
+                              flexShrink: 0,
+                              fontSize: '12px',
+                              color: '#ffd700',
+                              textDecoration: 'none',
+                              padding: '4px 12px',
+                              border: '1px solid rgba(255,215,0,0.3)',
+                              borderRadius: '8px',
+                              transition: 'all 0.3s ease',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.backgroundColor = 'rgba(255,215,0,0.15)';
+                              e.currentTarget.style.borderColor = '#ffd700';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.backgroundColor = 'transparent';
+                              e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
+                            }}
+                          >
+                            🔍 Verify
+                          </a>
+                        )}
                       </div>
-                    );
-                  })}
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
