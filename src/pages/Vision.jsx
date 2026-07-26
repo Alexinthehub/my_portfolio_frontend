@@ -19,25 +19,17 @@ const Vision = () => {
         ]);
         setCurrentProjects(projectsRes.data.data);
 
-        // 🚨 AGGRESSIVE FILTERING – REMOVE ANY CERTIFICATE WITHOUT A VALID TITLE
-        const rawCerts = certsRes.data.data;
-        console.log('RAW CERTIFICATES:', rawCerts);
-
-        const cleanCerts = rawCerts
-          .filter(cert => {
-            // Only keep certificates that have a title AND it's not a placeholder
-            const title = cert.title || '';
-            return title.trim().length > 0 && !title.toLowerCase().includes('awarded');
-          })
-          .map(cert => ({
-            _id: cert._id,
-            title: cert.title || 'Untitled',
-            issuer: cert.issuer || '',
-            date: cert.date || null,
-            category: cert.category || '',
-            imageUrl: cert.imageUrl || null,
-            verifyUrl: cert.verifyUrl || null,
-          }));
+        // ONLY keep these fields – ignore description, notes, recipient, etc.
+        const cleanCerts = certsRes.data.data.map(cert => ({
+          _id: cert._id,
+          title: cert.title || 'Untitled',
+          issuer: cert.issuer || '',
+          date: cert.date || null,
+          category: cert.category || '',
+          imageUrl: cert.imageUrl || null,
+          verifyUrl: cert.verifyUrl || null,
+          // ⚠️ IGNORE: description, notes, recipient, and anything else
+        }));
 
         console.log('CLEAN CERTIFICATES:', cleanCerts);
         setCertificates(cleanCerts);
@@ -389,7 +381,7 @@ const Vision = () => {
               )}
             </div>
 
-            {/* RIGHT: CERTIFICATES – ONLY CLEAN ONES */}
+            {/* RIGHT: CERTIFICATES – ONLY CORE FIELDS, NO DESCRIPTION */}
             <div style={{
               backgroundColor: 'rgba(255, 215, 0, 0.06)',
               borderRadius: '20px',
@@ -479,7 +471,8 @@ const Vision = () => {
                             />
                           )}
                           <div style={{ minWidth: 0, flex: 1 }}>
-                            <h3 style={{
+                            {/* ONLY TITLE, ISSUER, DATE, CATEGORY – NO DESCRIPTION */}
+                            <h3 className="cert-title" style={{
                               fontSize: '18px',
                               fontWeight: '600',
                               color: 'white',
@@ -491,7 +484,7 @@ const Vision = () => {
                             }}>
                               {cert.title}
                             </h3>
-                            <p style={{
+                            <p className="cert-issuer" style={{
                               fontSize: '15px',
                               color: '#9CA3AF',
                               fontFamily: "'Inter', 'Segoe UI', sans-serif",
@@ -503,16 +496,18 @@ const Vision = () => {
                               {cert.issuer}
                               {cert.date && ` • ${new Date(cert.date).toLocaleDateString()}`}
                             </p>
-                            <span style={{
-                              fontSize: '12px',
-                              color: '#6B7280',
-                              backgroundColor: 'rgba(255,255,255,0.04)',
-                              padding: '2px 12px',
-                              borderRadius: '9999px',
-                              display: 'inline-block',
-                            }}>
-                              {cert.category}
-                            </span>
+                            {cert.category && (
+                              <span style={{
+                                fontSize: '12px',
+                                color: '#6B7280',
+                                backgroundColor: 'rgba(255,255,255,0.04)',
+                                padding: '2px 12px',
+                                borderRadius: '9999px',
+                                display: 'inline-block',
+                              }}>
+                                {cert.category}
+                              </span>
+                            )}
                           </div>
                         </div>
 
