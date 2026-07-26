@@ -101,7 +101,7 @@ const Vision = () => {
       }}>
         <div style={{
           width: '100%',
-          maxWidth: '1400px', // keep for desktop, but CSS will override on mobile
+          maxWidth: '1400px',
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
@@ -249,7 +249,7 @@ const Vision = () => {
                           marginBottom: '4px',
                           fontFamily: "'Inter', 'Segoe UI', sans-serif",
                           lineHeight: 1.3,
-                          wordBreak: 'break-word',
+                          overflowWrap: 'break-word',
                         }}>
                           {project.title}
                         </h3>
@@ -261,7 +261,7 @@ const Vision = () => {
                           fontFamily: "'Inter', 'Segoe UI', sans-serif",
                           lineHeight: 1.5,
                           flex: 1,
-                          wordBreak: 'break-word',
+                          overflowWrap: 'break-word',
                         }}>
                           {project.description}
                         </p>
@@ -272,7 +272,7 @@ const Vision = () => {
                           flexWrap: 'wrap',
                           alignItems: 'center',
                           justifyContent: 'space-between',
-                          gap: '10px',
+                          gap: '8px',
                           marginTop: 'auto',
                           borderTop: '1px solid rgba(255,255,255,0.05)',
                           paddingTop: '10px',
@@ -400,9 +400,10 @@ const Vision = () => {
                       style={{
                         width: '100%',
                         boxSizing: 'border-box',
+                        padding: '12px',
                       }}
                     >
-                      <div style={{
+                      <div className="cert-row" style={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
@@ -458,20 +459,24 @@ const Vision = () => {
                             </div>
                           )}
                           <div style={{ minWidth: 0, flex: 1 }}>
-                            <h3 style={{
+                            <h3 className="cert-title" style={{
                               fontSize: '16px',
                               fontWeight: '600',
                               color: 'white',
                               fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                              wordBreak: 'break-word',
+                              overflowWrap: 'normal', // prevent breaking into letters
+                              wordBreak: 'normal',
+                              whiteSpace: 'normal',
                             }}>
                               {cert.title}
                             </h3>
-                            <p style={{
+                            <p className="cert-issuer" style={{
                               fontSize: '13px',
                               color: '#9CA3AF',
                               fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                              wordBreak: 'break-word',
+                              overflowWrap: 'normal',
+                              wordBreak: 'normal',
+                              whiteSpace: 'normal',
                             }}>
                               {cert.issuer} • {new Date(cert.date).toLocaleDateString()}
                             </p>
@@ -497,6 +502,21 @@ const Vision = () => {
                             style={{
                               whiteSpace: 'nowrap',
                               flexShrink: 0,
+                              fontSize: '12px',
+                              color: '#ffd700',
+                              textDecoration: 'none',
+                              padding: '4px 12px',
+                              border: '1px solid rgba(255,215,0,0.3)',
+                              borderRadius: '8px',
+                              transition: 'all 0.3s ease',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.backgroundColor = 'rgba(255,215,0,0.15)';
+                              e.currentTarget.style.borderColor = '#ffd700';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.backgroundColor = 'transparent';
+                              e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
                             }}
                           >
                             🔍 Verify
