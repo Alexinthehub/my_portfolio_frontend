@@ -435,7 +435,6 @@ body {
 
 /* ===== RESPONSIVE: Mobile (Single Column) ===== */
 @media (max-width: 768px) {
-  /* ---- Grid: single column, Current Projects on top, Certificates below ---- */
   .vision-page .vision-grid-container {
     display: grid !important;
     grid-template-columns: 1fr !important;
@@ -608,7 +607,6 @@ body {
     top: calc(100% + 6px) !important;
   }
 }
-
 /* ================================================================ */
 /* ===== ADMIN LOGIN ===== */
 /* ================================================================ */
