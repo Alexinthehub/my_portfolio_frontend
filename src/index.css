@@ -400,7 +400,6 @@ body {
 
 /* ===== RESPONSIVE: Mobile ===== */
 @media (max-width: 768px) {
-  /* Stack columns */
   .vision-page .vision-grid-container {
     grid-template-columns: 1fr !important;
     gap: 20px !important;
@@ -411,7 +410,7 @@ body {
   }
 
   .vision-page .vision-card {
-    padding: 14px !important;
+    padding: 12px !important;
   }
 
   .vision-page .vision-card h3 {
@@ -421,6 +420,44 @@ body {
   .vision-page .vision-card p {
     font-size: 13px !important;
     word-break: break-word;
+  }
+
+  /* ===== IMAGE CONTAINER – SMALLER ON MOBILE ===== */
+  .vision-page .vision-card > div:first-child {
+    height: 120px !important;
+  }
+
+  .vision-page .vision-card img {
+    height: 120px !important;
+    object-fit: cover !important;
+  }
+
+  /* ===== BOTTOM ROW – STACK ON MOBILE ===== */
+  .vision-page .vision-card .vision-bottom-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+
+  .vision-page .vision-card .vision-bottom-row > div:first-child {
+    width: 100% !important;
+  }
+
+  .vision-page .vision-card .vision-bottom-row .star-wrapper {
+    align-self: flex-start !important;
+  }
+
+  /* ===== TOOLTIP – BETTER POSITION ON MOBILE ===== */
+  .vision-page .vision-card .tooltip-text {
+    bottom: auto !important;
+    top: 115% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    font-size: 10px !important;
+    width: 120px !important;
+    padding: 4px 10px !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
   }
 
   .vision-page .verify-btn {
@@ -437,25 +474,34 @@ body {
   .vision-page .vision-title {
     font-size: 32px !important;
   }
-
-  /* BIGGER AVATAR ON MOBILE */
-  .vision-page .project-avatar {
-    width: 64px !important;
-    height: 64px !important;
-    border-radius: 12px !important;
-  }
-
-  /* Fix overflow: ensure card content stays inside */
-  .vision-page .vision-card {
-    overflow: hidden;
-    word-wrap: break-word;
-  }
-
-  .vision-page .vision-card > div {
-    flex-wrap: wrap;
-  }
 }
 
+@media (max-width: 480px) {
+  .vision-page .vision-card {
+    padding: 10px !important;
+  }
+  .vision-page .vision-card h3 {
+    font-size: 14px !important;
+  }
+  .vision-page .vision-card p {
+    font-size: 12px !important;
+  }
+
+  /* ===== IMAGE CONTAINER – EVEN SMALLER ===== */
+  .vision-page .vision-card > div:first-child {
+    height: 100px !important;
+  }
+  .vision-page .vision-card img {
+    height: 100px !important;
+  }
+
+  .vision-page .vision-card .tooltip-text {
+    width: 90px !important;
+    font-size: 9px !important;
+    padding: 3px 8px !important;
+    top: 110% !important;
+  }
+}
 /* ===== RESPONSIVE: Small phones ===== */
 @media (max-width: 480px) {
   .vision-page .vision-card {
@@ -680,5 +726,32 @@ footer:not(.footer-sticky) {
   .admin-dashboard-header button {
     font-size: 13px !important;
     padding: 4px 12px !important;
+  }
+}
+/* ================================================================ */
+/* ===== VISION PAGE – TOOLTIP FIX FOR MOBILE ===== */
+/* ================================================================ */
+
+/* Hide tooltip text on mobile if it overflows, or position it differently */
+@media (max-width: 768px) {
+  .vision-card .tooltip-text {
+    bottom: auto !important;
+    top: 115% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    font-size: 10px !important;
+    width: 120px !important;
+    padding: 4px 10px !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .vision-card .tooltip-text {
+    width: 100px !important;
+    font-size: 9px !important;
+    padding: 3px 8px !important;
+    top: 110% !important;
   }
 }
