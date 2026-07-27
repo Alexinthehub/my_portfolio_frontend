@@ -18,21 +18,8 @@ const Vision = () => {
           getCertificates(),
         ]);
         setCurrentProjects(projectsRes.data.data);
-
-        // 🚨 Force clean – only keep specific fields
-        const raw = certsRes.data.data;
-        console.log('RAW CERTIFICATES FROM API:', raw);
-        const clean = raw.map(cert => ({
-          _id: cert._id,
-          title: cert.title || 'Untitled',
-          issuer: cert.issuer || '',
-          date: cert.date || null,
-          category: cert.category || '',
-          imageUrl: cert.imageUrl || null,
-          verifyUrl: cert.verifyUrl || null,
-        }));
-        console.log('CLEAN CERTIFICATES:', clean);
-        setCertificates(clean);
+        setCertificates(certsRes.data.data);
+        console.log('RAW CERTIFICATES FROM API:', certsRes.data.data);
       } catch (err) {
         console.error('Error fetching vision data:', err);
       } finally {
@@ -381,7 +368,7 @@ const Vision = () => {
               )}
             </div>
 
-            {/* RIGHT: CERTIFICATES – CLEAN & SIMPLE */}
+            {/* RIGHT: CERTIFICATES – FIXED LAYOUT */}
             <div style={{
               backgroundColor: 'rgba(255, 215, 0, 0.06)',
               borderRadius: '20px',
@@ -406,120 +393,130 @@ const Vision = () => {
                 </div>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
-                  {certificates.map((cert) => (
-                    <div
-                      key={cert._id}
-                      className="vision-card"
-                      style={{
-                        width: '100%',
-                        boxSizing: 'border-box',
-                        padding: '14px 18px',
-                        backgroundColor: 'rgba(255,255,255,0.06)',
-                        backdropFilter: 'blur(8px)',
-                        borderRadius: '12px',
-                        border: '1px solid rgba(255,255,255,0.06)',
-                        transition: 'all 0.3s ease',
-                        display: 'flex',
-                        flexDirection: 'column',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
-                      }}
-                    >
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '12px',
-                        width: '100%',
-                        flexWrap: 'wrap',
-                      }}>
-                        {cert.imageUrl && (
-                          <img
-                            src={`${cert.imageUrl}?t=${Date.now()}`}
-                            alt={cert.title}
-                            style={{
-                              width: '48px',
-                              height: '48px',
-                              objectFit: 'cover',
-                              borderRadius: '10px',
-                              border: '1px solid rgba(255,255,255,0.1)',
-                              flexShrink: 0,
-                            }}
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                            }}
-                          />
-                        )}
-                        <div style={{ flex: 1, minWidth: 0 }}>
+                  {certificates.map((cert) => {
+                    console.log('Rendering certificate:', cert);
+                    return (
+                      <div
+                        key={cert._id}
+                        className="vision-card"
+                        style={{
+                          width: '100%',
+                          boxSizing: 'border-box',
+                          padding: '16px 20px',
+                          backgroundColor: 'rgba(255,255,255,0.08)',
+                          backdropFilter: 'blur(8px)',
+                          borderRadius: '12px',
+                          border: '1px solid rgba(255,255,255,0.08)',
+                          transition: 'all 0.3s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
+                          e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.12)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
+                          e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)';
+                        }}
+                      >
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '16px',
+                          width: '100%',
+                        }}>
+                          {/* IMAGE */}
+                          {cert.imageUrl && (
+                            <img
+                              src={`${cert.imageUrl}?t=${Date.now()}`}
+                              alt={cert.title}
+                              style={{
+                                width: '60px',
+                                height: '60px',
+                                objectFit: 'cover',
+                                borderRadius: '12px',
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                flexShrink: 0,
+                              }}
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                              }}
+                            />
+                          )}
+                          {/* TEXT - ALWAYS VISIBLE */}
                           <div style={{
-                            fontSize: '16px',
-                            fontWeight: '600',
-                            color: 'white',
-                            fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                            wordBreak: 'break-word',
-                            marginBottom: '2px',
+                            flex: 1,
+                            minWidth: 0,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '2px',
                           }}>
-                            {cert.title}
-                          </div>
-                          <div style={{
-                            fontSize: '14px',
-                            color: '#9CA3AF',
-                            fontFamily: "'Inter', 'Segoe UI', sans-serif",
-                            wordBreak: 'break-word',
-                            marginBottom: '4px',
-                          }}>
-                            {cert.issuer}
-                            {cert.date && ` • ${new Date(cert.date).toLocaleDateString()}`}
-                          </div>
-                          {cert.category && (
-                            <span style={{
-                              fontSize: '11px',
-                              color: '#6B7280',
-                              backgroundColor: 'rgba(255,255,255,0.04)',
-                              padding: '2px 10px',
-                              borderRadius: '9999px',
-                              display: 'inline-block',
+                            <div style={{
+                              fontSize: '18px',
+                              fontWeight: '600',
+                              color: '#FFFFFF',
+                              fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                              wordBreak: 'break-word',
+                              lineHeight: 1.3,
                             }}>
-                              {cert.category}
-                            </span>
+                              {cert.title}
+                            </div>
+                            <div style={{
+                              fontSize: '15px',
+                              color: '#9CA3AF',
+                              fontFamily: "'Inter', 'Segoe UI', sans-serif",
+                              wordBreak: 'break-word',
+                            }}>
+                              {cert.issuer}
+                              {cert.date && ` • ${new Date(cert.date).toLocaleDateString()}`}
+                            </div>
+                            {cert.category && (
+                              <span style={{
+                                fontSize: '12px',
+                                color: '#6B7280',
+                                backgroundColor: 'rgba(255,255,255,0.06)',
+                                padding: '2px 12px',
+                                borderRadius: '9999px',
+                                display: 'inline-block',
+                                alignSelf: 'flex-start',
+                                marginTop: '2px',
+                              }}>
+                                {cert.category}
+                              </span>
+                            )}
+                          </div>
+                          {/* VERIFY BUTTON */}
+                          {cert.verifyUrl && (
+                            <a
+                              href={cert.verifyUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{
+                                whiteSpace: 'nowrap',
+                                flexShrink: 0,
+                                fontSize: '13px',
+                                color: '#ffd700',
+                                textDecoration: 'none',
+                                padding: '6px 16px',
+                                border: '1px solid rgba(255,215,0,0.3)',
+                                borderRadius: '8px',
+                                transition: 'all 0.3s ease',
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundColor = 'rgba(255,215,0,0.15)';
+                                e.currentTarget.style.borderColor = '#ffd700';
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor = 'transparent';
+                                e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
+                              }}
+                            >
+                              🔍 Verify
+                            </a>
                           )}
                         </div>
-                        {cert.verifyUrl && (
-                          <a
-                            href={cert.verifyUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                              whiteSpace: 'nowrap',
-                              flexShrink: 0,
-                              fontSize: '12px',
-                              color: '#ffd700',
-                              textDecoration: 'none',
-                              padding: '4px 12px',
-                              border: '1px solid rgba(255,215,0,0.3)',
-                              borderRadius: '6px',
-                              transition: 'all 0.3s ease',
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = 'rgba(255,215,0,0.15)';
-                              e.currentTarget.style.borderColor = '#ffd700';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = 'transparent';
-                              e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
-                            }}
-                          >
-                            🔍 Verify
-                          </a>
-                        )}
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>
