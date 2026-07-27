@@ -903,3 +903,26 @@ footer:not(.footer-sticky) {
     font-size: 10px !important;
   }
 }
+/* ================================================================ */
+/* ===== VISION PAGE – FORCE CLEAN DISPLAY ===== */
+/* ================================================================ */
+
+/* Force long text to wrap properly */
+.vision-card {
+  overflow: hidden !important;
+  word-wrap: break-word !important;
+  max-width: 100% !important;
+}
+
+.vision-card * {
+  max-width: 100% !important;
+  word-wrap: break-word !important;
+}
+
+/* Prevent hyphens from breaking words */
+.vision-card {
+  -webkit-hyphens: none !important;
+  -moz-hyphens: none !important;
+  -ms-hyphens: none !important;
+  hyphens: none !important;
+}
