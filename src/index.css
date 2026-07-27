@@ -794,3 +794,67 @@ footer:not(.footer-sticky) {
     padding: 4px 12px !important;
   }
 }
+/* ================================================================ */
+/* ===== VISION PAGE – MOBILE FONT SIZE REDUCTION ===== */
+/* ================================================================ */
+
+/* Reduce font sizes on phones */
+@media (max-width: 768px) {
+  /* Certificate title */
+  .vision-page .vision-card .cert-title,
+  .vision-page .vision-card [style*="font-size: 18px"] {
+    font-size: 15px !important;
+  }
+
+  /* Certificate issuer + date */
+  .vision-page .vision-card .cert-issuer,
+  .vision-page .vision-card [style*="font-size: 15px"] {
+    font-size: 13px !important;
+  }
+
+  /* Category badge */
+  .vision-page .vision-card span[style*="font-size: 12px"] {
+    font-size: 10px !important;
+    padding: 1px 8px !important;
+  }
+
+  /* Certificate card padding */
+  .vision-page .vision-card {
+    padding: 12px 14px !important;
+  }
+
+  /* Certificate image */
+  .vision-page .vision-card img[style*="width: 60px"] {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  /* Verify button */
+  .vision-page .verify-btn,
+  .vision-page .vision-card a[style*="color: #ffd700"] {
+    font-size: 11px !important;
+    padding: 4px 10px !important;
+  }
+}
+
+/* Extra small phones (≤ 480px) */
+@media (max-width: 480px) {
+  .vision-page .vision-card .cert-title,
+  .vision-page .vision-card [style*="font-size: 18px"] {
+    font-size: 14px !important;
+  }
+
+  .vision-page .vision-card .cert-issuer,
+  .vision-page .vision-card [style*="font-size: 15px"] {
+    font-size: 12px !important;
+  }
+
+  .vision-page .vision-card img[style*="width: 60px"] {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .vision-page .vision-card {
+    padding: 10px 12px !important;
+  }
+}
