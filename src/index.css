@@ -334,58 +334,16 @@ body {
   padding: 16px 20px;
   border: 1px solid rgba(255, 255, 255, 0.06);
   transition: all 0.3s ease;
-  overflow: visible !important;
-  word-wrap: break-word;
+  overflow: hidden !important;
+  word-wrap: break-word !important;
+  max-width: 100% !important;
 }
 
 .vision-page .vision-card:hover {
   border-color: rgba(255,255,255,0.15);
 }
 
-.vision-page .status-badge {
-  font-size: 12px;
-  font-weight: 500;
-  background: rgba(255, 255, 255, 0.06);
-  padding: 2px 12px;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  display: inline-block;
-}
-
-.vision-page .verify-btn {
-  font-size: 13px;
-  color: #ffd700;
-  text-decoration: none;
-  padding: 6px 16px;
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.vision-page .verify-btn:hover {
-  background: rgba(255, 215, 0, 0.15);
-  border-color: #ffd700;
-}
-
-.vision-page .project-avatar {
-  width: 80px !important;
-  height: 80px !important;
-  border-radius: 14px !important;
-  object-fit: cover !important;
-  flex-shrink: 0 !important;
-  border: 2px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-.vision-page .vision-title {
-  font-size: 48px;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 12px;
-  font-family: 'Inter', 'Segoe UI', sans-serif;
-}
-
-/* ---- TOOLTIP ---- */
+/* ===== TOOLTIP ===== */
 .vision-page .tooltip-text {
   visibility: hidden;
   opacity: 0;
@@ -415,17 +373,76 @@ body {
   opacity: 1 !important;
 }
 
-/* ---- CERTIFICATES – PREVENT LETTER BREAKING ---- */
+/* ---- CERTIFICATE TEXT: FORCE CLEAN DISPLAY ---- */
 .vision-page .cert-title,
 .vision-page .cert-issuer {
   word-break: keep-all !important;
   overflow-wrap: normal !important;
   white-space: normal !important;
   display: block !important;
-  width: 100% !important;
+  max-width: 100% !important;
 }
 
-/* ===== RESPONSIVE: Tablets ===== */
+.vision-page .cert-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  margin-bottom: 2px;
+}
+
+.vision-page .cert-issuer {
+  font-size: 15px;
+  color: #9CA3AF;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  margin-bottom: 4px;
+}
+
+.vision-page .status-badge {
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2px 12px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: inline-block;
+}
+
+.vision-page .verify-btn {
+  font-size: 13px;
+  color: #ffd700;
+  text-decoration: none;
+  padding: 6px 16px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.vision-page .verify-btn:hover {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: #ffd700;
+}
+
+.vision-page .project-avatar {
+  width: 80px !important;
+  height: 80px !important;
+  border-radius: 14px !important;
+  object-fit: cover !important;
+  flex-shrink: 0 !important;
+  border: 2px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.vision-page .vision-title {
+  font-size: 48px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .vision-page .project-avatar {
     width: 64px !important;
@@ -433,7 +450,6 @@ body {
   }
 }
 
-/* ===== RESPONSIVE: Mobile (Single Column) ===== */
 @media (max-width: 768px) {
   .vision-page .vision-grid-container {
     display: grid !important;
@@ -465,7 +481,6 @@ body {
     word-break: break-word;
   }
 
-  /* ---- Image container: smaller ---- */
   .vision-page .vision-card > div:first-child {
     height: 120px !important;
     width: 100% !important;
@@ -476,14 +491,12 @@ body {
     object-fit: cover !important;
   }
 
-  /* ---- Avatar: smaller ---- */
   .vision-page .project-avatar {
     width: 56px !important;
     height: 56px !important;
     border-radius: 12px !important;
   }
 
-  /* ---- Bottom row: force same line ---- */
   .vision-page .vision-bottom-row {
     display: flex !important;
     flex-wrap: nowrap !important;
@@ -530,7 +543,6 @@ body {
     font-size: 12px !important;
   }
 
-  /* ---- Tooltip: below on mobile ---- */
   .vision-page .tooltip-text {
     bottom: auto !important;
     top: calc(100% + 8px) !important;
@@ -543,23 +555,14 @@ body {
     word-wrap: break-word !important;
   }
 
-  .vision-page .verify-btn {
-    font-size: 12px !important;
-    padding: 4px 10px !important;
-    white-space: nowrap !important;
+  .vision-page .cert-title {
+    font-size: 16px !important;
   }
-
-  .vision-page .status-badge {
-    font-size: 11px !important;
-    padding: 2px 10px !important;
-  }
-
-  .vision-page .vision-title {
-    font-size: 32px !important;
+  .vision-page .cert-issuer {
+    font-size: 13px !important;
   }
 }
 
-/* ---- Extra small phones ---- */
 @media (max-width: 480px) {
   .vision-page .vision-grid-container > div {
     padding: 12px !important;
@@ -605,6 +608,13 @@ body {
     font-size: 10px !important;
     padding: 3px 10px !important;
     top: calc(100% + 6px) !important;
+  }
+
+  .vision-page .cert-title {
+    font-size: 14px !important;
+  }
+  .vision-page .cert-issuer {
+    font-size: 12px !important;
   }
 }
 /* ================================================================ */
