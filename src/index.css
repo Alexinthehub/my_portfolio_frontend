@@ -858,3 +858,27 @@ footer:not(.footer-sticky) {
     padding: 10px 12px !important;
   }
 }
+/* ================================================================ */
+/* ===== VISION PAGE – LARGER CERTIFICATE AVATAR ===== */
+/* ================================================================ */
+
+/* Make certificate image smaller on mobile */
+@media (max-width: 768px) {
+  .vision-page .vision-card img[style*="width: 80px"] {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  .vision-page .vision-card {
+    gap: 14px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .vision-page .vision-card img[style*="width: 80px"] {
+    width: 50px !important;
+    height: 50px !important;
+  }
+  .vision-page .vision-card {
+    gap: 12px !important;
+  }
+}

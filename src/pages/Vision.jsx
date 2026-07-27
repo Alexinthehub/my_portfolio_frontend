@@ -19,7 +19,6 @@ const Vision = () => {
         ]);
         setCurrentProjects(projectsRes.data.data);
         setCertificates(certsRes.data.data);
-        console.log('Certificates:', certsRes.data.data);
       } catch (err) {
         console.error('Error fetching vision data:', err);
       } finally {
@@ -124,7 +123,7 @@ const Vision = () => {
             </p>
           </div>
 
-          {/* TWO COLUMNS – CSS class handles responsive layout */}
+          {/* TWO COLUMNS */}
           <div className="vision-grid-container">
             {/* LEFT: Current Projects */}
             <div style={{
@@ -350,7 +349,7 @@ const Vision = () => {
               )}
             </div>
 
-            {/* RIGHT: CERTIFICATES */}
+            {/* RIGHT: CERTIFICATES – LARGER AVATAR */}
             <div style={{
               backgroundColor: 'rgba(255, 215, 0, 0.06)',
               borderRadius: '20px',
@@ -390,7 +389,7 @@ const Vision = () => {
                         transition: 'all 0.3s ease',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '16px',
+                        gap: '20px',
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.borderColor = 'rgba(255,215,0,0.3)';
@@ -406,8 +405,8 @@ const Vision = () => {
                           src={`${cert.imageUrl}?t=${Date.now()}`}
                           alt={cert.title}
                           style={{
-                            width: '60px',
-                            height: '60px',
+                            width: '80px',
+                            height: '80px',
                             objectFit: 'cover',
                             borderRadius: '12px',
                             border: '1px solid rgba(255,255,255,0.1)',
