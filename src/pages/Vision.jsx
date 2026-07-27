@@ -1,4 +1,4 @@
-// src/pages/Vision.jsx – SIMPLIFIED
+// src/pages/Vision.jsx
 import { useEffect, useState } from 'react';
 import { getCurrentProjects, getCertificates, starCurrentProject } from '../services/api';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -18,8 +18,21 @@ const Vision = () => {
           getCertificates(),
         ]);
         setCurrentProjects(projectsRes.data.data);
-        setCertificates(certsRes.data.data);
-        console.log('Certificates:', certsRes.data.data);
+
+        // 🚨 Force clean – only keep specific fields
+        const raw = certsRes.data.data;
+        console.log('RAW CERTIFICATES FROM API:', raw);
+        const clean = raw.map(cert => ({
+          _id: cert._id,
+          title: cert.title || 'Untitled',
+          issuer: cert.issuer || '',
+          date: cert.date || null,
+          category: cert.category || '',
+          imageUrl: cert.imageUrl || null,
+          verifyUrl: cert.verifyUrl || null,
+        }));
+        console.log('CLEAN CERTIFICATES:', clean);
+        setCertificates(clean);
       } catch (err) {
         console.error('Error fetching vision data:', err);
       } finally {
@@ -368,7 +381,7 @@ const Vision = () => {
               )}
             </div>
 
-            {/* RIGHT: CERTIFICATES – CLEAN */}
+            {/* RIGHT: CERTIFICATES – CLEAN & SIMPLE */}
             <div style={{
               backgroundColor: 'rgba(255, 215, 0, 0.06)',
               borderRadius: '20px',
