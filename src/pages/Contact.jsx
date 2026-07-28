@@ -112,10 +112,10 @@ const Contact = () => {
         position: 'relative',
         zIndex: 3,
         minHeight: '100vh',
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         padding: '40px 20px 0',
-        width: '100%',
         boxSizing: 'border-box',
         flex: 1,
       }}>
@@ -141,7 +141,7 @@ const Contact = () => {
                 fontSize: '16px',
                 color: '#9CA3AF'
               }}>
-                Have a project in mind or want to collaborate? Reach out!
+                Have a project in mind? Reach out!
               </p>
             </div>
 
@@ -163,7 +163,7 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   className="contact-input"
-                  placeholder="John Doe"
+                  placeholder="Enter your name"
                   disabled={submitting}
                 />
               </div>
@@ -185,7 +185,7 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   className="contact-input"
-                  placeholder="john@example.com"
+                  placeholder="Enter your email"
                   disabled={submitting}
                 />
               </div>
